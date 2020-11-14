@@ -7,11 +7,11 @@
     </ion-row>  
     <ion-row class="ion-justify-content-center ion-align-items-center" [ngStyle]="{'height': rowHeight1}">
       <ion-col size="10" class="ion-text-center">
-        <form class="form" [formGroup]="validationsform" (ngSubmit)="tryRegister(validationsform.value)">
+        <form class="form" [formGroup]="validationsform" (ngSubmit)="tryResetPwd(validationsform.value)">
         <ion-list class="line-input" mode="md"> 
           <ion-item mode="md">
             <ion-icon name="person-outline" size="small" slot="start"></ion-icon>
-            <ion-input class="ion-text-left" placeholder="Email Address" type="text" formControlName="email"></ion-input>
+            <ion-input class="ion-text-left" placeholder="Email Address" type="text" formControlName="user_login"></ion-input>
           </ion-item> 
         </ion-list>        
         <app-loading *ngIf="isLoading"></app-loading>       

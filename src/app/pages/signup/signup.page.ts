@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -19,6 +20,7 @@ export class SignupPage implements OnInit {
     private userService: UserService,
     private formBuilder: FormBuilder,
     public loadingController: LoadingController,
+    private router: Router,
     public httpClient: HttpClient
     ) { }
 
@@ -53,7 +55,7 @@ export class SignupPage implements OnInit {
         this.isLoading = false;
 
         //this.storage.set('userinfo', resp[0]);
-        //this.router.navigate(['/verify'], navParam);
+        this.router.navigate(['/home']);
       },
       (err) => {
         this.isLoading = false;

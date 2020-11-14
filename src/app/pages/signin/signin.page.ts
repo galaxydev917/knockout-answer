@@ -52,7 +52,6 @@ export class SigninPage implements OnInit {
       this.isLoading = false;
       this.presentAlert(err.error.msg);
     });
-    
   }
   async presentAlert(value) {
     const loading = await this.loadingController.create({

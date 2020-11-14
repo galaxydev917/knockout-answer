@@ -29,10 +29,12 @@ export class UserService {
   private authQuery<T>( query: string, param: any ) {
     return this.http.post<T>( query, param );
   }
+
   createUser(value : any) {
     value.role = 'customer';
     return this.postQuery<any[]>(`/register`, value);
   }
+
   doLogin( value: any){
     let credential = {
       username : value.email,
@@ -40,4 +42,8 @@ export class UserService {
     }
     return this.authQuery<any[]>(authUrl, credential);
   }   
+
+  resetPassword( value: any){
+    return this.postQuery<any[]>('/RetrivePassword', value);
+  }  
 }
