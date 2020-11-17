@@ -22,6 +22,18 @@ const routes: Routes = [
   {
     path: 'forgotpwd',
     loadChildren: () => import('./pages/forgotpwd/forgotpwd.module').then( m => m.ForgotpwdPageModule)
+  },
+  {
+    path: 'services',
+    loadChildren: () => import('./pages/customer/services/services.module').then( m => m.ServicesPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/customer/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'messages',
+    loadChildren: () => import('./pages/customer/messages/messages.module').then( m => m.MessagesPageModule)
   }
 ];
 
