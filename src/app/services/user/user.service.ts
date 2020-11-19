@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { config } from '../../config/config';
 import { HttpClient } from '@angular/common/http';
-import { UserObject } from  '../../interfaces/interfaces';
+import { UserObject, ProfileObject } from  '../../interfaces/interfaces';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
@@ -24,8 +24,15 @@ export class UserService {
   // }
   private postQuery<T>( query: string, param: any ) {
     query = baseUrl + query;
-    console.log("query", query);
     return this.http.post<T>( query, param );
+  }
+  private postProUserQuery<T>( query: string, param: any ) {
+    query = baseUrl + query;
+    return this.http.post<UserObject>( query, param );
+  }
+  private postProfileQuery<T>( query: string, param: any ) {
+    query = baseUrl + query;
+    return this.http.post<ProfileObject>( query, param );
   }
   private authQuery<T>( query: string, param: any ) {
     return this.http.post<UserObject>( query, param );
@@ -46,5 +53,15 @@ export class UserService {
   resetPassword( value: any){
     return this.postQuery<any[]>('/RetrivePassword', value);
   }  
- 
+  updateProfile( value: any){
+
+    return this.postProfileQuery<ProfileObject[]>('/UpdateProfile', value);
+  }  
+
+  uploadProfilePhoto(formData : FormData){
+    return this.postQuery<any[]>('/Update_profile_pic', formData);    
+  }
+  getProUsers(param : any){
+    return this.postProUserQuery<UserObject[]>('/get_users', param);
+  }
 }

@@ -15,12 +15,37 @@
                             <ion-select-option value="2">Video</ion-select-option>
                             <ion-select-option value="3">Live Video</ion-select-option>
                         </ion-select>
-                        <ion-button  slot="end" fill="solid"size="default" shape="round" expand="block">
+                        <!-- <ion-button  slot="end" fill="solid"size="default" shape="round" expand="block">
                             $50
-                          </ion-button>
+                          </ion-button> -->
                     </ion-item>
                 </ion-list>
             </ion-col>
         </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+            <ion-col size="11" class="ion-text-center">
+                <ion-searchbar placeholder="Search pros" style="text-align: center;"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+            <ion-col size="11" class="ion-text-center">
+                <app-loading *ngIf="isLoading"></app-loading>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-justify-content-center ion-align-items-center" *ngFor="let user of users">
+            <ion-col size="12" class="ion-text-center">
+                <ion-item>
+                    <ion-thumbnail slot="start" style="--border-radius: 50%;">
+                        <img src={{user.logo}}>
+                    </ion-thumbnail>
+                    <ion-label>{{user.name}}</ion-label>
+                    <ion-button size='medium'>
+                        $50
+                    </ion-button>   
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
     </ion-grid>
+    
 </ion-content>

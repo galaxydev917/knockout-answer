@@ -7,6 +7,7 @@ import { File, FileEntry } from '@ionic-native/File/ngx';
 import { Storage } from '@ionic/storage';
 import { UserService } from '../../../services/user/user.service';
 import { config } from '../../../config/config';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 
 const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
@@ -21,13 +22,18 @@ export class ProProfilePage implements OnInit {
   rowHeight : any;
   images = [];
   fullName = "";
+  validationsform: FormGroup;
+  isUpdating = false;
+  token : any;
   constructor(
     public plt: Platform,
+    private formBuilder: FormBuilder,
     private userService: UserService,
     private camera: Camera,
     private filePath: FilePath,
     private actionSheetController: ActionSheetController,
     private storage: Storage,
+    public loadingController: LoadingController,
     private webview: WebView,
     private ref: ChangeDetectorRef,
     private toastController: ToastController,
@@ -36,15 +42,47 @@ export class ProProfilePage implements OnInit {
 
   ngOnInit() {
     this.rowHeight = this.plt.height() / 3 + 'px';
+
+    this.validationsform = this.formBuilder.group({
+      contact_email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      phone: new FormControl('', Validators.compose([
+        Validators.minLength(6),
+        Validators.required
+      ])),
+      service_price: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+    });
+
     this.plt.ready().then(() => {
       this.loadStoredImages();
     });
     this.getStorageUserInfo();
   }
+
+  async tryUpdateProfile(value){
+
+    this.isUpdating = true;
+    value.token = this.token;
+    this.userService.updateProfile(value).subscribe((userprofileinfo) => {
+      this.isUpdating = false;
+      this.storage.set(userinfo, userprofileinfo);
+      this.presentAlert("Updated Successfully.");
+
+    },
+    (err) => {
+      this.isUpdating = false;
+      this.presentAlert(err.error.msg);
+    });
+  }  
+
   getStorageUserInfo(){
     this.storage.get(userinfo).then(userInfo=>{
-      console.log(userInfo.first_name);
       this.fullName = userInfo.first_name + " " + userInfo.last_name;
+      this.token = userInfo.token;
     });
   }  
   loadStoredImages() {
@@ -104,6 +142,7 @@ takePicture(sourceType: PictureSourceType) {
             var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
             var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
             this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            this.startUpload();
         }
     });
  
@@ -161,6 +200,46 @@ takePicture(sourceType: PictureSourceType) {
         });
     });
   }
+  startUpload() {
+    this.file.resolveLocalFilesystemUrl(this.images[0].filePath)
+        .then(entry => {
+            ( < FileEntry > entry).file(file => this.readFile(file))
+        })
+        .catch(err => {
+            this.presentToast('Error while reading file.');
+        });
+  }
+ 
+  readFile(file: any) {
+      const reader = new FileReader();
+      reader.onload = () => {
+          const formData = new FormData();
+          const imgBlob = new Blob([reader.result], {
+              type: file.type
+          });
+          formData.append('file', imgBlob, file.name);
+          formData.append('token', this.token);
+          console.log("file name==================", file.name);
+          this.uploadImageData(formData);
+      };
+      reader.readAsArrayBuffer(file);
+  }
+
+  async uploadImageData(formData: FormData) {
+    const loading = await this.loadingController.create({
+        message: 'uploading...',
+    });
+    await loading.present();
+
+    this.userService.uploadProfilePhoto(formData).subscribe((userprofileinfo) => {
+      loading.dismiss();
+      this.presentAlert("Uploaded Successfully.");
+    },
+    (err) => {
+      loading.dismiss();
+      this.presentAlert(err.error.msg);
+    });
+  }  
   async presentToast(text) {
     const toast = await this.toastController.create({
         message: text,
@@ -169,4 +248,15 @@ takePicture(sourceType: PictureSourceType) {
     });
     toast.present();
   }
+  async presentAlert(value) {
+    const loading = await this.loadingController.create({
+      spinner: null,
+      duration: 3000,
+      message: value,
+      mode: 'ios'
+    });
+    await loading.present();
+  }
+
+  
 }

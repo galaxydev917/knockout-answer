@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController, ToastController, Platform, LoadingController  } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  constructor(public loadingController: LoadingController,) { }
 
   ngOnInit() {
+    
+    //this.presentAlert("aaaaaa");
   }
-
+  async presentAlert(value) {
+    const loading = await this.loadingController.create({
+      spinner: null,
+      duration: 3000,
+      message: value,
+      mode: 'ios'
+    });
+    await loading.present();
+  }  
 }

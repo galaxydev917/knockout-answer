@@ -47,8 +47,8 @@ export class SigninPage implements OnInit {
   async trySignin(value){
     this.isLoading = true;
     this.userService.doLogin(value).subscribe((userinfo) => {
-      console.log(userinfo);
       this.isLoading = false;
+      console.log(userinfo);
       this.storage.set(USERINFO_STORAGE_KEY,userinfo);
       if(userinfo.role == "customer")
         this.router.navigate(['/tablinks']);

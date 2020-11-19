@@ -16,3 +16,11 @@
         Object.assign(this, values);
     }
 }
+export  class  ProfileObject {
+
+  profile : UserObject;
+  status : any;
+  constructor(values: Object = {}) {
+      Object.assign(this, values);
+  }
+}
