@@ -1,9 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>services</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+    <ion-toolbar>
+      <ion-title>Services</ion-title>
+    </ion-toolbar>
+  </ion-header>
 <ion-content>
-
+    <ion-grid fixed>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+            <ion-col size="11" class="ion-text-center">
+                <ion-list class="line-input" mode="md">
+                    <ion-item >
+                        <ion-label>Service Type</ion-label>
+                        <ion-select value="1" class="select-service">
+                            <ion-select-option value="1">Text</ion-select-option>
+                            <ion-select-option value="2">Video</ion-select-option>
+                            <ion-select-option value="3">Live Video</ion-select-option>
+                        </ion-select>
+                        <ion-button  slot="end" fill="solid"size="default" shape="round" expand="block">
+                            $50
+                          </ion-button>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

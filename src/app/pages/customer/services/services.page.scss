@@ -1,0 +1,30 @@
+ion-header{
+    text-align: center;
+}
+
+.line-input {
+    margin-bottom: 0!important;
+    //background: transparent;
+    
+    ion-item {
+        --border-color: black;
+        // --background-activated: #b0daed;
+        // --background-focused: #b0daed;
+        // --background-hover: #b0daed;
+        // --highlight-height: 0;
+        // --background: #ffffff;
+        --min-height : 48px;
+       
+        //border-radius: 20px;
+
+        ion-label {
+            color: grey!important;
+            font-weight: 400;
+            font-size: 14px!important;
+        }
+    }
+}
+.select-service{
+    color:#cc0000;   
+    max-width: 60%!important;
+}

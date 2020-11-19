@@ -5,6 +5,7 @@ import { Platform } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-signup',
@@ -14,10 +15,14 @@ import { Router } from '@angular/router';
 export class SignupPage implements OnInit {
   rowHeight : any;
   validationsform: FormGroup;
+  pro_validationsform: FormGroup;
+  signupOption = 'customer';
   isLoading = false;
+
   constructor(
     public plt: Platform,
     private userService: UserService,
+    private storage: Storage,
     private formBuilder: FormBuilder,
     public loadingController: LoadingController,
     private router: Router,
@@ -26,6 +31,20 @@ export class SignupPage implements OnInit {
 
   ngOnInit() {
     this.rowHeight = (this.plt.height()) - 100 + 'px';
+
+    this.pro_validationsform = this.formBuilder.group({
+      first_name: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.minLength(6),
+        Validators.required
+      ])),
+    });
 
     this.validationsform = this.formBuilder.group({
       first_name: new FormControl('', Validators.compose([
@@ -49,13 +68,26 @@ export class SignupPage implements OnInit {
 
   }
   tryRegister(value) {
-
+    value.role = this.signupOption;
     this.isLoading = true;
       this.userService.createUser(value).subscribe( resp => {
         this.isLoading = false;
 
-        //this.storage.set('userinfo', resp[0]);
-        this.router.navigate(['/home']);
+        this.storage.set('userinfo', resp);
+        this.router.navigate(['/tablinks']);
+      },
+      (err) => {
+        this.isLoading = false;
+        this.presentAlert(err.error.msg);
+      });
+  }
+  tryRegisterPro(value) {
+    value.role = this.signupOption;
+    this.isLoading = true;
+      this.userService.createUser(value).subscribe( resp => {
+        this.isLoading = false;
+        this.storage.set('userinfo', resp[0]);
+        this.router.navigate(['/tablinks']);
       },
       (err) => {
         this.isLoading = false;
@@ -70,5 +102,8 @@ export class SignupPage implements OnInit {
       mode: 'ios'
     });
     await loading.present();
+  }
+  segmentChanged(event){
+    this.signupOption = event.detail.value;
   }
 }

@@ -3,6 +3,7 @@
 
     user_id: number;
     username : string;
+    role : string;
     token : string;
     first_name: string;
     last_name: string;

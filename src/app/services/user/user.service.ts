@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { config } from '../../config/config';
 import { HttpClient } from '@angular/common/http';
 import { UserObject } from  '../../interfaces/interfaces';
-import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
@@ -15,23 +14,24 @@ const authUrl = config.api_authUrl;
 })
 export class UserService {
 
-  constructor( private http: HttpClient ) { }
+  constructor( 
+    private http: HttpClient,
+    ) { }
   
-  private getQuery<T>( query: string ) {
-    query = baseUrl + query;
-    return this.http.get<T>( query );
-  }
+  // private getQuery<T>( query: string ) {
+  //   query = baseUrl + query;
+  //   return this.http.get<T>( query );
+  // }
   private postQuery<T>( query: string, param: any ) {
     query = baseUrl + query;
     console.log("query", query);
     return this.http.post<T>( query, param );
   }
   private authQuery<T>( query: string, param: any ) {
-    return this.http.post<T>( query, param );
+    return this.http.post<UserObject>( query, param );
   }
 
   createUser(value : any) {
-    value.role = 'customer';
     return this.postQuery<any[]>(`/register`, value);
   }
 
@@ -40,10 +40,11 @@ export class UserService {
       username : value.email,
       password : value.password
     }
-    return this.authQuery<any[]>(authUrl, credential);
+    return this.authQuery<UserObject[]>(authUrl, credential);
   }   
 
   resetPassword( value: any){
     return this.postQuery<any[]>('/RetrivePassword', value);
   }  
+ 
 }

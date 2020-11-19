@@ -16,10 +16,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: 'forgotpwd',
     loadChildren: () => import('./pages/forgotpwd/forgotpwd.module').then( m => m.ForgotpwdPageModule)
   },
@@ -34,6 +30,34 @@ const routes: Routes = [
   {
     path: 'messages',
     loadChildren: () => import('./pages/customer/messages/messages.module').then( m => m.MessagesPageModule)
+  },
+  {
+    path: 'tablinks',
+    loadChildren: () => import('./pages/customer/tablinks/tablinks.module').then( m => m.TablinksPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/customer/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'pro-tablinks',
+    loadChildren: () => import('./pages/celebrity/pro-tablinks/pro-tablinks.module').then( m => m.ProTablinksPageModule)
+  },
+  {
+    path: 'pro-profile',
+    loadChildren: () => import('./pages/celebrity/pro-profile/pro-profile.module').then( m => m.ProProfilePageModule)
+  },
+  {
+    path: 'pro-messages',
+    loadChildren: () => import('./pages/celebrity/pro-messages/pro-messages.module').then( m => m.ProMessagesPageModule)
+  },
+  {
+    path: 'pro-home',
+    loadChildren: () => import('./pages/celebrity/pro-home/pro-home.module').then( m => m.ProHomePageModule)
+  },
+  {
+    path: 'pro-services',
+    loadChildren: () => import('./pages/celebrity/pro-services/pro-services.module').then( m => m.ProServicesPageModule)
   }
 ];
 

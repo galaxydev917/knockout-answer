@@ -1,0 +1,55 @@
+ion-header{
+    text-align: center;
+}
+
+.profile-avatar-div{
+    width: 100px;
+    height: 100px;
+    --border-radius: 50%;
+}
+.profile-avatar-col{
+    display: flex; 
+    justify-content: center; 
+    flex-direction: row;
+}
+.camera-icon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 24pt;
+    transform: translate(-50%, -50%);
+}
+    ion-item {
+        --background: white;
+        --highlight-color-focused: none;
+        --highlight-background: none;
+        --min-height: 38px;
+        ion-input {
+            // --placeholder-color: #cc0000;     /* placeholder text color */
+            color: black; /* input text color to primary */
+            font-size: 12px;
+        }
+        ion-label {
+            // color: #cc0000!important;
+            font-weight: 300;
+            font-size: 12px!important;
+        }
+
+        ion-icon{
+            // color: #cc0000 !important;
+            margin-right: 8px !important;
+        }
+}
+.profile-button{
+    height: 40px;
+    width: 100px;
+    font-size: 12px;
+    font-weight: bold !important;
+    margin: 0 !important;
+    margin-top: 10px !important;
+    text-transform: uppercase !important;
+   --color: white;
+    --color-activated: white;
+    --background-activated : #e76b6b;
+
+}

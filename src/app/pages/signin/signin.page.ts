@@ -5,6 +5,9 @@ import { UserService } from '../../services/user/user.service';
 import { LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { config } from '../../config/config';
+
+const USERINFO_STORAGE_KEY = config.USERINFO_STORAGE_KEY;
 
 @Component({
   selector: 'app-signin',
@@ -40,13 +43,17 @@ export class SigninPage implements OnInit {
       ])),
     });
   }
-
+  
   async trySignin(value){
     this.isLoading = true;
     this.userService.doLogin(value).subscribe((userinfo) => {
+      console.log(userinfo);
       this.isLoading = false;
-      this.storage.set('userinfo',userinfo);
-      this.router.navigate(['/home']);
+      this.storage.set(USERINFO_STORAGE_KEY,userinfo);
+      if(userinfo.role == "customer")
+        this.router.navigate(['/tablinks']);
+      if(userinfo.role == "athlete")  
+        this.router.navigate(['/pro-tablinks']);
     },
     (err) => {
       this.isLoading = false;

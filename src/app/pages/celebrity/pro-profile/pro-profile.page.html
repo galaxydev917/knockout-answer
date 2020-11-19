@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+      <ion-col size="12" class="profile-avatar-col">
+        <ion-avatar class="profile-avatar-div" (click)="selectImage()">
+          <ion-img *ngIf="images.length > 0" [src]="images[0].path"></ion-img>
+          <ion-img *ngIf="images.length == 0" src="../../assets/imgs/noavatar.png" ></ion-img>
+        </ion-avatar>
+      </ion-col>
+     </ion-row>
+     <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" class="profile-avatar-col">
+        <ion-label>{{fullName}}</ion-label>
+      </ion-col>
+     </ion-row>     
+     <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="10">
+        <ion-item mode="md">
+          <ion-icon name="logo-usd" size="small" slot="start"></ion-icon>
+          <ion-input class="ion-text-left" placeholder="Service price"></ion-input>
+        </ion-item> 
+      </ion-col>
+     </ion-row>       
+     <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+      <ion-col size="10">
+          <ion-item mode="md">
+            <ion-icon name="mail-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Contact email address"></ion-input>
+          </ion-item> 
+          <ion-item mode="md">
+            <ion-icon name="call-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Contact phone number"></ion-input>
+          </ion-item> 
+      </ion-col>
+     </ion-row>     
+     <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="10" class="ion-text-center">
+          <ion-button >update profile</ion-button>
+        </ion-col>
+
+     </ion-row>        
+     <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="4" class="ion-text-center">
+        <ion-button class="profile-button">service<br/>request</ion-button>
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-button class="profile-button"> video<br/>archives</ion-button>
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-button class="profile-button">pay wall</ion-button>
+      </ion-col>
+   </ion-row>                 
+  </ion-grid>    
+</ion-content>

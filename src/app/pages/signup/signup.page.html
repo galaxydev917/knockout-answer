@@ -7,7 +7,19 @@
           <span class="page-title"><strong>Sign Up</strong></span>
       </ion-col>
     </ion-row>  
-    <ion-row class="ion-justify-content-center ion-align-items-center" [ngStyle]="{'height': rowHeight1}">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="8" class="ion-text-center">
+        <ion-segment (ionChange)="segmentChanged($event)" value="customer" >
+          <ion-segment-button value="customer" class="segment">
+            <ion-label>User</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="athlete" class="segment">
+            <ion-label>Pro</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center" [ngStyle]="{'height': rowHeight1}" *ngIf="signupOption == 'customer'">
       <ion-col size="10" class="ion-text-center">
         <form class="form" [formGroup]="validationsform" (ngSubmit)="tryRegister(validationsform.value)">
         <ion-list class="line-input" mode="md"> 
@@ -50,6 +62,37 @@
         </p> 
       </ion-col>
     </ion-row>     
+    <ion-row class="ion-justify-content-center ion-align-items-center" [ngStyle]="{'height': rowHeight1}" *ngIf="signupOption == 'athlete'">
+      <ion-col size="10" class="ion-text-center">
+        <form class="form" [formGroup]="pro_validationsform" (ngSubmit)="tryRegisterPro(pro_validationsform.value)">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md">
+            <ion-icon name="person-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Full Name" type="text" formControlName="first_name"></ion-input>
+          </ion-item> 
+        </ion-list>        
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md">
+            <ion-icon name="mail-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Email" type="email" formControlName="email"></ion-input>
+          </ion-item> 
+        </ion-list>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md">
+            <ion-icon name="lock-closed-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Password" type="password" formControlName="password"></ion-input>
+          </ion-item> 
+        </ion-list>        
+        <app-loading *ngIf="isLoading"></app-loading>       
+        <ion-button  class="button-login" mode="ios" type="submit" fill="solid" [disabled]="!pro_validationsform.valid" size="default" shape="round" expand="block">
+          SIGN UP
+        </ion-button>
+        </form>
+        <p class="go-to-signin">
+          <a [routerLink]="['/signin']">Back to Login</a>
+        </p> 
+      </ion-col>
+    </ion-row>       
   </ion-grid>
 
 </ion-content>
