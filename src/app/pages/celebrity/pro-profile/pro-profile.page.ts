@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { UserService } from '../../../services/user/user.service';
 import { config } from '../../../config/config';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
 
 
 const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
@@ -27,6 +28,7 @@ export class ProProfilePage implements OnInit {
   token : any;
   constructor(
     public plt: Platform,
+    public menuCtrl: MenuController,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private camera: Camera,
@@ -69,7 +71,7 @@ export class ProProfilePage implements OnInit {
     value.token = this.token;
     this.userService.updateProfile(value).subscribe((userprofileinfo) => {
       this.isUpdating = false;
-      this.storage.set(userinfo, userprofileinfo);
+      this.storage.set(userinfo, userprofileinfo.profile);
       this.presentAlert("Updated Successfully.");
 
     },
@@ -257,6 +259,9 @@ takePicture(sourceType: PictureSourceType) {
     });
     await loading.present();
   }
-
+  openMenu() {
+    this.menuCtrl.enable(true, 'customMenu');
+    this.menuCtrl.open('customMenu');
+  }
   
 }

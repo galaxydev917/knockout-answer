@@ -15,6 +15,8 @@ import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { Stripe } from '@ionic-native/stripe/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -32,6 +34,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
     SplashScreen,
     Camera,
     File,
+    Stripe,
     WebView,
     FilePath,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

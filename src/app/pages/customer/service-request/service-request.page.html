@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar class="header-background-color">
+    <ion-title class="ion-text-capitalize">
+      <h1>Service Request</h1>
+    </ion-title>
+    <ion-buttons slot="start">
+        <ion-button (click)="back()" slot="start">
+            <ion-icon name="chevron-back" style="font-size: 32px;"></ion-icon>
+          </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()" slot="start">
+        <ion-icon name="menu-outline" style="font-size: 32px;"></ion-icon>
+      </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="submitRequest(validationsform.value)">
+    <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center" >
+      <ion-col size="10" class="ion-text-center">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md">
+            <ion-input class="ion-text-left" placeholder="Service Name" type="text" formControlName="request_name"></ion-input>
+          </ion-item> 
+        </ion-list>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md">
+            <ion-input class="ion-text-left" placeholder="Description" type="text" formControlName="request"></ion-input>
+          </ion-item> 
+        </ion-list>   
+        <ion-list class="line-input" mode="md">
+          <ion-item>
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-label>Date/Time</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" value="2012-12-15T13:47:20.789" formControlName="request_datetime"></ion-datetime>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item>
+            <ion-thumbnail slot="start" style="--border-radius: 50%;">
+                <img src={{pro_user.logo}}>
+            </ion-thumbnail>
+            <ion-label>{{pro_user.name}}</ion-label>
+            <ion-label slot="end">${{pro_user.service_price}}</ion-label>   
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item>
+            <ion-label *ngIf="lgoined_userinfo.card_number != undefined">Payment method: card number{{lgoined_userinfo.card_number}}</ion-label>
+            <ion-label *ngIf="lgoined_userinfo.card_number == undefined">Payment method not connected.</ion-label>
+          </ion-item>
+        </ion-list>
+        <app-loading *ngIf="isLoading"></app-loading>       
+        <ion-button  class="button-login" mode="ios" [disabled]="!validationsform.valid" type="submit" fill="solid" size="default" shape="round" expand="block">
+          Submit Request
+        </ion-button>
+      </ion-col>
+    </ion-row>   
+  </ion-grid>
+</form>
+</ion-content>

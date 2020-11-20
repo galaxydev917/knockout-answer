@@ -58,6 +58,14 @@ const routes: Routes = [
   {
     path: 'pro-services',
     loadChildren: () => import('./pages/celebrity/pro-services/pro-services.module').then( m => m.ProServicesPageModule)
+  },
+  {
+    path: 'service-request',
+    loadChildren: () => import('./pages/customer/service-request/service-request.module').then( m => m.ServiceRequestPageModule)
+  },
+  {
+    path: 'payment-method',
+    loadChildren: () => import('./pages/payment-method/payment-method.module').then( m => m.PaymentMethodPageModule)
   }
 ];
 

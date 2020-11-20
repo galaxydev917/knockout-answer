@@ -85,9 +85,10 @@ export class SignupPage implements OnInit {
     value.role = this.signupOption;
     this.isLoading = true;
       this.userService.createUser(value).subscribe( resp => {
+        console.log(resp);
         this.isLoading = false;
-        this.storage.set('userinfo', resp[0]);
-        this.router.navigate(['/tablinks']);
+        //this.storage.set('userinfo', resp[0]);
+        this.router.navigate(['/pro-tablinks']);
       },
       (err) => {
         this.isLoading = false;

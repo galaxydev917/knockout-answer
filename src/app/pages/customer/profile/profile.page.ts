@@ -8,6 +8,8 @@ import { Storage } from '@ionic/storage';
 import { UserService } from '../../../services/user/user.service';
 import { config } from '../../../config/config';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
+
 const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -26,6 +28,7 @@ export class ProfilePage implements OnInit {
   constructor(
     public plt: Platform,
     private formBuilder: FormBuilder,
+    public menuCtrl: MenuController,
     private userService: UserService,
     private camera: Camera,
     private filePath: FilePath,
@@ -63,7 +66,7 @@ export class ProfilePage implements OnInit {
     value.token = this.token;
     this.userService.updateProfile(value).subscribe((userprofileinfo) => {
       this.isUpdating = false;
-      this.storage.set(userinfo, userprofileinfo);
+      this.storage.set(userinfo, userprofileinfo.profile);
       this.presentAlert("Updated Successfully.");
 
     },
@@ -250,5 +253,9 @@ takePicture(sourceType: PictureSourceType) {
       mode: 'ios'
     });
     await loading.present();
+  }
+  openMenu() {
+    this.menuCtrl.enable(true, 'customMenu');
+    this.menuCtrl.open('customMenu');
   }
 }

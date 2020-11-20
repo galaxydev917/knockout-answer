@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Payment Mmethod</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" slot="start">
+          <ion-icon name="chevron-back" style="font-size: 40px;"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()" slot="start">
+        <ion-icon name="menu-outline" style="font-size: 32px;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+  <ion-row class="ion-justify-content-center ion-align-items-start">
+    <ion-col size="11" class="ion-text-center">
+      <form class="form" autocomplete="off" [formGroup]="validationsform" (ngSubmit)="creatCardToken(validationsform.value)">
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" >
+            <ion-input class="ion-text-left" type="tel" maxlength="19" placeholder="Card Number" [(ngModel)]="creditCardNumber" formControlName="card_number" (ionChange)="cc_format($event.target.value)"></ion-input>
+          </ion-item> 
+        </ion-list>
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" >
+            <ion-input class="ion-text-left" type="text" placeholder="Expiration mm/dd/yyyy" formControlName="expiration_date"></ion-input>
+          </ion-item> 
+        </ion-list>
+        
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" >
+            <ion-input class="ion-text-left" maxlength="3" type="text" placeholder="Cvv Number" formControlName="cvv"></ion-input>
+          </ion-item> 
+        </ion-list>     
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md" >
+            <ion-input class="ion-text-left" type="text" placeholder="Name on card" formControlName="name"></ion-input>
+          </ion-item> 
+        </ion-list>   
+        <app-loading *ngIf="isUpdating"></app-loading>                    
+        <ion-button class="button-h" mode="ios" type="submit" [disabled]="!validationsform.valid" fill="solid" size="default" shape="round" expand="block">
+          Add
+        </ion-button>
+      </form>      
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

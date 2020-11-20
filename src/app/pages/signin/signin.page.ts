@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { config } from '../../config/config';
 
-const USERINFO_STORAGE_KEY = config.USERINFO_STORAGE_KEY;
+const userstorage_key = config.USERINFO_STORAGE_KEY;
 
 @Component({
   selector: 'app-signin',
@@ -49,7 +49,7 @@ export class SigninPage implements OnInit {
     this.userService.doLogin(value).subscribe((userinfo) => {
       this.isLoading = false;
       console.log(userinfo);
-      this.storage.set(USERINFO_STORAGE_KEY,userinfo);
+      this.storage.set(userstorage_key,userinfo);
       if(userinfo.role == "customer")
         this.router.navigate(['/tablinks']);
       if(userinfo.role == "athlete")  

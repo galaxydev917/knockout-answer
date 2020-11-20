@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController, ToastController, Platform, LoadingController  } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,9 @@ import { ActionSheetController, ToastController, Platform, LoadingController  } 
 })
 export class HomePage implements OnInit {
 
-  constructor(public loadingController: LoadingController,) { }
+  constructor(
+    public loadingController: LoadingController,
+    public menuCtrl: MenuController,) { }
 
   ngOnInit() {
     
@@ -23,4 +26,8 @@ export class HomePage implements OnInit {
     });
     await loading.present();
   }  
+  openMenu() {
+    this.menuCtrl.enable(true, 'customMenu');
+    this.menuCtrl.open('customMenu');
+  }
 }
