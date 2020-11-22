@@ -21,6 +21,8 @@ const userinfo = config.USERINFO_STORAGE_KEY;
 })
 export class ProProfilePage implements OnInit {
   rowHeight : any;
+  avatar_top: any;
+  negative_card_marginTop: any;
   images = [];
   fullName = "";
   validationsform: FormGroup;
@@ -43,8 +45,7 @@ export class ProProfilePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.rowHeight = this.plt.height() / 3 + 'px';
-
+    //this.rowHeight = this.plt.height() / 3 + 'px';
     this.validationsform = this.formBuilder.group({
       contact_email: new FormControl('', Validators.compose([
         Validators.required,
