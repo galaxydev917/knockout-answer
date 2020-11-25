@@ -1,13 +1,9 @@
 import * as userAction from "../actions/user.actions";
+import { ActionTypes } from "../actions/index";
+import {UserState} from '../interfaces/interfaces'
 
-export interface DataState {
-  items: string[];
-  loading: boolean;
-  error: any;
-}
-
-export const initialState: DataState = {
-  items: [],
+export const initialState: UserState = {
+  logined_userinfo: [],
   loading: false,
   error: null
 };
@@ -15,23 +11,23 @@ export const initialState: DataState = {
 export function reducer(
   state = initialState,
   action: userAction.UserAction
-): DataState {
+): UserState {
   switch (action.type) {
-    case userAction.ActionTypes.GetLoginedUserBegin: {
+    case ActionTypes.REQUEST_GET_USERINFO: {
       return {
         ...state,
         loading: true,
         error: null
       };
     }
-    case userAction.ActionTypes.GetLoginedUserSuccess: {
+    case ActionTypes.RECEIVED_GET_USERINFO: {
       return {
         ...state,
         loading: false,
-        items: action.payload.data
+        logined_userinfo: action.payload.data
       };
     }
-    case userAction.ActionTypes.GetLoginedUserFailure: {
+    case ActionTypes.FAILED_GET_USERINFO: {
       return {
         ...state,
         loading: false,
@@ -45,4 +41,4 @@ export function reducer(
   }
 }
 
-export const getItems = (state: DataState) => state.items;
+export const getItems = (state: UserState) => state.logined_userinfo;

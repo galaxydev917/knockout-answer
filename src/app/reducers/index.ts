@@ -6,23 +6,24 @@ import {
     MetaReducer
   } from "@ngrx/store";
   import { environment } from "../../environments/environment";
-  
-  import * as fromData from "./user.reducer";
+  import {UserState} from '../interfaces/interfaces'
+
+  import * as userData from "./user.reducer";
   
   export interface AppState {
-    data: fromData.DataState;
+    logined_userinfo: UserState;
   }
   
   export const reducers: ActionReducerMap<AppState> = {
-    data: fromData.reducer
+    logined_userinfo: userData.reducer
   };
   
   export const metaReducers: MetaReducer<AppState>[] = !environment.production
     ? []
     : [];
   
-  export const getDataState = (state: AppState) => state.data;
-  export const getAllItems = createSelector(
-    getDataState,
-    fromData.getItems
-  );
+  export const getUserInfoState = (state: AppState ) => state.logined_userinfo;
+  // export const getAllItems = createSelector(
+  //   getDataState,
+  //   fromData.getItems
+  // );
