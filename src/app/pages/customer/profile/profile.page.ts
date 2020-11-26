@@ -4,11 +4,11 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/n
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File, FileEntry } from '@ionic-native/File/ngx';
-import { Storage } from '@ionic/storage';
-import { UserService } from '../../../services/user/user.service';
-import { config } from '../../../config/config';
+import { UserService } from '../../services/user/user.service';
+import { config } from '../../config/config';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
+import { StorageService } from '../../services/storage.service';
 
 const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
 const userinfo = config.USERINFO_STORAGE_KEY;
@@ -24,6 +24,8 @@ export class ProfilePage implements OnInit {
   fullName = "";
   validationsform: FormGroup;
   isUpdating = false;
+  logined_userInfo : any;
+  profile_photoInfo : any;
   token : any;
   constructor(
     public plt: Platform,
@@ -33,7 +35,7 @@ export class ProfilePage implements OnInit {
     private camera: Camera,
     private filePath: FilePath,
     private actionSheetController: ActionSheetController,
-    private storage: Storage,
+    public storageService: StorageService,
     public loadingController: LoadingController,
     private webview: WebView,
     private ref: ChangeDetectorRef,
@@ -53,11 +55,16 @@ export class ProfilePage implements OnInit {
         Validators.required
       ]))
     });
-
-    this.plt.ready().then(() => {
-      this.loadStoredImages();
-    });
-    this.getStorageUserInfo();
+    // this.plt.ready().then(() => {
+    //   this.loadStoredImages();
+    // });
+    this.storageService.getObject(userinfo).then((result: any) => {
+      this.fullName = result.first_name + " " + result.last_name;
+      this.token = result.token;
+      if(result.prifile_picture != undefined){
+        this.images.push({ name: '', path: result.prifile_picture, filePath: '' });
+      }
+    });  
   }
 
   async tryUpdateProfile(value){
@@ -66,26 +73,19 @@ export class ProfilePage implements OnInit {
     value.token = this.token;
     this.userService.updateProfile(value).subscribe((userprofileinfo) => {
       this.isUpdating = false;
-      this.storage.set(userinfo, userprofileinfo.profile);
       this.presentAlert("Updated Successfully.");
-
     },
     (err) => {
       this.isUpdating = false;
       this.presentAlert(err.error.msg);
     });
   }  
-
-  getStorageUserInfo(){
-    this.storage.get(userinfo).then(userInfo=>{
-      this.fullName = userInfo.first_name + " " + userInfo.last_name;
-      this.token = userInfo.token;
-    });
-  }  
+ 
   loadStoredImages() {
-    this.storage.get(profile_photo).then(images => {
-      if (images) {
-        let arr = JSON.parse(images);
+    this.storageService.getObject(profile_photo).then((result: any) => {
+      if (result) {
+        let arr = result;
+        console.log("arr=================", arr[0])
         this.images = [];
         for (let img of arr) {
           let filePath = this.file.dataDirectory + img;
@@ -94,6 +94,7 @@ export class ProfilePage implements OnInit {
         }
       }
     });
+
   }
   async selectImage() {
     const actionSheet = await this.actionSheetController.create({
@@ -159,9 +160,9 @@ takePicture(sourceType: PictureSourceType) {
     });
   }
   updateStoredImages(name) {
-    this.storage.get(profile_photo).then(images => {
+//    this.profile_photoInfo = this.storageService.getObject(profile_photo);
         let newImages = [name];
-        this.storage.set(profile_photo, JSON.stringify(newImages));
+        this.storageService.setObject(profile_photo, newImages);
         let filePath = this.file.dataDirectory + name;
         let resPath = this.pathForImage(filePath);
         let newEntry = {
@@ -172,7 +173,6 @@ takePicture(sourceType: PictureSourceType) {
  
         this.images = [newEntry, ...this.images];
         this.ref.detectChanges(); // trigger change detection cycle
-    });
   }
   pathForImage(img) {
     if (img === null) {
@@ -182,21 +182,21 @@ takePicture(sourceType: PictureSourceType) {
       return converted;
     }
   }
-  deleteImage() {
-    //this.images.splice(position, 1);
+  // deleteImage() {
+  //   //this.images.splice(position, 1);
  
-    this.storage.get(profile_photo).then(images => {
-        let arr = JSON.parse(images);
-        let filtered = arr.filter(name => name != this.images[0].name);
-        this.storage.set(profile_photo, JSON.stringify(filtered));
+  //   this.storage.get(profile_photo).then(images => {
+  //       let arr = JSON.parse(images);
+  //       let filtered = arr.filter(name => name != this.images[0].name);
+  //       this.storage.set(profile_photo, JSON.stringify(filtered));
  
-        var correctPath = this.images[0].name.filePath.substr(0, this.images[0].name.filePath.lastIndexOf('/') + 1);
+  //       var correctPath = this.images[0].name.filePath.substr(0, this.images[0].name.filePath.lastIndexOf('/') + 1);
  
-        this.file.removeFile(correctPath, this.images[0].name.name).then(res => {
-            this.presentToast('File removed.');
-        });
-    });
-  }
+  //       this.file.removeFile(correctPath, this.images[0].name.name).then(res => {
+  //           this.presentToast('File removed.');
+  //       });
+  //   });
+  // }
   startUpload() {
     this.file.resolveLocalFilesystemUrl(this.images[0].filePath)
         .then(entry => {
@@ -234,7 +234,7 @@ takePicture(sourceType: PictureSourceType) {
     },
     (err) => {
       loading.dismiss();
-      this.presentAlert(err.error.msg);
+      this.presentAlert(err.error.code);
     });
   }  
   async presentToast(text) {
