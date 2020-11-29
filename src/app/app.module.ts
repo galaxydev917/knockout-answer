@@ -10,6 +10,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { reducers, metaReducers } from "./reducers";
+import { effects } from "./effects";
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/Camera/ngx';
 import { File } from '@ionic-native/File/ngx';
@@ -25,8 +29,10 @@ import { Stripe } from '@ionic-native/stripe/ngx';
     HttpClientModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(), 
-    FormsModule,
+    FormsModule,  
     ReactiveFormsModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot(effects),
     AppRoutingModule
   ],
   providers: [
@@ -34,9 +40,9 @@ import { Stripe } from '@ionic-native/stripe/ngx';
     SplashScreen,
     Camera,
     File,
-    Stripe,
     WebView,
     FilePath,
+    Stripe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

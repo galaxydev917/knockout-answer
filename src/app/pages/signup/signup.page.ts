@@ -44,6 +44,10 @@ export class SignupPage implements OnInit {
         Validators.minLength(6),
         Validators.required
       ])),
+      service_price: new FormControl('', Validators.compose([
+        Validators.minLength(6),
+        Validators.required
+      ]))
     });
 
     this.validationsform = this.formBuilder.group({
@@ -72,23 +76,21 @@ export class SignupPage implements OnInit {
     this.isLoading = true;
       this.userService.createUser(value).subscribe( resp => {
         this.isLoading = false;
-
-        this.storage.set('userinfo', resp);
-        this.router.navigate(['/tablinks']);
+       // this.storage.set('userinfo', resp);
+        this.presentAlert("Registered successfully.");
       },
       (err) => {
         this.isLoading = false;
         this.presentAlert(err.error.msg);
       });
   }
+
   tryRegisterPro(value) {
     value.role = this.signupOption;
     this.isLoading = true;
       this.userService.createUser(value).subscribe( resp => {
-        console.log(resp);
         this.isLoading = false;
-        //this.storage.set('userinfo', resp[0]);
-        this.router.navigate(['/pro-tablinks']);
+        this.presentAlert("Registered successfully.");
       },
       (err) => {
         this.isLoading = false;

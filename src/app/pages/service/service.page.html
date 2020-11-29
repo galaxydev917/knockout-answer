@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Service</ion-title>
+  </ion-toolbar>
+</ion-header>
+<div style="padding: 10px 10px 0px 10px">
+  <ion-list class="line-input">
+    <ion-item mode="md" >
+      <ion-icon name="search-outline" size="small" slot="start"></ion-icon>
+      <ion-input class="ion-text-left" placeholder="Search Pro" type="email" (ionChange)="searchInputChange($event)"></ion-input>
+    </ion-item> 
+  </ion-list>
+</div>
+<ion-content>
+
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <app-loading *ngIf="isLoading"></app-loading>       
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let item of pro_userlist; let i = index"  >
+      <ion-col *ngIf="item.service_price != ''" (click)="selectService(item)">
+        <ion-card class="pro-user-card">
+          <div class="cover-img-div" [style.background-image]="'url('+item.logo+')'" >
+            <div class="cover-img-mask"></div>
+          </div> 
+          <ion-card-header class="card-header">
+              <ion-label>{{item.name}}</ion-label>
+              <ion-button class="price-button" fill="outline">$ {{item.service_price}}</ion-button>
+            
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

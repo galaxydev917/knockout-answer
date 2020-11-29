@@ -1,0 +1,86 @@
+ion-header{
+    text-align: center;
+}
+.line-input {
+    margin-bottom: 0!important;
+    background: transparent;
+    
+    ion-item {
+        --border-color: transparent!important;
+        --background-activated: #000000;
+        --background-focused: #000000;
+        --background-hover: #000000;
+        --highlight-height: 0;
+        --background: #ffffff;
+        //border: 1px solid #807e7e;
+        border-radius: 50px;
+
+        &.item-has-focus {
+            border-radius: 50px;
+        }
+        ion-input {
+            --placeholder-color: #000000;     /* placeholder text color */
+            color: #000000; /* input text color to primary */
+        }
+        ion-label {
+            color: #ffffff!important;
+            font-weight: 300;
+            font-size: 14px!important;
+        }
+
+        ion-icon{
+            color: #cc0000  !important;
+            margin-right: 8px !important;
+        }
+    }
+}
+.cover-img-div{
+    width: 100%;
+    height: 200px;
+    position: relative;
+    //background-image: url('../../../../assets/imgs/profile.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // border-bottom-left-radius: 20%;
+    // border-bottom-right-radius: 20%;
+}
+.cover-img-mask{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba($color: #000000, $alpha: 0.6);
+    // border-bottom-left-radius: 20%;
+    // border-bottom-right-radius: 20%;
+}  
+.pro-user-card{
+    //height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 5%;
+    background-color: white;
+    z-index: 1;
+}
+.card-header{
+    width: 100%; 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px;
+}
+.price-button{
+    --border-radius: 20px;
+   --color: #cc0000;
+   //--color-activated: white;
+    --background-activated : #c4c4c4;
+    --background: white;
+    --border-color: #cc0000;
+}

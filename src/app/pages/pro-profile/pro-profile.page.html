@@ -1,0 +1,63 @@
+<ion-content>
+  <ion-list class="ion-no-padding">
+    <ion-item class="ion-no-padding header-img-div" >
+      <div *ngIf="images.length > 0" class="cover-img-div" [style.background-image]="'url('+images[0].path+')'">
+        <div class="cover-img-mask"></div>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-card class="profile-card">
+    <ion-card-header style="margin-top: 70px;">
+      <ion-card-title>{{fullName}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="width: 100%;">
+      <form class="form" [formGroup]="validationsform" (ngSubmit)="tryUpdateProfile(validationsform.value)">
+      <ion-grid class="ion-no-padding">
+        <ion-row class="ion-justify-content-center ion-align-items-center ion-no-padding">
+          <ion-col size="12">
+            <ion-item mode="md">
+              <ion-icon name="logo-usd" size="small" slot="start"></ion-icon>
+              <ion-input class="ion-text-left" placeholder="Service price" formControlName="service_price"></ion-input>
+            </ion-item> 
+          </ion-col>
+         </ion-row>       
+         <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+          <ion-col size="12">
+              <ion-item mode="md">
+                <ion-icon name="mail-outline" size="small" slot="start"></ion-icon>
+                <ion-input class="ion-text-left" placeholder="Contact email address" formControlName="contact_email"></ion-input>
+              </ion-item> 
+              <ion-item mode="md">
+                <ion-icon name="call-outline" size="small" slot="start"></ion-icon>
+                <ion-input class="ion-text-left" placeholder="Contact phone number" formControlName="phone"></ion-input>
+              </ion-item> 
+          </ion-col>
+         </ion-row>  
+      </ion-grid>    
+      <ion-button  class="updateprofile-button" mode="ios" type="submit" fill="solid"  [disabled]="!validationsform.valid" size="default" shape="round" expand="block">
+        Update Profile
+      </ion-button>
+    </form>      
+    </ion-card-content>
+  </ion-card>
+  <ion-button  class="other-button" mode="ios" fill="solid" shape="round" expand="full">
+    <span class="span-left">Ratings</span>
+    <span class="span-right"><ion-icon name="chevron-forward-outline"></ion-icon></span>
+  </ion-button>
+  <ion-button  class="other-button" mode="ios" shape="round" fill="solid" expand="full">
+    <span class="span-left">Service Request</span>
+    <span class="span-right"><ion-icon name="chevron-forward-outline"></ion-icon></span>
+  </ion-button>
+  <ion-button  class="other-button" mode="ios" shape="round" fill="solid" expand="full">
+    <span class="span-left">Video Archives</span>
+    <span class="span-right"><ion-icon name="chevron-forward-outline"></ion-icon></span>
+  </ion-button>
+  <ion-button  class="other-button" mode="ios" shape="round" fill="solid" expand="full">
+    <span class="span-left">Pay Wall</span>
+    <span class="span-right"><ion-icon name="chevron-forward-outline"></ion-icon></span>
+  </ion-button>    
+  <ion-avatar class="profile-avatar-div" (click)="selectImage()">
+    <ion-img *ngIf="images.length > 0" [src]="images[0].path"></ion-img>
+    <ion-img *ngIf="images.length == 0" src="../../assets/imgs/profile.jpg" ></ion-img>
+  </ion-avatar>
+</ion-content>

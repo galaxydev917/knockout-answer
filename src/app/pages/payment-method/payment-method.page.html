@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Payment Mmethod</ion-title>
+    <ion-title>Payment method</ion-title>
     <ion-buttons slot="start">
       <ion-button (click)="back()" slot="start">
-          <ion-icon name="chevron-back" style="font-size: 40px;"></ion-icon>
+          <ion-icon name="chevron-back" style="font-size: 28px;"></ion-icon>
         </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
@@ -43,7 +43,7 @@
         </ion-list>   
         <app-loading *ngIf="isUpdating"></app-loading>                    
         <ion-button class="button-h" mode="ios" type="submit" [disabled]="!validationsform.valid" fill="solid" size="default" shape="round" expand="block">
-          Add
+          Confirm
         </ion-button>
       </form>      
     </ion-col>

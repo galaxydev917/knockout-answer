@@ -3,10 +3,11 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import {  LoadingController } from '@ionic/angular';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import { UserService } from '../../services/user/user.service';
-import { Storage } from '@ionic/storage';
 import { config } from '../../config/config';
 import { Location } from "@angular/common";
 import { MenuController } from '@ionic/angular';
+import { StorageService } from '../../services/storage.service';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -21,18 +22,27 @@ export class PaymentMethodPage implements OnInit {
   token : any;
   isUpdating = false;
   cardDetails: any = {};
+  service_request : any;
   stripe_key = 'pk_test_hFWXh3onj1c0sdhsGPc9U2BU00GwFnBYeb';
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public menuCtrl: MenuController,
     public loadingController: LoadingController,
     private stripe: Stripe, 
     private userService: UserService,
     private location: Location,
-    private storage: Storage,
+    public storageService: StorageService,
   ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.service_request = this.router.getCurrentNavigation().extras.state.service_request;
+      }
+    });
+
     this.validationsform = this.formBuilder.group({
       card_number: new FormControl('', Validators.compose([
         Validators.required,
@@ -49,13 +59,12 @@ export class PaymentMethodPage implements OnInit {
         Validators.required
       ]))        
     });
-    this.getStorageUserInfo();
+
+    this.storageService.getObject(userinfo).then((result: any) => {
+      this.token = result.token;
+    });  
   }
-  getStorageUserInfo(){
-    this.storage.get(userinfo).then(userInfo=>{
-      this.token = userInfo.token;
-    });
-  } 
+
   isValidDate(dateString)
   {
       // First check for the pattern
@@ -81,6 +90,7 @@ export class PaymentMethodPage implements OnInit {
       // Check the range of the day
       return day > 0 && day <= monthLength[month - 1];
   }
+
   cc_format(value: string) {
     const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
     const matches = v.match(/\d{4,16}/g);
@@ -95,13 +105,12 @@ export class PaymentMethodPage implements OnInit {
       this.creditCardNumber = value;
     }
   }
+
   creatCardToken(value) {
     if(!this.isValidDate(value.expiration_date)){
       this.presentAlert("Invalid date format.");
       return;
     }  
-    
-
     this.stripe.setPublishableKey(this.stripe_key);
     var number = value.card_number.split(" ").join("");
     var expMonth = value.expiration_date.split('/')[0];
@@ -115,7 +124,6 @@ export class PaymentMethodPage implements OnInit {
       cvc: cvc
     }
     this.isUpdating = true;
-    console.log(card_lastnumber);
     this.stripe.createCardToken(this.cardDetails)
       .then(result => {
         let param = {
@@ -123,10 +131,15 @@ export class PaymentMethodPage implements OnInit {
           card_number: card_lastnumber,
           token: this.token
         };
+        this.service_request.card_token = result.id;
+        this.service_request.card_number = card_lastnumber;
+        this.service_request.token = this.token;
+
         this.userService.updateProfile(param).subscribe((userprofileinfo) => {
           this.isUpdating = false;
-          this.storage.set(userinfo, userprofileinfo.profile);
-          this.presentAlert("Updated Successfully.");
+          this.storageService.setObject(userinfo, userprofileinfo.profile);
+
+          //this.presentAlert("Updated Successfully.");
     
         },
         (err) => {

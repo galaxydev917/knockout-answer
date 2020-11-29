@@ -1,25 +1,22 @@
 import { Action } from "@ngrx/store";
+import { ActionTypes } from "./index";
 
-export enum ActionTypes {
-  GetLoginedUserBegin = "[Data] Get LoginedUser begin",
-  GetLoginedUserSuccess = "[Data] Get LoginedUser success",
-  GetLoginedUserFailure = "[Data] Get LoginedUser failure"
+
+export class RequestGetUserInfo implements Action {
+  readonly type = ActionTypes.REQUEST_GET_USERINFO;
+   constructor(public param) {}
 }
 
-export class GetLoginedUserBegin implements Action {
-  readonly type = ActionTypes.GetLoginedUserBegin;
-}
-
-export class GetLoginedUserSuccess implements Action {
-  readonly type = ActionTypes.GetLoginedUserSuccess;
+export class ReceiveGetUserInfo implements Action {
+  readonly type = ActionTypes.RECEIVED_GET_USERINFO;
 
   constructor(public payload: { data: any }) {}
 }
 
-export class GetLoginedUserFailure implements Action {
-  readonly type = ActionTypes.GetLoginedUserFailure;
+export class FailGetUserInfo implements Action {
+  readonly type = ActionTypes.FAILED_GET_USERINFO;
 
   constructor(public payload: { error: any }) {}
 }
 
-export type UserAction = GetLoginedUserBegin | GetLoginedUserSuccess | GetLoginedUserFailure;
+export type UserAction = RequestGetUserInfo | ReceiveGetUserInfo | FailGetUserInfo;

@@ -27,9 +27,9 @@ export class UserService {
     this.store.dispatch(new UserActions.RequestGetUserInfo(userinfo));
   }
 
-  getUserInfo() {
-    return this.store.select(getUserInfoState);
-  }
+  // getUserInfo() {
+  //   return this.store.select(getUserInfoState);
+  // }
 
   doLogin( value: any){
     let credential = {
@@ -53,6 +53,10 @@ export class UserService {
   createUser(value : any) {
     return this.http.post<any>( baseUrl +'/register', value );
   } 
+  getUsers(param : any){
+    return this.http.post<any>(baseUrl + '/get_users', param);
+  }
+
 }
 
 

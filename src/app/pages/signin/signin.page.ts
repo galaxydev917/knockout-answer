@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
+import { StorageService } from '../../services/storage.service';
+
 import { LoadingController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
-import { config } from '../../config/config';
+ import { config } from '../../config/config';
 
 const userstorage_key = config.USERINFO_STORAGE_KEY;
 
@@ -21,11 +22,11 @@ export class SigninPage implements OnInit {
   isLoading = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private storage: Storage,
-    private userService: UserService,
+    public formBuilder: FormBuilder,
+    public storageService: StorageService,
+    public userService: UserService,
     public loadingController: LoadingController,
-    private router: Router,
+    public router: Router,
     public plt: Platform
     ) { }
 
@@ -42,22 +43,27 @@ export class SigninPage implements OnInit {
         Validators.required
       ])),
     });
+    this.validationsform.setValue({
+      email: 'jinchao@gmail.com',
+      password: '123456'
+   });
+
   }
   
   async trySignin(value){
     this.isLoading = true;
     this.userService.doLogin(value).subscribe((userinfo) => {
       this.isLoading = false;
+      // this.userService.requestGetUserInfo(userinfo);
       console.log(userinfo);
-      this.storage.set(userstorage_key,userinfo);
-      if(userinfo.role == "customer")
-        this.router.navigate(['/tablinks']);
-      if(userinfo.role == "athlete")  
-        this.router.navigate(['/pro-tablinks']);
+      this.storageService.setObject(userstorage_key,userinfo);
+      this.router.navigate(['/tablinks/home']);
     },
     (err) => {
+      console.log(err);
       this.isLoading = false;
-      this.presentAlert(err.error.msg);
+      //this.presentAlert(err.error.code);
+      this.presentAlert("Invalid login info.");
     });
   }
   async presentAlert(value) {
