@@ -56,7 +56,12 @@ export class UserService {
   getUsers(param : any){
     return this.http.post<any>(baseUrl + '/get_users', param);
   }
-
+  createRequest(value: any){
+    return this.http.post<any>( baseUrl +'/create_request', value );
+  }
+  getServiceRequests(param : any){
+    return this.http.post<any>(baseUrl + '/get_request', param);
+  }
 }
 
 

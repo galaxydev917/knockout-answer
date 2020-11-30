@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" slot="start">
+          <ion-icon name="arrow-back-outline" style="font-size: 28px;"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Service History</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="openMenu()" slot="start">
@@ -49,4 +54,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
 </ion-content>

@@ -43,10 +43,10 @@ export class SigninPage implements OnInit {
         Validators.required
       ])),
     });
-    this.validationsform.setValue({
-      email: 'jinchao@gmail.com',
-      password: '123456'
-   });
+  //   this.validationsform.setValue({
+  //     email: 'jinchao@gmail.com',
+  //     password: '123456'
+  //  });
 
   }
   
@@ -54,8 +54,6 @@ export class SigninPage implements OnInit {
     this.isLoading = true;
     this.userService.doLogin(value).subscribe((userinfo) => {
       this.isLoading = false;
-      // this.userService.requestGetUserInfo(userinfo);
-      console.log(userinfo);
       this.storageService.setObject(userstorage_key,userinfo);
       this.router.navigate(['/tablinks/home']);
     },

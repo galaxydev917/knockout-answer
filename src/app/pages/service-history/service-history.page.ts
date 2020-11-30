@@ -6,19 +6,19 @@ import { MenuController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { Location } from "@angular/common";
+
 const userinfo = config.USERINFO_STORAGE_KEY;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-service-history',
+  templateUrl: './service-history.page.html',
+  styleUrls: ['./service-history.page.scss'],
 })
-export class HomePage implements OnInit {
+export class ServiceHistoryPage implements OnInit {
   token: any;
   requestList = [];
   isLoading = false;
   status = "pending";
-
   constructor(
     public userService: UserService,
     public loadingController: LoadingController,
@@ -26,6 +26,8 @@ export class HomePage implements OnInit {
     private router: Router,
     public menuCtrl: MenuController,
     private location: Location,
+
+
   ) { }
 
   ngOnInit() {

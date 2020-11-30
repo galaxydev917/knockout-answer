@@ -1,9 +1,72 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>service-review</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-list class="ion-no-padding">
+    <ion-item class="ion-no-padding header-img-div" >
+     
+      <div *ngIf="service_request.logo != undefined" class="cover-img-div" [style.background-image]="'url('+service_request.logo+')'">
+        <div class="cover-img-mask">
+          <ion-grid>
+            <ion-row class="ion-justify-content-center ion-align-items-center"  style="margin-top: 20px;">
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="arrow-back-outline" style="color: white; font-size: 28px;" (click)="back()"></ion-icon>
+              </ion-col>
+              <ion-col size="8" class="ion-text-center">
+                <ion-label style="color: white; font-size: 18px;">Service Review</ion-label>
+              </ion-col>  
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="menu-outline" style="color: white; font-size: 28px;" (click)="openMenu()"></ion-icon>
+              </ion-col>                          
+            </ion-row>
+          </ion-grid>          
+       </div>
+      </div>
+  
+    </ion-item>
+  </ion-list>
+  <ion-card class="profile-card">
+    <ion-card-header style="margin-top: 70px;">
+      <ion-card-title> {{service_request.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-subtitle>Service Free Price: <span style="color: #cc0000;">${{service_request.service_price}}</span></ion-card-subtitle>
+    <ion-card-content style="width: 100%;">
+      <ion-grid class="ion-no-padding">
 
+         <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>{{service_request.request}}</ion-label>
+            </ion-item> 
+            <ion-item lines="none">
+              <ion-label style="font-size: 12px; color: grey;">Deposit for live video post 150% of service price.</ion-label>
+              <ion-checkbox color="danger" disabled slot="start" style="margin-inline-end: 12px;" [checked]="service_request.isLivePost"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-label style="font-size: 12px; color: grey;">Prime Date</ion-label>
+              <ion-datetime  readonly displayFormat="MMM DD, YYYY" placeholder="Select Date" [value]="service_request.primedate" ></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label style="font-size: 12px; color: grey;" >Prime Time</ion-label>
+              <ion-datetime display-format="h:mm A" readonly [value]="service_request.primedate" picker-format="h:mm A" ></ion-datetime>
+            </ion-item>   
+            <ion-item lines="none">
+              <ion-icon name="card-outline" slot="start" ></ion-icon> 
+              <ion-label>Card: *{{card_number}}</ion-label>
+            </ion-item>         
+          </ion-col>
+         </ion-row>  
+         <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+           <ion-col class="ion-text-center">
+            <app-loading *ngIf="isSubmitting"></app-loading>     
+           </ion-col>
+         </ion-row>
+      </ion-grid>   
+      <ion-button  class="updateprofile-button" mode="ios" fill="solid"  size="default" shape="round" expand="block" (click)="submitRequest();">
+        Submit Request
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+ 
+  <ion-avatar class="profile-avatar-div" (click)="selectImage()">
+    <ion-img *ngIf="service_request.logo != ''" [src]="service_request.logo"></ion-img>
+    <ion-img *ngIf="service_request.logo == ''" src="../../assets/imgs/noavatar.jpeg" ></ion-img>
+  </ion-avatar>
 </ion-content>

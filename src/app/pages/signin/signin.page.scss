@@ -6,14 +6,16 @@
 .line-input {
     margin-bottom: 0!important;
     background: transparent;
-
+    border-radius: 50px;
     ion-item {
         --background: white;
         --highlight-color-focused: none;
         --highlight-background: none;
+        border-radius: 50px;
         ion-input {
             --placeholder-color: #cc0000;     /* placeholder text color */
             color: black; /* input text color to primary */
+            
         }
         ion-label {
             color: #cc0000!important;

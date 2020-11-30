@@ -51,6 +51,18 @@ const routes: Routes = [
     path: 'service-review',
     loadChildren: () => import('./pages/service-review/service-review.module').then( m => m.ServiceReviewPageModule)
   },
+  {
+    path: 'service-history',
+    loadChildren: () => import('./pages/service-history/service-history.module').then( m => m.ServiceHistoryPageModule)
+  },
+  {
+    path: 'service-details',
+    loadChildren: () => import('./pages/service-details/service-details.module').then( m => m.ServiceDetailsPageModule)
+  },
+  {
+    path: 'forgotpwd',
+    loadChildren: () => import('./pages/forgotpwd/forgotpwd.module').then( m => m.ForgotpwdPageModule)
+  },
 ];
 
 @NgModule({

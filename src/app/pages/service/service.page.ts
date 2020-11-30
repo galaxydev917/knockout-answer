@@ -4,6 +4,7 @@ import { StorageService } from '../../services/storage.service';
 import { config } from '../../config/config';
 import { LoadingController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -22,7 +23,8 @@ export class ServicePage implements OnInit {
     public userService: UserService,
     private router: Router,
     public loadingController: LoadingController,
-    public storageService: StorageService
+    public storageService: StorageService,
+    public menuCtrl: MenuController,
   ) { }
 
   ngOnInit() {
@@ -76,5 +78,9 @@ export class ServicePage implements OnInit {
       }
     };    
     this.router.navigate(['/service-request'], navigationExtras);
+  }
+  openMenu() {
+    this.menuCtrl.enable(true, 'customMenu');
+    this.menuCtrl.open('customMenu');
   }
 }

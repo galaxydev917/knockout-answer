@@ -3,6 +3,10 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Location } from "@angular/common";
 import { MenuController } from '@ionic/angular';
+import { StorageService } from '../../services/storage.service';
+import { config } from '../../config/config';
+
+const userinfo = config.USERINFO_STORAGE_KEY;
 
 @Component({
   selector: 'app-service-request',
@@ -11,15 +15,19 @@ import { MenuController } from '@ionic/angular';
 })
 export class ServiceRequestPage implements OnInit {
   pro_user : any;
+  service_request : any;
   validationsform: FormGroup;
   primedate : any;
   isLivePost = false;
+  token: any;
+  card_number: any;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private location: Location,
     public menuCtrl: MenuController,
     private route: ActivatedRoute,
+    public storageService: StorageService
 
   ) { }
 
@@ -46,18 +54,35 @@ export class ServiceRequestPage implements OnInit {
       primetime: this.primedate,
       question: ''
    });
+
+   this.storageService.getObject(userinfo).then((result: any) => {
+     console.log(result);
+    this.token = result.token;
+    this.card_number = result.card_number;
+  }); 
   }
 
   next(value){
-    value.isLivePost = this.isLivePost;
-    console.log(value)
+
+    this.service_request = this.pro_user;
+    this.service_request.request_type = this.isLivePost ? 'livepost' : 'nolivepost';
+    this.service_request.isLivePost = this.isLivePost;
+    this.service_request.request = value.question;
+    this.service_request.primedate = this.primedate;
+    this.service_request.to_user_id = this.service_request.user_id;
+    if(this.isLivePost)
+      this.service_request.service_price = this.service_request.service_price * 1.5;
 
     let navigationExtras: NavigationExtras = {
       state: {
-        service_request: value
+        service_request: this.service_request
       }
-    };    
-    this.router.navigate(['/payment-method'], navigationExtras);
+    }; 
+    console.log(this.card_number);   
+    if(this.card_number == undefined)
+      this.router.navigate(['/payment-method'], navigationExtras);
+    if(this.card_number != undefined)
+      this.router.navigate(['/service-review'], navigationExtras);      
   }  
   onCheckLivePostChange(e){
     this.isLivePost = e.detail.checked;

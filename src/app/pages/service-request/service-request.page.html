@@ -4,7 +4,7 @@
       <div *ngIf="pro_user.logo != ''" class="cover-img-div" [style.background-image]="'url('+pro_user.logo+')'">
         <div class="cover-img-mask">
           <ion-grid>
-            <ion-row class="ion-justify-content-center ion-align-items-center">
+            <ion-row class="ion-justify-content-center ion-align-items-center" style="margin-top: 20px;">
               <ion-col size="2" class="ion-text-center">
                 <ion-icon name="arrow-back-outline" style="color: white; font-size: 28px;" (click)="back()"></ion-icon>
               </ion-col>
@@ -12,7 +12,7 @@
                 <ion-label style="color: white; font-size: 18px;">Service Request</ion-label>
               </ion-col>  
               <ion-col size="2" class="ion-text-center">
-                <ion-icon name="menu-outline" style="color: white; font-size: 28px;"></ion-icon>
+                <ion-icon name="menu-outline" style="color: white; font-size: 28px;" (click)="openMenu()"></ion-icon>
               </ion-col>                          
             </ion-row>
           </ion-grid>
@@ -49,9 +49,9 @@
               <ion-label style="font-size: 12px; color: grey;">Prime Time</ion-label>
               <ion-datetime display-format="h:mm A" picker-format="h:mm A" formControlName="primetime"></ion-datetime>
             </ion-item>   
-            <ion-item lines="none">
+            <ion-item lines="none" *ngIf="card_number != undefined">
               <ion-icon name="card-outline" slot="start" ></ion-icon>
-              <ion-label>Item Thumbnail</ion-label>
+              <ion-label>Card number: *{{card_number}}</ion-label>
             </ion-item>         
           </ion-col>
          </ion-row>  

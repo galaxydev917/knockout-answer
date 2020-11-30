@@ -24,6 +24,7 @@ export class PaymentMethodPage implements OnInit {
   cardDetails: any = {};
   service_request : any;
   stripe_key = 'pk_test_hFWXh3onj1c0sdhsGPc9U2BU00GwFnBYeb';
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -96,6 +97,7 @@ export class PaymentMethodPage implements OnInit {
     const matches = v.match(/\d{4,16}/g);
     const match = (matches && matches[0]) || '';
     const parts = [];
+
     for (let i = 0, len = match.length; i < len; i += 4) {
       parts.push(match.substring(i, i + 4));
     }
@@ -131,16 +133,18 @@ export class PaymentMethodPage implements OnInit {
           card_number: card_lastnumber,
           token: this.token
         };
-        this.service_request.card_token = result.id;
-        this.service_request.card_number = card_lastnumber;
-        this.service_request.token = this.token;
 
         this.userService.updateProfile(param).subscribe((userprofileinfo) => {
           this.isUpdating = false;
           this.storageService.setObject(userinfo, userprofileinfo.profile);
 
           //this.presentAlert("Updated Successfully.");
-    
+          let navigationExtras: NavigationExtras = {
+            state: {
+              service_request: this.service_request
+            }
+          };           
+          this.router.navigate(['/service-review'], navigationExtras); 
         },
         (err) => {
           this.isUpdating = false;
@@ -160,9 +164,11 @@ export class PaymentMethodPage implements OnInit {
     });
     await loading.present();
   }
+
   back(){
     this.location.back();
   }
+
   openMenu() {
     this.menuCtrl.enable(true, 'customMenu');
     this.menuCtrl.open('customMenu');

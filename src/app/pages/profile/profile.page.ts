@@ -9,6 +9,7 @@ import { config } from '../../config/config';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
 import { StorageService } from '../../services/storage.service';
+import { Location } from "@angular/common";
 
 const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
 const userinfo = config.USERINFO_STORAGE_KEY;
@@ -42,6 +43,7 @@ export class ProfilePage implements OnInit {
     private ref: ChangeDetectorRef,
     private toastController: ToastController,
     private file: File,
+    private location: Location,
   ) { }
   ngOnInit() {
     this.rowHeight = this.plt.height() / 3 + 'px';
@@ -262,5 +264,8 @@ takePicture(sourceType: PictureSourceType) {
   openMenu() {
     this.menuCtrl.enable(true, 'customMenu');
     this.menuCtrl.open('customMenu');
+  }
+  back(){
+    this.location.back();
   }
 }
