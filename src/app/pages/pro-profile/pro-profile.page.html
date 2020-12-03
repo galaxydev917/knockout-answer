@@ -2,8 +2,39 @@
   <ion-list class="ion-no-padding">
     <ion-item class="ion-no-padding header-img-div" >
       <div *ngIf="images.length > 0" class="cover-img-div" [style.background-image]="'url('+images[0].path+')'">
-        <div class="cover-img-mask"></div>
+        <div class="cover-img-mask">
+          <ion-grid>
+            <ion-row class="ion-justify-content-center ion-align-items-center" style="margin-top: 20px;">
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="arrow-back-outline" style="color: white; font-size: 28px;" (click)="back()"></ion-icon>
+              </ion-col>
+              <ion-col size="8" class="ion-text-center">
+                <ion-label style="color: white; font-size: 18px;">Profile Information</ion-label>
+              </ion-col>  
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="menu-outline" style="color: white; font-size: 28px;" (click)="openMenu()"></ion-icon>
+              </ion-col>                          
+            </ion-row>
+          </ion-grid>
+        </div>
       </div>
+      <div *ngIf="images.length == 0" class="cover-img-div" style="background-image: url(../../../assets/imgs/nocover.png);" >
+        <div class="cover-img-mask">
+          <ion-grid>
+            <ion-row class="ion-justify-content-center ion-align-items-center" style="margin-top: 20px;">
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="arrow-back-outline" style="color: white; font-size: 28px;" (click)="back()"></ion-icon>
+              </ion-col>
+              <ion-col size="8" class="ion-text-center">
+                <ion-label style="color: white; font-size: 18px;">Profile Information</ion-label>
+              </ion-col>  
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="menu-outline" style="color: white; font-size: 28px;" (click)="openMenu()"></ion-icon>
+              </ion-col>                          
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>   
     </ion-item>
   </ion-list>
   <ion-card class="profile-card">

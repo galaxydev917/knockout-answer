@@ -62,13 +62,14 @@ export class ProfilePage implements OnInit {
     //   this.loadStoredImages();
     // });
     this.storageService.getObject(userinfo).then((result: any) => {
+      console.log(result);
       this.fullName = result.first_name + " " + result.last_name;
       this.token = result.token;
-      this.userProfilePicture = result.prifile_picture;
-      if(result.prifile_picture != undefined){
+      this.userProfilePicture = result.profile_picture;
+      if(this.userProfilePicture != undefined){
         let name = this.userProfilePicture.substr(this.userProfilePicture.lastIndexOf("/")+1);
         let filePath = this.file.dataDirectory + name;
-        this.images.push({ name: name, path: result.prifile_picture, filePath: filePath });
+        this.images.push({ name: name, path: this.userProfilePicture, filePath: filePath });
       }
     });  
   }

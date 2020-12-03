@@ -9,6 +9,7 @@ import { UserService } from '../../services/user/user.service';
 import { config } from '../../config/config';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
+import { StorageService } from '../../services/storage.service';
 
 
 const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
@@ -22,6 +23,8 @@ const userinfo = config.USERINFO_STORAGE_KEY;
 export class ProProfilePage implements OnInit {
   rowHeight : any;
   avatar_top: any;
+  userProfilePicture : any;
+
   negative_card_marginTop: any;
   images = [];
   fullName = "";
@@ -35,6 +38,7 @@ export class ProProfilePage implements OnInit {
     private userService: UserService,
     private camera: Camera,
     private filePath: FilePath,
+    public storageService: StorageService,
     private actionSheetController: ActionSheetController,
     private storage: Storage,
     public loadingController: LoadingController,
@@ -60,10 +64,20 @@ export class ProProfilePage implements OnInit {
       ])),
     });
 
-    this.plt.ready().then(() => {
-      this.loadStoredImages();
-    });
-    this.getStorageUserInfo();
+    // this.plt.ready().then(() => {
+    //   this.loadStoredImages();
+    // });
+    this.storageService.getObject(userinfo).then((result: any) => {
+      console.log(result);
+      this.fullName = result.first_name + " " + result.last_name;
+      this.token = result.token;
+      this.userProfilePicture = result.profile_picture;
+      if(this.userProfilePicture != undefined){
+        let name = this.userProfilePicture.substr(this.userProfilePicture.lastIndexOf("/")+1);
+        let filePath = this.file.dataDirectory + name;
+        this.images.push({ name: name, path: this.userProfilePicture, filePath: filePath });
+      }
+    });  
   }
 
   async tryUpdateProfile(value){

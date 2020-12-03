@@ -63,6 +63,18 @@ const routes: Routes = [
     path: 'forgotpwd',
     loadChildren: () => import('./pages/forgotpwd/forgotpwd.module').then( m => m.ForgotpwdPageModule)
   },
+  {
+    path: 'pro-tablinks',
+    loadChildren: () => import('./pages/pro-tablinks/pro-tablinks.module').then( m => m.ProTablinksPageModule)
+  },
+  {
+    path: 'pro-home',
+    loadChildren: () => import('./pages/pro-home/pro-home.module').then( m => m.ProHomePageModule)
+  },
+  {
+    path: 'pro-services',
+    loadChildren: () => import('./pages/pro-services/pro-services.module').then( m => m.ProServicesPageModule)
+  },
 ];
 
 @NgModule({
