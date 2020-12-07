@@ -1,5 +1,7 @@
 {
   "name": "knockout-answer",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
