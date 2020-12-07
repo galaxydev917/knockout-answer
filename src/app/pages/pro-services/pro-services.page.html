@@ -1,9 +1,52 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>pro-services</ion-title>
+    <ion-title>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Services</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()" slot="start">
+        <ion-icon name="menu-outline" style="font-size: 32px;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
 
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-segment (ionChange)="segmentChanged($event)" value="pending" >
+          <ion-segment-button value="pending" class="segment">
+            <ion-label>Progressing</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="complete" class="segment">
+            <ion-label>Completed</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col class="ion-text-center">
+        <app-loading *ngIf="isLoading"></app-loading>  
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list class="line-input" *ngFor="let item of requestList; let i = index"> 
+          <ion-item (click)="selectService(item)">
+            <ion-thumbnail slot="start" >
+              <ion-img  [src]="item.customer_profile_picture" ></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+              <h2>{{item.from_user_name}}</h2>
+              <p>Service Price: ${{item.service_price}}</p>
+              <p>{{item.request}}</p>
+            </ion-label>
+            <p>{{item.created | date: 'MM/d/y'}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

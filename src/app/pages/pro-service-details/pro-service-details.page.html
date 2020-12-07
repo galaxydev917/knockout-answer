@@ -1,0 +1,65 @@
+<ion-content>
+  <ion-list class="ion-no-padding">
+    <ion-item class="ion-no-padding header-img-div" >
+     
+      <div *ngIf="service_request.customer_profile_picture != undefined" class="cover-img-div" [style.background-image]="'url('+service_request.customer_profile_picture+')'">
+        <div class="cover-img-mask"></div>
+          <ion-grid>
+            <ion-row class="ion-justify-content-center ion-align-items-center"  style="margin-top: 20px;">
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="arrow-back-outline" style="color: white; font-size: 28px;" (click)="back()"></ion-icon>
+              </ion-col>
+              <ion-col size="8" class="ion-text-center">
+                <ion-label style="color: white; font-size: 18px;">{{service_request.from_user_name}}</ion-label>
+              </ion-col>  
+              <ion-col size="2" class="ion-text-center">
+                <ion-icon name="menu-outline" style="color: white; font-size: 28px;" (click)="openMenu()"></ion-icon>
+              </ion-col>                          
+            </ion-row>
+          </ion-grid>          
+          <div class="price-div">${{service_request.service_price}}</div>
+          <div class="message-btn-div">
+            <ion-button class="msg-btn">Message</ion-button>
+          </div>
+      </div>
+  
+    </ion-item>
+  </ion-list>
+  <ion-card class="profile-card">
+    <!-- <ion-card-header style="margin-top: 70px;">
+      <ion-card-title> {{service_request.name}}</ion-card-title>
+    </ion-card-header> -->
+    <!-- <ion-card-subtitle>Service Free Price: <span style="color: #cc0000;">${{service_request.service_price}}</span></ion-card-subtitle> -->
+    <ion-card-content style="width: 100%;">
+      <ion-grid class="ion-no-padding">
+
+         <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+          <ion-col size="12">
+            <ion-item>
+              <ion-label><span style="color: #cc0000; font-weight: bold;">Question:</span> {{service_request.request}}</ion-label>
+            </ion-item> 
+          </ion-col>
+         </ion-row>  
+         <ion-row>
+           <ion-col>
+            <ion-item lines="none">
+              <ion-label><span style="color: #cc0000; font-weight: bold;">Answer:</span> </ion-label>
+            </ion-item> 
+            <div class="answer-video" style="background-image: url(../../../assets/imgs/nofound.png);"></div>
+           </ion-col>
+         </ion-row>
+         <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+           <ion-col class="ion-text-center">
+            <app-loading *ngIf="isSubmitting"></app-loading>     
+           </ion-col>
+         </ion-row>
+      </ion-grid>   
+
+    </ion-card-content>
+  </ion-card>
+ 
+  <!-- <ion-avatar class="profile-avatar-div" (click)="selectImage()">
+    <ion-img *ngIf="service_request.profile_picture != ''" [src]="service_request.profile_picture"></ion-img>
+    <ion-img *ngIf="service_request.profile_picture == ''" src="../../assets/imgs/noavatar.jpeg" ></ion-img>
+  </ion-avatar> -->
+</ion-content>

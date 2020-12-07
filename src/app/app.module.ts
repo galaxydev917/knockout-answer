@@ -20,7 +20,10 @@ import { File } from '@ionic-native/File/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { Stripe } from '@ionic-native/stripe/ngx';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
+const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', options: {} };
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,6 +31,7 @@ import { Stripe } from '@ionic-native/stripe/ngx';
     BrowserModule, 
     HttpClientModule,
     IonicStorageModule.forRoot(),
+    SocketIoModule.forRoot(config),
     IonicModule.forRoot(), 
     FormsModule,  
     ReactiveFormsModule,
@@ -43,6 +47,7 @@ import { Stripe } from '@ionic-native/stripe/ngx';
     WebView,
     FilePath,
     Stripe,
+    LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

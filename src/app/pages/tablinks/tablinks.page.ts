@@ -18,7 +18,6 @@ export class TablinksPage implements OnInit {
     //    this.loadingUserInfo = data.loading;
     //     this.logined_userinfo =  data.logined_userinfo[0]; 
     // });
-    alert("aaaa");
   }
 
 }

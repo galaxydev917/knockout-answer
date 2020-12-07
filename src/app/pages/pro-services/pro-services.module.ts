@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ProServicesPageRoutingModule } from './pro-services-routing.module';
+import { ComponentsModule } from '../../components/components.module';
 
 import { ProServicesPage } from './pro-services.page';
 
@@ -13,6 +14,7 @@ import { ProServicesPage } from './pro-services.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ComponentsModule,
     ProServicesPageRoutingModule
   ],
   declarations: [ProServicesPage]

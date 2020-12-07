@@ -44,7 +44,7 @@ export class SigninPage implements OnInit {
       ])),
     });
     this.validationsform.setValue({
-      email: 'jamestesting@gmail.com',
+      email: 'craig@gmail.com',
       password: '123456'
    });
 
@@ -57,9 +57,9 @@ export class SigninPage implements OnInit {
       this.storageService.setObject(userstorage_key,userinfo);
       console.log(userinfo);
       if(userinfo.role == "athlete")
-        this.router.navigate(['/pro-tablinks/pro-home']);
+        this.router.navigate(['/pro-tablinks/pro-profile']);
       if(userinfo.role == "customer")
-        this.router.navigate(['/tablinks/home']);        
+        this.router.navigate(['/tablinks/profile']);        
     },
     (err) => {
       console.log(err);

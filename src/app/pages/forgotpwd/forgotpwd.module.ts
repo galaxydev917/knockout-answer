@@ -12,9 +12,11 @@ import { ForgotpwdPage } from './forgotpwd.page';
 @NgModule({
   imports: [
     CommonModule,
+    
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
+
     IonicModule,
     ForgotpwdPageRoutingModule
   ],

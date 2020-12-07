@@ -1,0 +1,77 @@
+ion-header{
+    text-align: center;
+}
+ion-item {
+    --background: white;
+    --highlight-color-focused: none;
+    --highlight-background: none;
+    --min-height: 58px;
+}
+.header-img-div {
+    --padding-end: 0px;
+    --inner-padding-end: 0px;
+    // here other custom CSS from documentation
+  }
+  .cover-img-div{
+    width: 100%;
+    height: 280px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.cover-img-mask{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba($color: #000000, $alpha: 0.6);
+}  
+.profile-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    background-color: white;
+    z-index: 1;
+    
+}
+.answer-video{
+    width: 100%;
+    height: 200px;
+    position: relative;
+    //background-image: url('../../../../assets/imgs/profile.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.price-div{
+    position: absolute;
+    padding: 10px;
+    left: 20px;
+    bottom: 20px;
+    //background-color: #cc0000;
+    color: #cc0000;
+    font-weight: 500;
+    border:1px solid #cc0000;
+    border-radius: 10px;
+}
+.message-btn-div{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    color: white;
+    //border:1px solid white;
+    //padding: 10px;
+    border-radius: 10px;
+}
+.msg-btn{
+    --background: #cc0000;
+    height: 40px;
+    --border-radius: 10px;
+}

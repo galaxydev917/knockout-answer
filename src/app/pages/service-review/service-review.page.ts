@@ -6,6 +6,7 @@ import { UserService } from '../../services/user/user.service';
 import {  LoadingController } from '@ionic/angular';
 import { Location } from "@angular/common";
 import { MenuController } from '@ionic/angular';
+import { Socket } from 'ngx-socket-io';
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -19,6 +20,7 @@ export class ServiceReviewPage implements OnInit {
   token: any;
   card_number: any;
   isSubmitting = false;
+  current_userid : any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -27,6 +29,7 @@ export class ServiceReviewPage implements OnInit {
     public storageService: StorageService,
     private location: Location,
     public menuCtrl: MenuController,
+    private socket: Socket
 
   ) { }
 
@@ -39,23 +42,31 @@ export class ServiceReviewPage implements OnInit {
     });
     this.storageService.getObject(userinfo).then((result: any) => {
      this.token = result.token;
+     this.current_userid = result.user_id;
      this.card_number = result.card_number;
    }); 
+   this.socket.connect();
+
   }
 
   submitRequest(){
     this.isSubmitting = true;
-    console.log(this.service_request);
     this.service_request.token = this.token;
-    this.userService.createRequest(this.service_request).subscribe((userprofileinfo) => {
-      this.isSubmitting = false;
-      this.presentAlert("Request sent successfully.");
-    },
-    (err) => {
-      console.log(err);
-      this.isSubmitting = false;
-      this.presentAlert(err.error.msg);
-    });  
+    this.service_request.from_user_id = this.current_userid;
+
+
+    this.socket.emit('send-service-request-notification', this.service_request);
+    // this.userService.createRequest(this.service_request).subscribe((userprofileinfo) => {
+    //   this.isSubmitting = false;
+    //   this.presentAlert("Request sent successfully.");
+
+    //   this.socket.emit('send-notification', this.service_request);
+    // },
+    // (err) => {
+    //   console.log(err);
+    //   this.isSubmitting = false;
+    //   this.presentAlert(err.error.msg);
+    // });  
   }
   async presentAlert(value) {
     const loading = await this.loadingController.create({

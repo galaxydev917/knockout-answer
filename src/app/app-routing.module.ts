@@ -75,6 +75,10 @@ const routes: Routes = [
     path: 'pro-services',
     loadChildren: () => import('./pages/pro-services/pro-services.module').then( m => m.ProServicesPageModule)
   },
+  {
+    path: 'pro-service-details',
+    loadChildren: () => import('./pages/pro-service-details/pro-service-details.module').then( m => m.ProServiceDetailsPageModule)
+  },
 ];
 
 @NgModule({

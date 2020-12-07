@@ -29,6 +29,7 @@ export class ServicePage implements OnInit {
 
   ngOnInit() {
     this.storageService.getObject(userinfo).then((result: any) => {
+      console.log(result);
       this.token = result.token;
       this.getProUsers();
     });  
@@ -44,10 +45,12 @@ export class ServicePage implements OnInit {
     };
     this.isLoading = true;
     this.userService.getUsers(param).subscribe((pro_userlist) => {
+      console.log(pro_userlist);
       this.pro_userlist = pro_userlist;
       this.isLoading = false;
     },
     (err) => {
+      console.log(err);
        this.isLoading = false;
        this.presentAlert(err.error.code);
     });
