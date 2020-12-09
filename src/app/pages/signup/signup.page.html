@@ -82,13 +82,28 @@
             <ion-icon name="lock-closed-outline" size="small" slot="start"></ion-icon>
             <ion-input class="ion-text-left" placeholder="Password" type="password" formControlName="password"></ion-input>
           </ion-item> 
-        </ion-list>    
+        </ion-list>  
+        <ion-list class="line-input" mode="md"> 
+          <ion-item mode="md">
+            <ion-icon name="call-outline" size="small" slot="start"></ion-icon>
+            <ion-input class="ion-text-left" placeholder="Phone" type="number" formControlName="phonenumber"></ion-input>
+          </ion-item> 
+        </ion-list>            
         <ion-list class="line-input" mode="md"> 
           <ion-item mode="md">
             <ion-icon name="logo-usd" size="small" slot="start"></ion-icon>
             <ion-input class="ion-text-left" placeholder="Price" type="number" formControlName="service_price"></ion-input>
           </ion-item> 
-        </ion-list>            
+        </ion-list>    
+        <ion-list class="line-input" mode="md">
+          <ion-item mode="md">
+            <ion-icon name="list-outline" size="small" slot="start"></ion-icon>
+            <ion-label>Category</ion-label>
+            <ion-select placeholder="Select One" formControlName="category" >
+              <ion-select-option *ngFor="let item of categorylist; let i = index" value="item.id">{{item.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>        
         <app-loading *ngIf="isLoading"></app-loading>       
         <ion-button  class="button-login" mode="ios" type="submit" fill="solid" [disabled]="!pro_validationsform.valid" size="default" shape="round" expand="block">
           SIGN UP

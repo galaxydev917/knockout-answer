@@ -23,10 +23,14 @@
             --placeholder-color: #cc0000;     /* placeholder text color */
             color: black; /* input text color to primary */
         }
+        ion-select {
+            --placeholder-color: #cc0000;     /* placeholder text color */
+            color: black; /* input text color to primary */
+        }        
         ion-label {
             color: #cc0000!important;
             font-weight: 300;
-            font-size: 14px!important;
+            font-size: 16px!important;
         }
 
         ion-icon{
@@ -34,6 +38,11 @@
             margin-right: 8px !important;
         }
     }
+}
+.category-label{
+    color: #cc0000!important;
+    font-weight: 300;
+    font-size: 14px!important;
 }
 .button-login{
     height: 50px;

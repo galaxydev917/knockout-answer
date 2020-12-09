@@ -68,7 +68,7 @@ export class ProProfilePage implements OnInit {
     //   this.loadStoredImages();
     // });
     this.storageService.getObject(userinfo).then((result: any) => {
-      console.log(result);
+
       this.fullName = result.first_name + " " + result.last_name;
       this.token = result.token;
       this.userProfilePicture = result.profile_picture;

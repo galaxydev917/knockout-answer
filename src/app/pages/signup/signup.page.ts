@@ -3,9 +3,8 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { UserService } from '../../services/user/user.service';
+import { CategoryService } from '../../services/category/category.service';
 import { LoadingController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-signup',
@@ -18,19 +17,19 @@ export class SignupPage implements OnInit {
   pro_validationsform: FormGroup;
   signupOption = 'customer';
   isLoading = false;
-
+  categorylist = [];
   constructor(
     public plt: Platform,
-    private userService: UserService,
-    private storage: Storage,
+    private categoryService: CategoryService,
+    private userService: UserService,    
     private formBuilder: FormBuilder,
     public loadingController: LoadingController,
-    private router: Router,
     public httpClient: HttpClient
     ) { }
 
   ngOnInit() {
     this.rowHeight = (this.plt.height()) - 100 + 'px';
+    this.getCategoryList();
 
     this.pro_validationsform = this.formBuilder.group({
       first_name: new FormControl('', Validators.compose([
@@ -44,6 +43,12 @@ export class SignupPage implements OnInit {
         Validators.minLength(6),
         Validators.required
       ])),
+      phonenumber: new FormControl('', Validators.compose([
+        Validators.required
+      ])),     
+      category: new FormControl('', Validators.compose([
+        Validators.required
+      ])),        
       service_price: new FormControl('', Validators.compose([
         Validators.minLength(6),
         Validators.required
@@ -83,6 +88,14 @@ export class SignupPage implements OnInit {
         this.isLoading = false;
         this.presentAlert(err.error.msg);
       });
+  }
+  getCategoryList(){
+    this.categoryService.getCategoryList().subscribe( categories => {
+      console.log(categories);
+      this.categorylist = categories;
+    },
+    (err) => {
+    });
   }
 
   tryRegisterPro(value) {
