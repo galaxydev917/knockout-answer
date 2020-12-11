@@ -20,6 +20,7 @@ export class ServiceReviewPage implements OnInit {
   token: any;
   card_number: any;
   isSubmitting = false;
+  isCompleted = false;
   current_userid : any;
   constructor(
     private router: Router,
@@ -57,6 +58,7 @@ export class ServiceReviewPage implements OnInit {
 
     this.userService.createRequest(this.service_request).subscribe((userprofileinfo) => {
       this.isSubmitting = false;
+      this.isCompleted = true;
       this.presentAlert("Request sent successfully.");
       this.socket.emit('send-service-request-notification', this.service_request);
     },
@@ -66,6 +68,9 @@ export class ServiceReviewPage implements OnInit {
       this.presentAlert(err.error.msg);
     });  
   }
+  completeRequest(){
+    alert("complete");
+  }  
   async presentAlert(value) {
     const loading = await this.loadingController.create({
       spinner: null,

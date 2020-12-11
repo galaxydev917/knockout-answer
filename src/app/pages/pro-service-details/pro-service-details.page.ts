@@ -24,6 +24,11 @@ export class ProServiceDetailsPage implements OnInit {
       }
     });
   }
+
+  giveAnswer(){
+
+  } 
+   
   back(){
     this.location.back();
   }

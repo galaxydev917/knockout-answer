@@ -53,15 +53,17 @@ export class ServiceRequestPage implements OnInit {
       primedate: this.primedate,
       primetime: this.primedate,
       question: ''
-   });
-
-   this.storageService.getObject(userinfo).then((result: any) => {
-     console.log(result);
-    this.token = result.token;
-    this.card_number = result.card_number;
-  }); 
+    });
   }
 
+  ionViewWillEnter(){
+    this.storageService.getObject(userinfo).then((result: any) => {
+      console.log(result);
+      this.token = result.token;
+      this.card_number = result.card_number;
+    }); 
+  }
+  
   next(value){
 
     this.service_request = this.pro_user;
@@ -78,7 +80,7 @@ export class ServiceRequestPage implements OnInit {
         service_request: this.service_request
       }
     }; 
-    
+
     if(this.card_number != undefined && this.card_number != '')
       this.router.navigate(['/service-review'], navigationExtras);  
     else

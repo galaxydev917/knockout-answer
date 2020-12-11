@@ -87,8 +87,6 @@ export class AppComponent {
       var receive_user_id = service_request['to_user_id'];
       this.storageService.getObject(userstorage_key).then((result: any) => {
         var current_user_id = result.user_id;
-        alert(current_user_id);
-        alert(receive_user_id);
         if(current_user_id == receive_user_id){
           this.openRequestNotification();
         }

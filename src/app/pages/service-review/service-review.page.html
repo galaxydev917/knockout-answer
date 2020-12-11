@@ -26,7 +26,7 @@
     <ion-card-header style="margin-top: 70px;">
       <ion-card-title> {{service_request.name}}</ion-card-title>
     </ion-card-header>
-    <ion-card-subtitle>Service Free Price: <span style="color: #cc0000;">${{service_request.service_price}}</span></ion-card-subtitle>
+    <ion-card-subtitle>Answer Price: <span style="color: #cc0000;">${{service_request.service_price}}</span></ion-card-subtitle>
     <ion-card-content style="width: 100%;">
       <ion-grid class="ion-no-padding">
 
@@ -39,14 +39,14 @@
               <ion-label style="font-size: 12px; color: grey;">Deposit for live video post 150% of service price.</ion-label>
               <ion-checkbox color="danger" disabled slot="start" style="margin-inline-end: 12px;" [checked]="service_request.isLivePost"></ion-checkbox>
             </ion-item> -->
-            <ion-item>
+            <!-- <ion-item>
               <ion-label style="font-size: 12px; color: grey;">Prime Date</ion-label>
               <ion-datetime  readonly displayFormat="MMM DD, YYYY" placeholder="Select Date" [value]="service_request.primedate" ></ion-datetime>
             </ion-item>
             <ion-item>
               <ion-label style="font-size: 12px; color: grey;" >Prime Time</ion-label>
               <ion-datetime display-format="h:mm A" readonly [value]="service_request.primedate" picker-format="h:mm A" ></ion-datetime>
-            </ion-item>   
+            </ion-item>    -->
             <ion-item lines="none">
               <ion-icon name="card-outline" slot="start" ></ion-icon> 
               <ion-label>Card: *{{card_number}}</ion-label>
@@ -58,9 +58,12 @@
             <app-loading *ngIf="isSubmitting"></app-loading>     
            </ion-col>
          </ion-row>
-      </ion-grid>   
-      <ion-button  class="updateprofile-button" mode="ios" fill="solid"  size="default" shape="round" expand="block" (click)="submitRequest();">
+      </ion-grid> 
+      <ion-button  *ngIf="!isCompleted" class="updateprofile-button" mode="ios" fill="solid"  size="default" shape="round" expand="block" (click)="submitRequest();">
         Submit Request
+      </ion-button>  
+      <ion-button  *ngIf="isCompleted" class="updateprofile-button" mode="ios" fill="solid"  size="default" shape="round" expand="block" (click)="completeRequest();">
+        Complete Request
       </ion-button>
     </ion-card-content>
   </ion-card>

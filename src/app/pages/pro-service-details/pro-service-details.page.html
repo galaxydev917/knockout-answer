@@ -50,7 +50,10 @@
          </ion-row>
          <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
            <ion-col class="ion-text-center">
-            <app-loading *ngIf="isSubmitting"></app-loading>     
+            <app-loading *ngIf="isSubmitting"></app-loading> 
+            <ion-button  class="giveanswer-button" mode="ios" fill="solid" size="default" shape="round" expand="block" (click)="giveAnswer()">
+              Give Answer
+            </ion-button>                
            </ion-col>
          </ion-row>
       </ion-grid>   
