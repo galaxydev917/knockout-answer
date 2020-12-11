@@ -27,7 +27,7 @@
     <ion-card-header style="margin-top: 70px;">
       <ion-card-title>{{pro_user.name}}</ion-card-title>
     </ion-card-header>
-    <ion-card-subtitle>Service Free Price: <span style="color: #cc0000;">${{pro_user.service_price}}</span></ion-card-subtitle>
+    <ion-card-subtitle>Service Price: <span style="font-size: 18px; font-weight: 600;"> ${{pro_user.service_price}}</span></ion-card-subtitle>
     <ion-card-content style="width: 100%;">
       <form class="form" [formGroup]="validationsform" (ngSubmit)="next(validationsform.value)">
       <ion-grid class="ion-no-padding">
@@ -35,9 +35,9 @@
          <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
           <ion-col size="12">
             <ion-item>
-              <ion-textarea placeholder="Enter question here..." formControlName="question"></ion-textarea>
+              <ion-textarea placeholder="Enter question here..." rows="4" formControlName="question"></ion-textarea>
             </ion-item> 
-            <ion-item lines="none">
+            <!-- <ion-item lines="none">
               <ion-label style="font-size: 12px; color: grey;">Deposit for live video post 150% of service price.</ion-label>
               <ion-checkbox color="danger" slot="start" style="margin-inline-end: 12px;" [checked]="isLivePost" (ionChange)="onCheckLivePostChange($event)"></ion-checkbox>
             </ion-item>
@@ -48,8 +48,8 @@
             <ion-item>
               <ion-label style="font-size: 12px; color: grey;">Prime Time</ion-label>
               <ion-datetime display-format="h:mm A" picker-format="h:mm A" formControlName="primetime"></ion-datetime>
-            </ion-item>   
-            <ion-item lines="none" *ngIf="card_number != undefined">
+            </ion-item>    -->
+            <ion-item lines="none" *ngIf="card_number != undefined && card_number != ''">
               <ion-icon name="card-outline" slot="start" ></ion-icon>
               <ion-label>Card number: *{{card_number}}</ion-label>
             </ion-item>         

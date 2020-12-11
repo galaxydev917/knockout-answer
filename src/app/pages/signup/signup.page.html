@@ -100,7 +100,7 @@
             <ion-icon name="list-outline" size="small" slot="start"></ion-icon>
             <ion-label>Category</ion-label>
             <ion-select placeholder="Select One" formControlName="category" >
-              <ion-select-option *ngFor="let item of categorylist; let i = index" value="item.id">{{item.name}}</ion-select-option>
+              <ion-select-option *ngFor="let item of categorylist; let i = index" value={{item.id}}>{{item.name}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>        

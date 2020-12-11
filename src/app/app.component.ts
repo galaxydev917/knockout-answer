@@ -11,6 +11,7 @@ import { Socket } from 'ngx-socket-io';
 import { StorageService } from './services/storage.service';
 
 const userstorage_key = config.USERINFO_STORAGE_KEY;
+const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
 
 @Component({
   selector: 'app-root',
@@ -62,6 +63,7 @@ export class AppComponent {
     
   ) {
     this.initializeApp();
+    
     this.socket.connect();
     
     this.sendServiceRequestNotification();
@@ -109,6 +111,7 @@ export class AppComponent {
 
   logout(){
     this.storage.remove(userstorage_key);
+    this.storage.remove(profile_photo);
     this.router.navigate(['/signin']);
   }
 }

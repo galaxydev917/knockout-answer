@@ -43,11 +43,14 @@ export class SigninPage implements OnInit {
         Validators.required
       ])),
     });
-    this.validationsform.setValue({
-      email: 'celebrity@gmail.com',
-      password: '*Celebrity2020#'
-   });
-
+  //   this.validationsform.setValue({
+  //     email: 'testercelebrity@gmail.com',
+  //     password: 'Celebrity2020#'
+  //  });
+   this.validationsform.setValue({
+    email: 'testeruser@gmail.com',
+    password: 'User2020#'
+ });
   }
   
   async trySignin(value){
@@ -55,7 +58,7 @@ export class SigninPage implements OnInit {
     this.userService.doLogin(value).subscribe((userinfo) => {
       this.isLoading = false;
       this.storageService.setObject(userstorage_key,userinfo);
-
+      
       if(userinfo.role == "athlete")
         this.router.navigate(['/pro-tablinks/pro-profile']);
       if(userinfo.role == "customer")

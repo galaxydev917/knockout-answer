@@ -10,8 +10,17 @@
   </ion-toolbar>
 
 </ion-header>
-
-<div style="padding: 10px 10px 0px 10px">
+<div>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="3" *ngFor="let item of categorylist; let i = index">
+        <div *ngIf="selectedCategory != item.id" class="category-item" (click)="selectCategory(item)">{{item.name}}</div>
+        <div *ngIf="selectedCategory == item.id" class="category-item category-item-active" (click)="selectCategory(item)">{{item.name}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+<div style="padding: 0px 10px 0px 10px">
   <ion-list class="line-input">
     <ion-item mode="md" >
       <ion-icon name="search-outline" size="small" slot="start"></ion-icon>
@@ -20,7 +29,6 @@
   </ion-list>
 </div>
 <ion-content>
-
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col class="ion-text-center">
@@ -34,14 +42,12 @@
             <div class="cover-img-mask"></div>
           </div> 
           <ion-card-header class="card-header">
-              <ion-label>{{item.name}}</ion-label>
-              <ion-button class="price-button" fill="outline">$ {{item.service_price}}</ion-button>
-            
+            <ion-label>{{item.name}}</ion-label>
+            <ion-button class="price-button" fill="outline">$ {{item.service_price}}</ion-button>
           </ion-card-header>
         </ion-card>
       </ion-col>
     </ion-row>
-
   </ion-grid>
 
 </ion-content>

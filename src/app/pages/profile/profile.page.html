@@ -6,7 +6,7 @@
           <ion-grid>
             <ion-row class="ion-justify-content-center ion-align-items-center" style="margin-top: 20px;">
               <ion-col size="2" class="ion-text-center">
-                <ion-icon name="arrow-back-outline" style="color: white; font-size: 28px;" (click)="back()"></ion-icon>
+                <!-- <ion-icon name="arrow-back-outline" style="color: white; font-size: 28px;" (click)="back()"></ion-icon> -->
               </ion-col>
               <ion-col size="8" class="ion-text-center">
                 <ion-label style="color: white; font-size: 18px;">Profile Information</ion-label>
@@ -37,7 +37,7 @@
       </div>      
     </ion-item>
   </ion-list>
-  <ion-card class="profile-card">
+  <ion-card class="profile-card" *ngIf="loginUserInfo != null">
     <ion-card-header style="margin-top: 70px;">
       <ion-card-title>{{fullName}}</ion-card-title>
     </ion-card-header>

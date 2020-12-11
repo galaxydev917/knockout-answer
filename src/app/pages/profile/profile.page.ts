@@ -29,6 +29,7 @@ export class ProfilePage implements OnInit {
   logined_userInfo : any;
   profile_photoInfo : any;
   token : any;
+  loginUserInfo : any;
   constructor(
     public plt: Platform,
     private formBuilder: FormBuilder,
@@ -62,7 +63,13 @@ export class ProfilePage implements OnInit {
     //   this.loadStoredImages();
     // });
     this.storageService.getObject(userinfo).then((result: any) => {
-      console.log(result);
+
+      this.validationsform.setValue({
+        contact_email: result.user_email,
+        phone: result.phone,
+     });
+
+      this.loginUserInfo = result;
       this.fullName = result.first_name + " " + result.last_name;
       this.token = result.token;
       this.userProfilePicture = result.profile_picture;
@@ -84,7 +91,7 @@ export class ProfilePage implements OnInit {
     },
     (err) => {
       this.isUpdating = false;
-      this.presentAlert(err.error.msg);
+      this.presentAlert(err.error.code);
     });
   }  
  
@@ -128,7 +135,7 @@ export class ProfilePage implements OnInit {
  
 takePicture(sourceType: PictureSourceType) {
     var options: CameraOptions = {
-        quality: 50,
+        quality: 100,
         sourceType: sourceType,
         saveToPhotoAlbum: false,
         correctOrientation: true
@@ -225,6 +232,7 @@ takePicture(sourceType: PictureSourceType) {
           formData.append('file', imgBlob, file.name);
           formData.append('token', this.token);
           console.log("file name==================", file.name);
+          console.log("file name==================", this.token);
           this.uploadImageData(formData);
       };
       reader.readAsArrayBuffer(file);
@@ -238,11 +246,15 @@ takePicture(sourceType: PictureSourceType) {
 
     this.userService.uploadProfilePhoto(formData).subscribe((userprofileinfo) => {
       loading.dismiss();
+      console.log("userprofileinfo", userprofileinfo);
       this.presentAlert("Uploaded Successfully.");
     },
     (err) => {
       loading.dismiss();
-      this.presentAlert(err.error.code);
+      // alert("aaaaaa");
+      console.log("profile photo uploading error", err);
+
+      // this.presentAlert(JSON.stringify(err));
     });
   }  
   async presentToast(text) {

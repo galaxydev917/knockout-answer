@@ -84,3 +84,15 @@ ion-header{
     --background: white;
     --border-color: #cc0000;
 }
+.category-item{
+    height: 40px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;     
+    border-radius: 10px;
+    background-color: #aaaaaa;
+    font-size: 12px;
+}
+.category-item-active{
+    background-color: #cc0000;
+}

@@ -78,11 +78,11 @@ export class ServiceRequestPage implements OnInit {
         service_request: this.service_request
       }
     }; 
-    console.log(this.card_number);   
-    if(this.card_number == undefined)
-      this.router.navigate(['/payment-method'], navigationExtras);
-    if(this.card_number != undefined)
-      this.router.navigate(['/service-review'], navigationExtras);      
+    
+    if(this.card_number != undefined && this.card_number != '')
+      this.router.navigate(['/service-review'], navigationExtras);  
+    else
+      this.router.navigate(['/payment-method'], navigationExtras);      
   }  
   onCheckLivePostChange(e){
     this.isLivePost = e.detail.checked;

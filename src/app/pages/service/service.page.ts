@@ -5,6 +5,7 @@ import { config } from '../../config/config';
 import { LoadingController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { CategoryService } from '../../services/category/category.service';
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -17,13 +18,15 @@ export class ServicePage implements OnInit {
   pro_userlist = [];
   searchName = '';
   isLoading = false;
-
+  categorylist = [];
+  selectedCategory : any;
   token: any;
   constructor(
     public userService: UserService,
     private router: Router,
     public loadingController: LoadingController,
     public storageService: StorageService,
+    private categoryService: CategoryService,
     public menuCtrl: MenuController,
   ) { }
 
@@ -31,28 +34,40 @@ export class ServicePage implements OnInit {
     this.storageService.getObject(userinfo).then((result: any) => {
       console.log(result);
       this.token = result.token;
+      this.getCategoryList();
       this.getProUsers();
     });  
 
   }
+  ionViewWillEnter(){
+    this.selectedCategory = 0;
+  }
 
+  getCategoryList(){
+    this.categoryService.getCategoryList().subscribe( categories => {
+      console.log(categories);
+      this.categorylist = categories;
+    },
+    (err) => {
+    });
+  }
   getProUsers(){
+    
     let param = {
       role: 'athlete',
       token: this.token,
-      search_val: this.searchName
-
+      search_val: this.searchName,
+      category: this.selectedCategory
     };
     this.isLoading = true;
     this.userService.getUsers(param).subscribe((pro_userlist) => {
-      console.log(pro_userlist);
       this.pro_userlist = pro_userlist;
       this.isLoading = false;
     },
     (err) => {
-      console.log(err);
        this.isLoading = false;
-       this.presentAlert(err.error.code);
+       this.pro_userlist = [];
+       this.presentAlert(err.error.msg);
     });
   }
   searchInputChange(e){
@@ -73,6 +88,10 @@ export class ServicePage implements OnInit {
       mode: 'ios'
     });
     await loading.present();
+  }
+  selectCategory(category){
+    this.selectedCategory = category.id;
+    this.getProUsers();
   }
   selectService(value){
     let navigationExtras: NavigationExtras = {

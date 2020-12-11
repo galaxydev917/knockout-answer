@@ -50,7 +50,6 @@ export class SignupPage implements OnInit {
         Validators.required
       ])),        
       service_price: new FormControl('', Validators.compose([
-        Validators.minLength(6),
         Validators.required
       ]))
     });
