@@ -55,18 +55,16 @@ export class ServiceReviewPage implements OnInit {
     this.service_request.from_user_id = this.current_userid;
 
 
-    this.socket.emit('send-service-request-notification', this.service_request);
-    // this.userService.createRequest(this.service_request).subscribe((userprofileinfo) => {
-    //   this.isSubmitting = false;
-    //   this.presentAlert("Request sent successfully.");
-
-    //   this.socket.emit('send-notification', this.service_request);
-    // },
-    // (err) => {
-    //   console.log(err);
-    //   this.isSubmitting = false;
-    //   this.presentAlert(err.error.msg);
-    // });  
+    this.userService.createRequest(this.service_request).subscribe((userprofileinfo) => {
+      this.isSubmitting = false;
+      this.presentAlert("Request sent successfully.");
+      this.socket.emit('send-service-request-notification', this.service_request);
+    },
+    (err) => {
+      console.log(err);
+      this.isSubmitting = false;
+      this.presentAlert(err.error.msg);
+    });  
   }
   async presentAlert(value) {
     const loading = await this.loadingController.create({
