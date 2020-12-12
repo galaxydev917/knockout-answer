@@ -45,13 +45,17 @@
             <ion-item lines="none">
               <ion-label><span style="color: #cc0000; font-weight: bold;">Answer:</span> </ion-label>
             </ion-item> 
-            <div class="answer-video" style="background-image: url(../../../assets/imgs/nofound.png);"></div>
+            <div  *ngIf="!selectedVideo" class="answer-video" style="background-image: url(../../../assets/imgs/nofound.png);"></div>
+
+            <div *ngIf="selectedVideo">
+              <video controls [src]="selectedVideo" class="answer-video-section"></video>
+            </div>
            </ion-col>
          </ion-row>
          <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
            <ion-col class="ion-text-center">
             <app-loading *ngIf="isSubmitting"></app-loading> 
-            <ion-button  class="giveanswer-button" mode="ios" fill="solid" size="default" shape="round" expand="block" (click)="giveAnswer()">
+            <ion-button  class="giveanswer-button" mode="ios" fill="solid" size="default" shape="round" expand="block" (click)="selectVideo()">
               Give Answer
             </ion-button>                
            </ion-col>

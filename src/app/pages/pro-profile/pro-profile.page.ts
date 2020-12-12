@@ -4,7 +4,6 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/Camera/n
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File, FileEntry } from '@ionic-native/File/ngx';
-import { Storage } from '@ionic/storage';
 import { UserService } from '../../services/user/user.service';
 import { config } from '../../config/config';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';

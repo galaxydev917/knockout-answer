@@ -22,6 +22,8 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { FileTransfer} from '@ionic-native/file-transfer/ngx';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
 
 const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', options: {} };
 @NgModule({
@@ -44,6 +46,8 @@ const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', op
     SplashScreen,
     Camera,
     File,
+    FileTransfer,
+    FileChooser,
     WebView,
     FilePath,
     Stripe,
