@@ -140,7 +140,7 @@ export class ProServiceDetailsPage implements OnInit {
         this.uploadVideoThumnail(data.response);
       })
       .catch((err)=>{
-        console.log("errororororo", err);
+        console.log("video upload error", err);
         this.isUploading = false;
 
         this.presentAlert("Error uploading video.");
@@ -165,15 +165,12 @@ export class ProServiceDetailsPage implements OnInit {
 
     this.videoThumbFileUpload.upload(this.videoThumb_nativepath, url, options)
       .then((data)=>{
-        console.log("result thumbnail uploaded data", data);
-        console.log("attachment_thumb_id", data['attachment_thumb_id']);
-
         this.isUploading = false;
         this.uploadPercent = 0;
         this.presentAlert("Posted answer successfully.");
       })
       .catch((err)=>{
-        console.log("errororororo", err);
+        console.log("thumbnail upload", err);
         this.isUploading = false;
         this.uploadPercent = 0;
         this.presentAlert("Error uploading video.");
