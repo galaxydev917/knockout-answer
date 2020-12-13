@@ -150,7 +150,6 @@ export class ProServiceDetailsPage implements OnInit {
 
   uploadVideoThumnail(request_answer_id){
     var answer_id = request_answer_id; 
-    console.log("param===", answer_id);
     var url = videoThumb_baseUrl;
     var filename = this.videoThumb_nativepath.substr(this.videoThumb_nativepath.lastIndexOf('/') + 1);
 
