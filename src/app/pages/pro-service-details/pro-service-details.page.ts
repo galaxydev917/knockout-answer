@@ -103,7 +103,6 @@ export class ProServiceDetailsPage implements OnInit {
                 var option:CreateThumbnailOptions = {fileUri: this.selectedVideo, width:200, height:150, atTime:1, outputFileName: 'video_thumbnail', quality:50 };
                 this.videoEditor.createThumbnail(option).then(result=>{
                     //result-path of thumbnail
-                    console.log("thumnail image======", result);
                     this.isLoadingVideo = false;
                     this.isShowAnswerBtn = false;
                     this.videoThumb_nativepath = result;
@@ -138,9 +137,7 @@ export class ProServiceDetailsPage implements OnInit {
 
     this.videoFileUpload.upload(this.selectedVideo, url, options)
       .then((data)=>{
-        console.log("result video uploaded", data.response);
         this.uploadVideoThumnail(data.response);
-        //this.presentAlert("Success: Video upload was successful.");
       })
       .catch((err)=>{
         console.log("errororororo", err);
