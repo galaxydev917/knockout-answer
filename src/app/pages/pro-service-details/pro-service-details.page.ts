@@ -16,7 +16,7 @@ const baseUrl = config.api_baseUrl + '/give_answer_to_request';
 const videoThumb_baseUrl = config.api_baseUrl + '/upload_request_thumb';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const ALLOWED_MIME_TYPE = "video/mp4";
+//const ALLOWED_MIME_TYPE = "video/mp4";
 const userinfo = config.USERINFO_STORAGE_KEY;
 
 @Component({
@@ -26,7 +26,7 @@ const userinfo = config.USERINFO_STORAGE_KEY;
 })
 export class ProServiceDetailsPage implements OnInit {
   service_request : any;
-  selectedVideo: string; //= "https://res.cloudinary.com/demo/video/upload/w_640,h_640,c_pad/dog.mp4";
+  selectedVideo: string; 
   uploadedVideo: string;
   seletedVideoThumb: string;
   videoThumb_nativepath: string;
