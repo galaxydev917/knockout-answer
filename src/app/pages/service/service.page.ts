@@ -31,16 +31,17 @@ export class ServicePage implements OnInit {
   ) { }
 
   ngOnInit() {
+ 
+
+  }
+  ionViewWillEnter(){
+    this.selectedCategory = 0;
     this.storageService.getObject(userinfo).then((result: any) => {
       console.log(result);
       this.token = result.token;
       this.getCategoryList();
       this.getProUsers();
-    });  
-
-  }
-  ionViewWillEnter(){
-    this.selectedCategory = 0;
+    }); 
   }
 
   getCategoryList(){

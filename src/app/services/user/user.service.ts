@@ -62,54 +62,6 @@ export class UserService {
   getServiceRequests(param : any){
     return this.http.post<any>(baseUrl + '/get_request', param);
   }
-  getVideoList(param : any){
-    return this.http.post<any>(baseUrl + '/get_answer_videos', param);
-  }
+
 }
 
-
-
-
-
-  // private getQuery<T>( query: string ) {
-  //   query = baseUrl + query;
-  //   return this.http.get<T>( query );
-  // }
-  // private postQuery<T>( query: string, param: any ) {
-  //   query = baseUrl + query;
-  //   return this.http.post<T>( query, param );
-  // }
-  // private postProUserQuery<T>( query: string, param: any ) {
-  //   query = baseUrl + query;
-  //   return this.http.post<UserObject>( query, param );
-  // }
-  // private postProfileQuery<T>( query: string, param: any ) {
-  //   query = baseUrl + query;
-  //   return this.http.post<ProfileObject>( query, param );
-  // }
-  // private authQuery<T>( query: string, param: any ) {
-  //   return this.http.post<UserObject>( query, param );
-  // }
-
-  // createUser(value : any) {
-  //   return this.postQuery<any[]>(`/register`, value);
-  // }
-
- 
-
-  // resetPassword( value: any){
-  //   return this.postQuery<any[]>('/RetrivePassword', value);
-  // }  
-  
-  // updateProfile( value: any){
-
-  //   return this.postProfileQuery<ProfileObject[]>('/UpdateProfile', value);
-  // }  
-
-  // uploadProfilePhoto(formData : FormData){
-  //   return this.postQuery<any[]>('/Update_profile_pic', formData);    
-  // }
-  // getProUsers(param : any){
-  //   return this.postProUserQuery<UserObject[]>('/get_users', param);
-  // }
-// }

@@ -27,12 +27,14 @@ export class ProServicesPage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+  }
+  ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
       this.token = result.token;
       this.getServiceRequests();
    });  
-  }
-
+  }  
   getServiceRequests(){
     let param = {
       token: this.token,

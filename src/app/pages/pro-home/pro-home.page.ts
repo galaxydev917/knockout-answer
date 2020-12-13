@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import { UserService } from '../../services/user/user.service';
+import { AnswerService } from '../../services/answer/answer.service';
 import { config } from '../../config/config';
 import { MenuController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -19,7 +19,7 @@ export class ProHomePage implements OnInit {
   isLoading = false;
 
   constructor(
-    public userService: UserService,
+    public answerService: AnswerService,
     public storageService: StorageService,
     public menuCtrl: MenuController,
     public streamingMedia: StreamingMedia, 
@@ -27,6 +27,10 @@ export class ProHomePage implements OnInit {
   ) { }
 
   ngOnInit() {
+
+  }
+  
+  ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
       console.log(result);
       this.token = result.token;
@@ -39,7 +43,7 @@ export class ProHomePage implements OnInit {
       token: this.token
     };
     this.isLoading = true;
-    this.userService.getVideoList(param).subscribe( videos => {
+    this.answerService.getVideoList(param).subscribe( videos => {
       console.log(videos);
       this.videolist = videos;
       this.isLoading = false;

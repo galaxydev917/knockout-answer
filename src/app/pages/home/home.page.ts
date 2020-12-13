@@ -68,6 +68,7 @@ export class HomePage implements OnInit {
   }
 
   selectService(selectedService){
+    selectedService.token = this.token;
     let navigationExtras: NavigationExtras = {
       state: {
         service_request: selectedService

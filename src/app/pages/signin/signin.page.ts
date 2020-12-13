@@ -60,9 +60,9 @@ export class SigninPage implements OnInit {
       this.storageService.setObject(userstorage_key,userinfo);
       
       if(userinfo.role == "athlete")
-        this.router.navigate(['/pro-tablinks/pro-profile']);
+        this.router.navigate(['/pro-tablinks/pro-home']);
       if(userinfo.role == "customer")
-        this.router.navigate(['/tablinks/profile']);        
+        this.router.navigate(['/tablinks/home']);        
     },
     (err) => {
       console.log(err);
