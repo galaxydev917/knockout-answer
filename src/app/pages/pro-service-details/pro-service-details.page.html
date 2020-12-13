@@ -44,18 +44,42 @@
            <ion-col>
             <ion-item lines="none">
               <ion-label><span style="color: #cc0000; font-weight: bold;">Answer:</span> </ion-label>
-            </ion-item> 
-            <div  *ngIf="!selectedVideo" class="answer-video" style="background-image: url(../../../assets/imgs/nofound.png);"></div>
+            </ion-item>
+            <div class="video-section">
+              <div *ngIf="!selectedVideo" class="answer-video" style="background-image: url(../../../assets/imgs/nofound.png);">
+                <ion-spinner *ngIf="isLoadingVideo" name="bubbles" style="color: #cc0000;"></ion-spinner>
+              </div>
+            </div> 
+            <div *ngIf="selectedVideo" class="video-section">
 
-            <div *ngIf="selectedVideo">
-              <video controls [src]="selectedVideo" class="answer-video-section"></video>
-            </div>
+              <div class="answer-video" [style.background-image]="'url('+seletedVideoThumb+')'">
+                <ion-icon name="play" style="font-size: 36px; color: white;" (click)="playVideo()"></ion-icon>
+              </div>
+              
+              <div class="button-options" *ngIf="!uploadedVideo && !isUploading">
+                <button ion-button clear (click)="cancelSelection()">
+                  <ion-icon name="close-circle" color="danger"></ion-icon>
+                </button>
+                <button ion-button clear (click)="uploadVideo()">
+                  <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
+                </button>
+              </div>
+              <div *ngIf="isUploading">
+                <div class="uploading">
+                  <p><ion-spinner name="bubbles" style="color: #cc0000;"></ion-spinner></p>
+                </div>
+                <!-- <div class="button-options">
+                  <button ion-button clear (click)="cancelUpload()">
+                    <ion-icon name="close-circle" color="danger"></ion-icon>
+                  </button>
+                </div> -->
+              </div>
+            </div>  
            </ion-col>
          </ion-row>
          <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
            <ion-col class="ion-text-center">
-            <app-loading *ngIf="isSubmitting"></app-loading> 
-            <ion-button  class="giveanswer-button" mode="ios" fill="solid" size="default" shape="round" expand="block" (click)="selectVideo()">
+            <ion-button *ngIf="isShowAnswerBtn" class="giveanswer-button" mode="ios" fill="solid" size="default" shape="round" expand="block" (click)="selectVideo()">
               Give Answer
             </ion-button>                
            </ion-col>

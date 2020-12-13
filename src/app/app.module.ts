@@ -24,6 +24,8 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FileTransfer} from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { VideoEditor } from '@ionic-native/video-editor/ngx';
+import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 
 const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', options: {} };
 @NgModule({
@@ -51,6 +53,8 @@ const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', op
     WebView,
     FilePath,
     Stripe,
+    VideoEditor,
+    StreamingMedia,
     LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
