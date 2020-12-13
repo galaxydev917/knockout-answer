@@ -60,7 +60,8 @@ ion-item {
 .price-div{
     position: absolute;
     padding: 10px;
-    left: 20px;
+    //left: 20px;
+    right: 20px;
     bottom: 20px;
     //background-color: #cc0000;
     color: #cc0000;
@@ -119,4 +120,9 @@ ion-item {
 
 .uploading p {
     text-align: center;
+}
+.question-answer-text{
+    color: #cc0000; 
+    font-weight: bold; 
+    font-size: large;
 }

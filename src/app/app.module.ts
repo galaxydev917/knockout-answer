@@ -26,6 +26,7 @@ import { FileTransfer} from '@ionic-native/file-transfer/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { VideoEditor } from '@ionic-native/video-editor/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', options: {} };
 @NgModule({
@@ -56,6 +57,7 @@ const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', op
     VideoEditor,
     StreamingMedia,
     LocalNotifications,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

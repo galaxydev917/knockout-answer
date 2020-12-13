@@ -62,6 +62,9 @@ export class UserService {
   getServiceRequests(param : any){
     return this.http.post<any>(baseUrl + '/get_request', param);
   }
+  getVideoList(param : any){
+    return this.http.post<any>(baseUrl + '/get_answer_videos', param);
+  }
 }
 
 

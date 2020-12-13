@@ -17,10 +17,12 @@
               </ion-col>                          
             </ion-row>
           </ion-grid>          
-          <div class="price-div">${{service_request.service_price}}</div>
-          <div class="message-btn-div">
+          <!-- <div class="price-div">${{service_request.service_price}}</div> -->
+          <!-- <div class="message-btn-div">
             <ion-button class="msg-btn">Message</ion-button>
-          </div>
+          </div> -->
+          <div class="price-div">${{service_request.service_price}}</div>
+
       </div>
   
     </ion-item>
@@ -36,17 +38,17 @@
          <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
           <ion-col size="12">
             <ion-item>
-              <ion-label><span style="color: #cc0000; font-weight: bold;">Question:</span> {{service_request.request}}</ion-label>
+              <p><span class="question-answer-text">Question:</span><br/>{{service_request.request}}</p>
             </ion-item> 
           </ion-col>
          </ion-row>  
          <ion-row>
            <ion-col>
             <ion-item lines="none">
-              <ion-label><span style="color: #cc0000; font-weight: bold;">Answer:</span> </ion-label>
+              <ion-label><span class="question-answer-text">Answer:</span> </ion-label>
             </ion-item>
             <div class="video-section">
-              <div *ngIf="!selectedVideo" class="answer-video" style="background-image: url(../../../assets/imgs/nofound.png);">
+              <div *ngIf="!selectedVideo" class="answer-video" style="background-image: url(../../../assets/imgs/nofound.jpg);">
                 <ion-spinner *ngIf="isLoadingVideo" name="bubbles" style="color: #cc0000;"></ion-spinner>
               </div>
             </div> 
