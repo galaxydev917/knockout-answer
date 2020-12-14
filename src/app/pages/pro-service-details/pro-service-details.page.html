@@ -28,17 +28,13 @@
     </ion-item>
   </ion-list>
   <ion-card class="profile-card">
-    <!-- <ion-card-header style="margin-top: 70px;">
-      <ion-card-title> {{service_request.name}}</ion-card-title>
-    </ion-card-header> -->
-    <!-- <ion-card-subtitle>Service Free Price: <span style="color: #cc0000;">${{service_request.service_price}}</span></ion-card-subtitle> -->
     <ion-card-content style="width: 100%;">
-      <ion-grid class="ion-no-padding">
+      <ion-grid class="ion-no-padding" *ngIf="!isCompleted">
 
          <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
           <ion-col size="12">
             <ion-item>
-              <p><span class="question-answer-text">Question:</span><br/>{{service_request.request}}</p>
+              <ion-label><span class="question-answer-text">Question:</span><br/>{{service_request.request}}</ion-label>
             </ion-item> 
           </ion-col>
          </ion-row>  
@@ -70,11 +66,6 @@
                 <div class="uploading">
                   <p><ion-spinner name="bubbles" style="color: #cc0000;"></ion-spinner></p>
                 </div>
-                <!-- <div class="button-options">
-                  <button ion-button clear (click)="cancelUpload()">
-                    <ion-icon name="close-circle" color="danger"></ion-icon>
-                  </button>
-                </div> -->
               </div>
             </div>  
            </ion-col>
@@ -88,8 +79,34 @@
          </ion-row>
       </ion-grid>   
 
-    </ion-card-content>
-  </ion-card>
+      <ion-grid class="ion-no-padding" *ngIf="isCompleted">
+        <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+          <ion-col size="12">
+            <ion-item>
+              <ion-label><span style="color: #cc0000; font-weight: bold;">Question:</span> {{service_request.request}}</ion-label>
+            </ion-item> 
+          </ion-col>
+         </ion-row>  
+
+         <ion-row>
+           <ion-col class="ion-text-center">
+            <ion-item lines="none">
+              <ion-label><span style="color: #cc0000; font-weight: bold;">Answer:</span> </ion-label>
+            </ion-item> 
+              <div *ngIf="!isAnswerExist" class="answer-video" style="background-image: url(../../../assets/imgs/nofound.jpg);">
+                <app-loading *ngIf="isLoading"></app-loading>     
+              </div>
+
+              <div *ngFor="let item of answer_videolist; let i = index" >
+                <div class="answer-video answer-loaded-video" [style.background-image]="'url('+item.attachment_thumb_id+')'">
+                  <ion-icon name="play" style="font-size: 36px; color: white;" (click)="playVideo(item)"></ion-icon>
+                </div>
+              </div>
+           </ion-col>
+         </ion-row>
+        </ion-grid>  
+      </ion-card-content>
+    </ion-card>
  
   <!-- <ion-avatar class="profile-avatar-div" (click)="selectImage()">
     <ion-img *ngIf="service_request.profile_picture != ''" [src]="service_request.profile_picture"></ion-img>

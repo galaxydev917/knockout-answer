@@ -11,6 +11,7 @@ import { config } from '../../config/config';
 import { VideoEditor,CreateThumbnailOptions } from '@ionic-native/video-editor/ngx';
 import { StorageService } from '../../services/storage.service';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+import { AnswerService } from '../../services/answer/answer.service';
 
 const baseUrl = config.api_baseUrl + '/give_answer_to_request';
 const videoThumb_baseUrl = config.api_baseUrl + '/upload_request_thumb';
@@ -38,6 +39,11 @@ export class ProServiceDetailsPage implements OnInit {
   videoThumbFileUpload: FileTransferObject;
   loader;
   token: any;
+  isLoading = false;
+  isCompleted = false;
+  answer_videolist = [];
+  isAnswerExist = false;
+
   constructor(
     public plt: Platform,
     private router: Router,
@@ -52,17 +58,46 @@ export class ProServiceDetailsPage implements OnInit {
     public storageService: StorageService,
     private transfer: FileTransfer,
     public loadingController: LoadingController,
+    public answerService: AnswerService,
   ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.service_request = this.router.getCurrentNavigation().extras.state.service_request;
+        console.log(this.service_request);
+        this.storageService.getObject(userinfo).then((result: any) => {
+          this.token = result.token;
+          console.log(this.service_request);
+          if(this.service_request.status == 'completed'){
+            this.isShowAnswerBtn = false;
+            this.isCompleted = true;
+            this.getAnswerByRequestId(this.service_request);
+          }else
+            this.isCompleted = false;
+       });  
       }
     });
-    this.storageService.getObject(userinfo).then((result: any) => {
-      this.token = result.token;
-   });  
+
+  }
+  getAnswerByRequestId(request){
+    console.log(request);
+    let param = {
+      request_id: request.id,
+      token: this.token
+    };
+    this.isLoading = true;
+    this.answerService.getAnswerByRequestId(param).subscribe( videos => {
+      this.answer_videolist = videos;
+
+      if(this.answer_videolist.length > 0)
+        this.isAnswerExist = true;
+      else
+        this.isAnswerExist = false;
+      this.isLoading = false;
+    },
+    (err) => {
+    });
   }
   cancelSelection() {
     this.selectedVideo = null;

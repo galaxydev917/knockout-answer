@@ -7,6 +7,7 @@ import {  LoadingController } from '@ionic/angular';
 import { Location } from "@angular/common";
 import { MenuController } from '@ionic/angular';
 import { Socket } from 'ngx-socket-io';
+import { RequestService } from '../../services/request/request.service';
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -30,6 +31,7 @@ export class ServiceReviewPage implements OnInit {
     public storageService: StorageService,
     private location: Location,
     public menuCtrl: MenuController,
+    public requestService: RequestService,
     private socket: Socket
 
   ) { }
@@ -68,8 +70,28 @@ export class ServiceReviewPage implements OnInit {
       this.presentAlert(err.error.msg);
     });  
   }
-  completeRequest(){
-    alert("complete");
+  async completeRequest(){
+    const loading = await this.loadingController.create({
+      message: 'Completing...',
+    });
+    await loading.present();
+    this.service_request.token = this.token;
+    this.requestService.completeRequest(this.service_request).subscribe((result) => {
+      console.log(result);
+      loading.dismiss();
+      let navigationExtras: NavigationExtras = {
+        state: {
+          service_request: this.service_request
+        }
+      };    
+      this.router.navigate(['/rating'], navigationExtras);
+      // this.pro_userlist = pro_userlist;
+      // this.isLoading = false;
+    },
+    (err) => {
+      loading.dismiss();
+       this.presentAlert(err.error.msg);
+    });  
   }  
   async presentAlert(value) {
     const loading = await this.loadingController.create({

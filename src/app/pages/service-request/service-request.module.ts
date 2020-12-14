@@ -8,6 +8,7 @@ import { ServiceRequestPageRoutingModule } from './service-request-routing.modul
 
 import { ServiceRequestPage } from './service-request.page';
 import { ComponentsModule } from '../../components/components.module';
+import { StarRatingModule } from 'ionic5-star-rating';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ComponentsModule } from '../../components/components.module';
     ReactiveFormsModule,
     ComponentsModule,
     IonicModule,
+    StarRatingModule,
     ServiceRequestPageRoutingModule
   ],
   declarations: [ServiceRequestPage]

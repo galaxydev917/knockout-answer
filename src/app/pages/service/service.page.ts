@@ -15,12 +15,14 @@ const userinfo = config.USERINFO_STORAGE_KEY;
   styleUrls: ['./service.page.scss'],
 })
 export class ServicePage implements OnInit {
+  
   pro_userlist = [];
   searchName = '';
   isLoading = false;
   categorylist = [];
   selectedCategory : any;
   token: any;
+  
   constructor(
     public userService: UserService,
     private router: Router,
@@ -63,6 +65,7 @@ export class ServicePage implements OnInit {
     this.isLoading = true;
     this.userService.getUsers(param).subscribe((pro_userlist) => {
       this.pro_userlist = pro_userlist;
+      console.log(this.pro_userlist);
       this.isLoading = false;
     },
     (err) => {

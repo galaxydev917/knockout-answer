@@ -5,6 +5,7 @@ import { Location } from "@angular/common";
 import { AnswerService } from '../../services/answer/answer.service';
 import { RequestService } from '../../services/request/request.service';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-service-details',
@@ -16,10 +17,14 @@ export class ServiceDetailsPage implements OnInit {
   answer_videolist = [];
   isLoading = false;
   isAnswerExist = false;
+  ratingform: FormGroup;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     public menuCtrl: MenuController,
+    private formBuilder: FormBuilder,
+
     private location: Location,
     public streamingMedia: StreamingMedia, 
     public answerService: AnswerService,
@@ -28,13 +33,23 @@ export class ServiceDetailsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.ratingform = this.formBuilder.group({
+      starRating: new FormControl()
+    });
+
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.service_request = this.router.getCurrentNavigation().extras.state.service_request;
-        
+        console.log("this.service_request", this.service_request);
+        this.ratingform.setValue({
+          starRating: [this.service_request.rating]
+        });
         this.getAnswerByRequestId(this.service_request)
       }
     });
+
+
+
   }
 
   getAnswerByRequestId(request){

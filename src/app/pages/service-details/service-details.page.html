@@ -18,7 +18,22 @@
             </ion-row>
           </ion-grid>          
           <div class="price-div">${{service_request.service_price}}</div>
-       
+          <form class="form" [formGroup]="ratingform">
+          <div class="rating-div">
+            <span class="rating-mark-text"> {{service_request.rating}} &nbsp;</span>
+            <ionic5-star-rating #rating
+              activeIcon = "star"
+              defaultIcon = "star-outline"
+              activeColor = "#f7c00b" 
+              defaultColor = "grey"
+              readonly="true"
+              formControlName="starRating"
+              halfStar="true"
+              fontSize = "32px"
+            >
+            </ionic5-star-rating>
+          </div>
+          </form>
       </div>
   
     </ion-item>

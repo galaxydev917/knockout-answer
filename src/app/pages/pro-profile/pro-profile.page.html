@@ -37,12 +37,26 @@
       </div>   
     </ion-item>
   </ion-list>
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="tryUpdateProfile(validationsform.value)">
+
   <ion-card class="profile-card">
     <ion-card-header style="margin-top: 70px;">
+      <ionic5-star-rating #rating
+        activeIcon = "star"
+        defaultIcon = "star-outline"
+        activeColor = "#f7c00b" 
+        defaultColor = "grey"
+        readonly="true"
+        halfStar="true"
+        fontSize = "32px"
+        formControlName="starRating"
+        rating="3"
+      >
+      </ionic5-star-rating>
       <ion-card-title>{{fullName}}</ion-card-title>
+
     </ion-card-header>
     <ion-card-content style="width: 100%;">
-      <form class="form" [formGroup]="validationsform" (ngSubmit)="tryUpdateProfile(validationsform.value)">
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-justify-content-center ion-align-items-center ion-no-padding">
           <ion-col size="12">
@@ -68,9 +82,9 @@
       <ion-button  class="updateprofile-button" mode="ios" type="submit" fill="solid"  [disabled]="!validationsform.valid" size="default" shape="round" expand="block">
         Update Profile
       </ion-button>
-    </form>      
     </ion-card-content>
   </ion-card>
+  </form>  
   <ion-button  class="other-button" mode="ios" fill="solid" shape="round" expand="full">
     <span class="span-left">Ratings</span>
     <span class="span-right"><ion-icon name="chevron-forward-outline"></ion-icon></span>

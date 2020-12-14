@@ -108,5 +108,21 @@ ion-item {
         }
     }
 }
+.rating-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.rating-mark-text{
+    color: gray;
+    font-size: large; 
+    font-weight: 600;
+}
+.answer-price-text{
+    font-size: 18px; 
+    font-weight: 600; 
+    color:#f7c00b;
+}
 
 

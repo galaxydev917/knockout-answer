@@ -8,6 +8,7 @@ import { ProProfilePageRoutingModule } from './pro-profile-routing.module';
 
 import { ProProfilePage } from './pro-profile.page';
 import { ComponentsModule } from '../../components/components.module';
+import { StarRatingModule } from 'ionic5-star-rating';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ComponentsModule } from '../../components/components.module';
     ReactiveFormsModule,
     IonicModule,
     ComponentsModule,
+    StarRatingModule,
     ProProfilePageRoutingModule
   ],
   declarations: [ProProfilePage]

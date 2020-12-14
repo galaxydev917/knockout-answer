@@ -31,6 +31,7 @@ export class ProProfilePage implements OnInit {
   profile_photoInfo : any;
   token : any;
   loginUserInfo : any;
+
   constructor(
     public plt: Platform,
     private formBuilder: FormBuilder,
@@ -61,8 +62,11 @@ export class ProProfilePage implements OnInit {
       ])),
       service_price: new FormControl('', Validators.compose([
         Validators.required
-      ]))
+      ])),
+      starRating: new FormControl()
     });
+
+
     // this.plt.ready().then(() => {
     //   this.loadStoredImages();
     // });
@@ -71,7 +75,8 @@ export class ProProfilePage implements OnInit {
       this.validationsform.setValue({
         contact_email: result.user_email,
         phone: result.phone,
-        service_price: result.service_price
+        service_price: result.service_price,
+        starRating: [result.rating]
      });
 
       this.loginUserInfo = result;

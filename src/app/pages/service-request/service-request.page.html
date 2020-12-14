@@ -23,13 +23,27 @@
       </div>       
     </ion-item>
   </ion-list>
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="next(validationsform.value)">
   <ion-card class="profile-card">
     <ion-card-header style="margin-top: 70px;">
-      <ion-card-title>{{pro_user.name}}</ion-card-title>
+      <div class="rating-div">
+        <span class="rating-mark-text"> {{pro_user.rating}} &nbsp;</span>
+        <ionic5-star-rating #rating
+          activeIcon = "star"
+          defaultIcon = "star-outline"
+          activeColor = "#f7c00b" 
+          defaultColor = "grey"
+          readonly="true"
+          formControlName="starRating"
+          halfStar="true"
+          fontSize = "32px"
+        >
+        </ionic5-star-rating>
+      </div>
+      <ion-card-title style="text-align: center;">{{pro_user.name}}</ion-card-title>
     </ion-card-header>
-    <ion-card-subtitle>Answer Price: <span style="font-size: 18px; font-weight: 600;"> ${{pro_user.service_price}}</span></ion-card-subtitle>
+    <ion-card-subtitle>Answer Price: <span class="answer-price-text"> ${{pro_user.service_price}}</span></ion-card-subtitle>
     <ion-card-content style="width: 100%;">
-      <form class="form" [formGroup]="validationsform" (ngSubmit)="next(validationsform.value)">
       <ion-grid class="ion-no-padding">
 
          <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
@@ -59,10 +73,10 @@
       <ion-button  class="updateprofile-button" mode="ios" type="submit" fill="solid"  [disabled]="!validationsform.valid" size="default" shape="round" expand="block">
         Next
       </ion-button>
-    </form>      
+      
     </ion-card-content>
   </ion-card>
- 
+  </form>    
   <ion-avatar class="profile-avatar-div" (click)="selectImage()">
     <ion-img *ngIf="pro_user.logo != ''" [src]="pro_user.logo"></ion-img>
     <ion-img *ngIf="pro_user.logo == ''" src="../../assets/imgs/noavatar.jpeg" ></ion-img>

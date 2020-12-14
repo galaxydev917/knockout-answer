@@ -41,18 +41,20 @@ export class ServiceRequestPage implements OnInit {
       question: new FormControl('', Validators.compose([
         Validators.required
       ])),      
-      primedate: new FormControl('', Validators.compose([
-        Validators.required
-      ])),
-      primetime: new FormControl('', Validators.compose([
-        Validators.required
-      ])),
+      // primedate: new FormControl('', Validators.compose([
+      //   Validators.required
+      // ])),
+      // primetime: new FormControl('', Validators.compose([
+      //   Validators.required
+      // ])),
+      starRating: new FormControl()
     });
     this.primedate = new Date().toISOString(); 
     this.validationsform.setValue({
-      primedate: this.primedate,
-      primetime: this.primedate,
-      question: ''
+      // primedate: this.primedate,
+      // primetime: this.primedate,
+      question: '',
+      starRating: [this.pro_user.rating]
     });
   }
 
