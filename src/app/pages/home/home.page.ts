@@ -29,12 +29,14 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.storageService.getObject(userinfo).then((result: any) => {
-       this.token = result.token;
-       this.getServiceRequests();
-    });  
-  }
 
+  }
+  ionViewWillEnter(){
+    this.storageService.getObject(userinfo).then((result: any) => {
+      this.token = result.token;
+      this.getServiceRequests();
+   });  
+  }
   getServiceRequests(){
     let param = {
       token: this.token,
@@ -73,8 +75,11 @@ export class HomePage implements OnInit {
       state: {
         service_request: selectedService
       }
-    };    
-    this.router.navigate(['/service-details'], navigationExtras);
+    };   
+    if(this.status == "pending") 
+      this.router.navigate(['/service-details'], navigationExtras);
+    if(this.status == "completed") 
+      this.router.navigate(['/rating'], navigationExtras);      
   }
   back(){
     this.location.back();

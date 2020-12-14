@@ -78,7 +78,8 @@ export class ServiceHistoryPage implements OnInit {
     this.router.navigate(['/service-details'], navigationExtras);
   }
   back(){
-    this.location.back();
+    // this.location.back();
+    this.router.navigate(['/tablinks/profile']);
   }
   openMenu() {
     this.menuCtrl.enable(true, 'customMenu');

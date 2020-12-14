@@ -32,7 +32,6 @@ export class ProHomePage implements OnInit {
   
   ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
-      console.log(result);
       this.token = result.token;
       this.getVideoList();
     });  

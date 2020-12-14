@@ -20,7 +20,7 @@
           <ion-segment-button value="pending" class="segment">
             <ion-label>Progressing</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="complete" class="segment">
+          <ion-segment-button value="completed" class="segment">
             <ion-label>Completed</ion-label>
           </ion-segment-button>
         </ion-segment>
@@ -31,7 +31,7 @@
         <app-loading *ngIf="isLoading"></app-loading>  
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="!isLoading">
       <ion-col>
         <ion-list class="line-input" *ngFor="let item of requestList; let i = index"> 
           <ion-item (click)="selectService(item)">

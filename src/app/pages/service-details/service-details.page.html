@@ -56,9 +56,9 @@
 
     </ion-card-content>
   </ion-card>
- 
-  <!-- <ion-avatar class="profile-avatar-div" (click)="selectImage()">
-    <ion-img *ngIf="service_request.profile_picture != ''" [src]="service_request.profile_picture"></ion-img>
-    <ion-img *ngIf="service_request.profile_picture == ''" src="../../assets/imgs/noavatar.jpeg" ></ion-img>
-  </ion-avatar> -->
 </ion-content>
+<ion-footer>
+  <ion-button class="complete-request-btn" mode="ios" fill="solid"  size="default" shape="round" expand="block" (click)="completeRequest();">
+    Complete Request
+  </ion-button>
+</ion-footer>

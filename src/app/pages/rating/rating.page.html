@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align: center;">Rating</ion-title>
+    <!-- <ion-buttons slot="start">
+      <ion-button (click)="back()" slot="start">
+        <ion-icon name="arrow-back-outline" style="font-size: 32px;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()" slot="start">
+        <ion-icon name="menu-outline" style="font-size: 32px;"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+   <div class="loading-div"><app-loading *ngIf="isLoading"></app-loading></div>  
+  <form class="form" [formGroup]="validationsform" (ngSubmit)="tryProvideFeedback(validationsform.value)">
+
+  <ion-grid *ngIf="!isLoading">
+
+    <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+      <ion-col class="ion-text-center">
+
+        <ionic5-star-rating #rating
+          activeIcon = "star"
+          defaultIcon = "star-outline"
+          activeColor = "#f7c00b" 
+          defaultColor = "grey"
+          readonly={{rating_readonly}}
+          formControlName="starRating"
+          halfStar="true"
+          fontSize = "32px"
+          (ratingChanged)="logRatingChange($event)">
+        </ionic5-star-rating>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+      <ion-col class="ion-text-center">
+        <ion-textarea rows="8" cols="20" placeholder="Enter any notes here..." class="feedback-text" formControlName="feedback_text"></ion-textarea>
+      </ion-col>
+    </ion-row>  
+    <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+      <ion-col class="ion-text-center">
+        <ion-button *ngIf="showSubmitBtn" class="submit-btn" mode="ios" fill="solid" type="submit" [disabled]="!validationsform.valid" size="default" shape="round" expand="block">
+          Submit
+        </ion-button>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
+      <ion-col class="ion-text-center">
+        <a [routerLink]="['/tablinks/profile']">Go to Profile</a>
+      </ion-col>
+    </ion-row>  
+  </ion-grid>
+
+</form>
+
+</ion-content>

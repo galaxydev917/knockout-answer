@@ -36,3 +36,10 @@ ion-header{
 ion-thumbnail{
     --border-radius: 50%;
 }
+.loading-div{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

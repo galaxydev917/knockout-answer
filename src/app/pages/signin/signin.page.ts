@@ -43,19 +43,20 @@ export class SigninPage implements OnInit {
         Validators.required
       ])),
     });
-  //   this.validationsform.setValue({
-  //     email: 'testercelebrity@gmail.com',
-  //     password: 'Celebrity2020#'
-  //  });
-   this.validationsform.setValue({
-    email: 'testeruser@gmail.com',
-    password: 'User2020#'
- });
+    this.validationsform.setValue({
+      email: 'testercelebrity@gmail.com',
+      password: 'Celebrity2020#'
+   });
+//    this.validationsform.setValue({
+//     email: 'testeruser@gmail.com',
+//     password: 'User2020#'
+//  });
   }
   
   async trySignin(value){
     this.isLoading = true;
     this.userService.doLogin(value).subscribe((userinfo) => {
+      console.log(userinfo);
       this.isLoading = false;
       this.storageService.setObject(userstorage_key,userinfo);
       

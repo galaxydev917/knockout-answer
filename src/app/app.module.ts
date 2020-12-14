@@ -27,6 +27,7 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { VideoEditor } from '@ionic-native/video-editor/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { StarRatingModule } from 'ionic5-star-rating';
 
 const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', options: {} };
 @NgModule({
@@ -38,6 +39,7 @@ const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', op
     IonicStorageModule.forRoot(),
     SocketIoModule.forRoot(config),
     IonicModule.forRoot(), 
+    StarRatingModule,
     FormsModule,  
     ReactiveFormsModule,
     StoreModule.forRoot(reducers, { metaReducers }),

@@ -1,0 +1,20 @@
+.feedback-text{
+    --background: white;
+    text-align: left;
+}
+.submit-btn{
+    height: 50px;
+    font-size: 14px;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    --color: white;
+    --color-activated: white;
+    --background-activated : #e76b6b;
+    --background: #cc0000;
+}
+.loading-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
