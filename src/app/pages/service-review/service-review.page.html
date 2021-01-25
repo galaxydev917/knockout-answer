@@ -53,11 +53,6 @@
             </ion-item>         
           </ion-col>
          </ion-row>  
-         <ion-row class="ion-justify-content-center ion-align-items-center avatar-row">
-           <ion-col class="ion-text-center">
-            <app-loading *ngIf="isSubmitting"></app-loading>     
-           </ion-col>
-         </ion-row>
       </ion-grid> 
       <ion-button  *ngIf="!isCompleted" class="updateprofile-button" mode="ios" fill="solid"  size="default" shape="round" expand="block" (click)="submitRequest();">
         Submit Request

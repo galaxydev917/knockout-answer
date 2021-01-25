@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="md">
   <ion-toolbar>
     <ion-title>Payment method</ion-title>
     <ion-buttons slot="start">
@@ -19,7 +19,7 @@
   <ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-start">
     <ion-col size="11" class="ion-text-center">
-      <form class="form" autocomplete="off" [formGroup]="validationsform" (ngSubmit)="creatCardToken(validationsform.value)">
+      <form class="form" autocomplete="off" [formGroup]="validationsform" (ngSubmit)="addPaymentMethod(validationsform.value)">
         <ion-list class="line-input" mode="md"> 
           <ion-item mode="md" >
             <ion-input class="ion-text-left" type="tel" maxlength="19" placeholder="Card Number" [(ngModel)]="creditCardNumber" formControlName="card_number" (ionChange)="cc_format($event.target.value)"></ion-input>

@@ -1,6 +1,6 @@
-<ion-header>
+<ion-header mode="md">
   <ion-toolbar>
-    <ion-title>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home</ion-title>
+    <ion-title>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="openMenu()" slot="start">
@@ -43,7 +43,7 @@
               <p>Service Price: ${{item.service_price}}</p>
               <p>{{item.request}}</p>
             </ion-label>
-            <p>{{item.created | date: 'MM/d/y'}}</p>
+            <p>{{item.created}}</p>
           </ion-item>
         </ion-list>
       </ion-col>

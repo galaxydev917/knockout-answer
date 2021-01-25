@@ -224,7 +224,6 @@ takePicture(sourceType: PictureSourceType) {
   startUpload() {
     this.file.resolveLocalFilesystemUrl(this.images[0].filePath)
         .then(entry => {
-          console.log("22222222222", this.images[0].filePath);
             ( < FileEntry > entry).file(file => this.readFile(file))
         })
         .catch(err => {
@@ -241,8 +240,6 @@ takePicture(sourceType: PictureSourceType) {
           });
           formData.append('file', imgBlob, file.name);
           formData.append('token', this.token);
-          console.log("file name==================", file.name);
-          console.log("file name==================", this.token);
           this.uploadImageData(formData);
       };
       reader.readAsArrayBuffer(file);

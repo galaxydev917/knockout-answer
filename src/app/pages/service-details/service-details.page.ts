@@ -68,6 +68,8 @@ export class ServiceDetailsPage implements OnInit {
       this.isLoading = false;
     },
     (err) => {
+      this.isAnswerExist = false;
+      this.isLoading = false;
     });
   }
   

@@ -27,7 +27,7 @@
   <ion-card class="profile-card">
     <ion-card-header style="margin-top: 70px;">
       <div class="rating-div">
-        <span class="rating-mark-text"> {{pro_user.rating}} &nbsp;</span>
+        <!-- <span class="rating-mark-text"> {{pro_user.rating}} &nbsp;</span> -->
         <ionic5-star-rating #rating
           activeIcon = "star"
           defaultIcon = "star-outline"
@@ -65,15 +65,17 @@
             </ion-item>    -->
             <ion-item lines="none" *ngIf="card_number != undefined && card_number != ''">
               <ion-icon name="card-outline" slot="start" ></ion-icon>
-              <ion-label>Card number: *{{card_number}}</ion-label>
+              <ion-label>Card number: *{{card_lastnumber}}</ion-label>
             </ion-item>         
           </ion-col>
          </ion-row>  
       </ion-grid>    
-      <ion-button  class="updateprofile-button" mode="ios" type="submit" fill="solid"  [disabled]="!validationsform.valid" size="default" shape="round" expand="block">
-        Next
+      <ion-button *ngIf="!isCompleted" class="updateprofile-button" mode="ios" type="submit" fill="solid"  [disabled]="!validationsform.valid" size="default" shape="round" expand="block">
+        Submit
       </ion-button>
-      
+      <ion-button  *ngIf="isCompleted" class="updateprofile-button" mode="ios" fill="solid"  size="default" shape="round" expand="block" (click)="completeRequest();">
+        Complete Request
+      </ion-button>
     </ion-card-content>
   </ion-card>
   </form>    

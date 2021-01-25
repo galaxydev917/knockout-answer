@@ -154,7 +154,10 @@ export class ProServiceDetailsPage implements OnInit {
       });
   }
 
-  uploadVideo() {
+  async uploadVideo() {
+    const loading = await this.loadingPresent('Uploading..');
+    loading.present();
+
     var url = baseUrl;
     var filename = this.selectedVideo.substr(this.selectedVideo.lastIndexOf('/') + 1);
 
@@ -172,7 +175,7 @@ export class ProServiceDetailsPage implements OnInit {
 
     this.videoFileUpload.upload(this.selectedVideo, url, options)
       .then((data)=>{
-        this.uploadVideoThumnail(data.response);
+        this.uploadVideoThumnail(data.response, loading);
       })
       .catch((err)=>{
         console.log("video upload error", err);
@@ -183,7 +186,7 @@ export class ProServiceDetailsPage implements OnInit {
 
   }
 
-  uploadVideoThumnail(request_answer_id){
+  uploadVideoThumnail(request_answer_id, loading){
     var answer_id = request_answer_id; 
     var url = videoThumb_baseUrl;
     var filename = this.videoThumb_nativepath.substr(this.videoThumb_nativepath.lastIndexOf('/') + 1);
@@ -201,12 +204,14 @@ export class ProServiceDetailsPage implements OnInit {
     this.videoThumbFileUpload.upload(this.videoThumb_nativepath, url, options)
       .then((data)=>{
         this.isUploading = false;
+        loading.dismiss();
         this.uploadPercent = 0;
         this.presentAlert("Posted answer successfully.");
       })
       .catch((err)=>{
         console.log("thumbnail upload", err);
         this.isUploading = false;
+        loading.dismiss();
         this.uploadPercent = 0;
         this.presentAlert("Error uploading video.");
       });
@@ -250,5 +255,11 @@ export class ProServiceDetailsPage implements OnInit {
   openMenu() {
     this.menuCtrl.enable(true, 'customMenu');
     this.menuCtrl.open('customMenu');
+  }
+
+  async loadingPresent(message) {
+    return this.loadingController.create({
+      message,
+    });
   }
 }

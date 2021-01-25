@@ -52,13 +52,19 @@ export class ServiceReviewPage implements OnInit {
 
   }
 
-  submitRequest(){
+  async submitRequest(){
+    const loading = await this.loadingController.create({
+      message: 'Submitting Request...',
+    });
+    await loading.present();
+
     this.isSubmitting = true;
     this.service_request.token = this.token;
     this.service_request.from_user_id = this.current_userid;
 
 
     this.userService.createRequest(this.service_request).subscribe((userprofileinfo) => {
+      loading.dismiss();
       this.isSubmitting = false;
       this.isCompleted = true;
       this.presentAlert("Request sent successfully.");
@@ -77,7 +83,6 @@ export class ServiceReviewPage implements OnInit {
     await loading.present();
     this.service_request.token = this.token;
     this.requestService.completeRequest(this.service_request).subscribe((result) => {
-      console.log(result);
       loading.dismiss();
       let navigationExtras: NavigationExtras = {
         state: {

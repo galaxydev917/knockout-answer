@@ -62,8 +62,10 @@ ion-item {
     justify-content: center;
     align-items: center;
 
-    color: white;
-    border:1px solid white;
+    font-size: 18px; 
+    font-weight: 600; 
+    color:#f7c00b;
+    border:1px solid #f7c00b;
     padding: 10px;
     border-radius: 10px;
 }
@@ -92,6 +94,8 @@ ion-item {
     font-size: 14px;
     font-weight: bold !important;
     text-transform: uppercase !important;
+    margin-left: 10px;
+    margin-right: 10px;
     --color: white;
     --color-activated: white;
     --background-activated : #e76b6b;

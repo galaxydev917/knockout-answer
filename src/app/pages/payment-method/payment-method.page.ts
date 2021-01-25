@@ -22,8 +22,8 @@ export class PaymentMethodPage implements OnInit {
   token : any;
   isUpdating = false;
   cardDetails: any = {};
-  service_request : any;
-  stripe_key = 'pk_test_hFWXh3onj1c0sdhsGPc9U2BU00GwFnBYeb';
+  pro_user : any;
+  stripe_key = 'pk_test_51HtrvsKY2u65BLBeU25OUqgTyqh4rzj4L1lZ2UmBqaS3mrWh9SYzG7rdimDienDlCOX0C1WklkeTuHPJlk8l53kK00TxWuI6KQ';
 
   constructor(
     private router: Router,
@@ -40,7 +40,7 @@ export class PaymentMethodPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.service_request = this.router.getCurrentNavigation().extras.state.service_request;
+        this.pro_user = this.router.getCurrentNavigation().extras.state.pro_user;
       }
     });
 
@@ -108,52 +108,35 @@ export class PaymentMethodPage implements OnInit {
     }
   }
 
-  creatCardToken(value) {
-    if(!this.isValidDate(value.expiration_date)){
-      this.presentAlert("Invalid date format.");
-      return;
-    }  
-    this.stripe.setPublishableKey(this.stripe_key);
-    var number = value.card_number.split(" ").join("");
-    var expMonth = value.expiration_date.split('/')[0];
-    var expYear = value.expiration_date.split('/')[2];
-    var cvc = value.cvv;
-    var card_lastnumber = value.card_number.substr(value.card_number.lastIndexOf(" ")+1);
-    this.cardDetails = {
-      number: number,
-      expMonth: expMonth,
-      expYear: expYear,
-      cvc: cvc
-    }
-    this.isUpdating = true;
-    this.stripe.createCardToken(this.cardDetails)
-      .then(result => {
-        let param = {
-          card_token: result.id,
-          card_number: card_lastnumber,
-          token: this.token
-        };
+  async addPaymentMethod(value) {
 
-        this.userService.updateProfile(param).subscribe((userprofileinfo) => {
-          this.isUpdating = false;
-          this.storageService.setObject(userinfo, userprofileinfo.profile);
+    let param = {
+      card_number: value.card_number,
+      card_cvc : value.cvv,
+      card_expiration_date : value.expiration_date,
+      token: this.token
+    };
+    const loading = await this.loadingController.create({
+      message: 'Updating payment method...',
+    });
+    await loading.present();
 
-          //this.presentAlert("Updated Successfully.");
-          let navigationExtras: NavigationExtras = {
-            state: {
-              service_request: this.service_request
-            }
-          };           
-          this.router.navigate(['/service-review'], navigationExtras); 
-        },
-        (err) => {
-          this.isUpdating = false;
-          this.presentAlert(err.error.msg);
-        });      
-      }).catch(error => {
-        console.error(error)
-        this.presentAlert(error.message);
-      });
+    this.userService.updateProfile(param).subscribe(async (userprofileinfo) => {
+      await this.storageService.setObject(userinfo, userprofileinfo.profile);
+      //this.presentAlert("Updated Successfully.");
+      let navigationExtras: NavigationExtras = {
+        state: {
+          pro_user: this.pro_user
+        }
+      };    
+      loading.dismiss();
+      this.router.navigate(['/service-request'], navigationExtras); 
+    },
+    (err) => {
+      this.isUpdating = false;
+      this.presentAlert(err.error.msg);
+    });      
+
   }
   async presentAlert(value) {
     const loading = await this.loadingController.create({

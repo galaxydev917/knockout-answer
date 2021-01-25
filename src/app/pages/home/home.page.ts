@@ -18,7 +18,6 @@ export class HomePage implements OnInit {
   requestList = [];
   isLoading = false;
   status = "pending";
-
   constructor(
     public userService: UserService,
     public loadingController: LoadingController,
@@ -33,6 +32,7 @@ export class HomePage implements OnInit {
   }
   ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
+      console.log(result);
       this.token = result.token;
       this.getServiceRequests();
    });  
@@ -42,12 +42,16 @@ export class HomePage implements OnInit {
       token: this.token,
       status: this.status
     };
-    
+    console.log(new Date());
     this.isLoading = true;
     this.userService.getServiceRequests(param).subscribe((result) => {
       this.requestList = result.request_list;
-      console.log(this.requestList);
+      for(var i=0; i<this.requestList.length; i++){
+        this.requestList[i].created = this.requestList[i].created.split(' ')[0];
+      }
        this.isLoading = false;
+       console.log(this.requestList);
+
     },
     (err) => {
        this.isLoading = false;
