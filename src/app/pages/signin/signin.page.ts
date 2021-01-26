@@ -43,14 +43,14 @@ export class SigninPage implements OnInit {
         Validators.required
       ])),
     });
-  //   this.validationsform.setValue({
-  //     email: 'testercelebrity@gmail.com',
-  //     password: 'Celebrity2020#'
-  //  });
- this.validationsform.setValue({
-    email: 'jin@gmail.com',
-    password: '123456'
- });
+    this.validationsform.setValue({
+      email: 'testercelebrity@gmail.com',
+      password: 'Celebrity2020#'
+   });
+//  this.validationsform.setValue({
+//     email: 'jin@gmail.com',
+//     password: '123456'
+//  });
   }
   
   async trySignin(value){

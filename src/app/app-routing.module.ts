@@ -83,6 +83,10 @@ const routes: Routes = [
     path: 'rating',
     loadChildren: () => import('./pages/rating/rating.module').then( m => m.RatingPageModule)
   },
+  {
+    path: 'rating-list',
+    loadChildren: () => import('./pages/rating-list/rating-list.module').then( m => m.RatingListPageModule)
+  },
 ];
 
 @NgModule({

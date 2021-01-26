@@ -103,6 +103,7 @@ export class ProProfilePage implements OnInit {
       });
       this.isLoading = false;
       loading.dismiss();
+      this.storageService.setObject(userinfo, this.pro_userProfile);
     },
     (err) => {
       this.isLoading = false;

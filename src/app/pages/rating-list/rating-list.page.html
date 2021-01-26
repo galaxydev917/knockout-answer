@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align: center;">Reviews</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" slot="start">
+        <ion-icon name="arrow-back-outline" style="font-size: 32px;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()" slot="start">
+        <!-- <ion-icon name="menu-outline" style="font-size: 32px;"></ion-icon> -->
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <!-- <ion-list class="line-input" *ngFor="let item of requestList; let i = index"> 
+    <ion-item (click)="selectService(item)">
+      <ion-thumbnail slot="start" >
+        <ion-img  [src]="item.customer_profile_picture"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{item.from_user_name}}</h2>
+        <p>Service Price: ${{item.service_price}}</p>
+        <p>{{item.request}}</p>
+      </ion-label>
+      <p>{{item.created | date: 'MM/d/y'}}</p>
+    </ion-item>
+  </ion-list> -->
+</ion-content>

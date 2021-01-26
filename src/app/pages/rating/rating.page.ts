@@ -66,35 +66,7 @@ export class RatingPage implements OnInit {
       loading.dismiss();
     });
   }
-  getRatingByRequstId(){
-    this.isLoading = true;
-    console.log(this.service_request);
-    this.ratingService.getRatingByRequstId(this.service_request).subscribe( result => {
-      console.log(result);
-      this.isLoading = false;
-      this.ratingList = result['rating_list'];
-      if(result['count'] > 0){
-        this.rating_readonly = true;
-        this.showSubmitBtn = false;
 
-        this.validationsform.setValue({
-          feedback_text: this.ratingList[0].feedback_text,
-          starRating: [this.ratingList[0].marks]
-       });
-      }else{
-        this.showSubmitBtn = true;
-        this.rating_readonly = false;
-        this.validationsform.setValue({
-          feedback_text: '',
-          starRating: [0]
-       });
-      }
-    },
-    (err) => {
-      this.isLoading = false;
-      // this.presentAlert(err.error.msg);
-    });
-  }
   back(){
     this.router.navigate(['/tablinks/home']);
   }
