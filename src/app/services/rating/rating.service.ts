@@ -19,4 +19,8 @@ export class RatingService {
   getRatingByRequstId(param : any){
     return this.http.post<any>(baseUrl + '/get_rating_by_requestid', param);
   }
+
+  getRatingList(token : any){
+    return this.http.post<any>(baseUrl + '/get_rating_list', {token: token});
+  }
 }
