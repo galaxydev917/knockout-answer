@@ -40,7 +40,8 @@ export class ServiceDetailsPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.service_request = this.router.getCurrentNavigation().extras.state.service_request;
-        console.log("this.service_request", this.service_request);
+        this.service_request.rating = parseFloat(this.service_request.rating).toFixed(1);
+        console.log(this.service_request.rating);
         this.ratingform.setValue({
           starRating: [this.service_request.rating]
         });
@@ -84,14 +85,13 @@ export class ServiceDetailsPage implements OnInit {
 
   async completeRequest(){
 
-
     const loading = await this.loadingController.create({
       message: 'Completing...',
     });
     await loading.present();
-    console.log("this.service_request", this.service_request);
+
     this.requestService.completeRequest(this.service_request).subscribe((result) => {
-      console.log(result);
+
       loading.dismiss();
       let navigationExtras: NavigationExtras = {
         state: {
@@ -99,12 +99,10 @@ export class ServiceDetailsPage implements OnInit {
         }
       };    
       this.router.navigate(['/rating'], navigationExtras);
-      // this.pro_userlist = pro_userlist;
-      // this.isLoading = false;
     },
     (err) => {
       loading.dismiss();
-       this.presentAlert(err.error.msg);
+      this.presentAlert(err.error.msg);
     });
   }
 

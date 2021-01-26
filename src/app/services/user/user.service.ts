@@ -38,7 +38,9 @@ export class UserService {
     }
     return this.http.post<any>(authUrl, credential);
   }   
-
+  getProfile( token: any){
+    return this.http.post<any>( baseUrl +'/getProfile', {token : token} );
+  }  
   updateProfile( value: any){
     return this.http.post<any>( baseUrl +'/UpdateProfile', value );
   }  

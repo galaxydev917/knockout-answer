@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content *ngIf="!isLoading">
   <ion-list class="ion-no-padding">
     <ion-item class="ion-no-padding header-img-div" >
       <div *ngIf="images.length > 0" class="cover-img-div" [style.background-image]="'url('+images[0].path+')'">
@@ -41,6 +41,8 @@
 
   <ion-card class="profile-card">
     <ion-card-header style="margin-top: 70px;">
+      <ion-card-title style="margin-bottom: 10px;">Balance: ${{balance}}</ion-card-title>
+
       <ionic5-star-rating #rating
         activeIcon = "star"
         defaultIcon = "star-outline"
@@ -102,7 +104,7 @@
     <span class="span-right"><ion-icon name="chevron-forward-outline"></ion-icon></span>
   </ion-button>    
   <ion-avatar class="profile-avatar-div" (click)="selectImage()">
-    <ion-img *ngIf="images.length > 0" [src]="images[0].path"></ion-img>
-    <ion-img *ngIf="images.length == 0" src="../../assets/imgs/profile.jpg" ></ion-img>
+    <ion-img *ngIf="images.length > 0 && !isLoading" [src]="images[0].path"></ion-img>
+    <ion-img *ngIf="images.length == 0 && !isLoading" src="../../assets/imgs/profile.jpg" ></ion-img>
   </ion-avatar>
 </ion-content>

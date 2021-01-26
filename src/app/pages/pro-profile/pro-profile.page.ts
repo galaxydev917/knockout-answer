@@ -26,11 +26,14 @@ export class ProProfilePage implements OnInit {
   userProfilePicture : any;
   fullName = "";
   validationsform: FormGroup;
+  isLoading = false;
   isUpdating = false;
   logined_userInfo : any;
   profile_photoInfo : any;
   token : any;
   loginUserInfo : any;
+  pro_userProfile : any;
+  balance : any;
 
   constructor(
     public plt: Platform,
@@ -49,6 +52,7 @@ export class ProProfilePage implements OnInit {
     private location: Location,
   ) { }
   ngOnInit() {
+
     this.rowHeight = this.plt.height() / 3 + 'px';
 
     this.validationsform = this.formBuilder.group({
@@ -66,31 +70,46 @@ export class ProProfilePage implements OnInit {
       starRating: new FormControl()
     });
 
+  }
+  async ionViewWillEnter(){
+    this.isLoading = true;
 
-    // this.plt.ready().then(() => {
-    //   this.loadStoredImages();
-    // });
-    this.storageService.getObject(userinfo).then((result: any) => {
+    this.loginUserInfo = await this.storageService.getObject(userinfo);
+    this.token = this.loginUserInfo.token;
+    this.getProfile();
+  }
 
-      this.validationsform.setValue({
-        contact_email: result.user_email,
-        phone: result.phone,
-        service_price: result.service_price,
-        starRating: [result.rating]
-     });
+  async getProfile(){
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+    await loading.present();
+    this.userService.getProfile(this.token).subscribe((result) => {
+      this.pro_userProfile = result.profile;
+      this.fullName = this.pro_userProfile.first_name + " " + this.pro_userProfile.last_name;
+      this.userProfilePicture = this.pro_userProfile.profile_picture;
+      this.balance = this.pro_userProfile.balance;
 
-      this.loginUserInfo = result;
-      this.fullName = result.first_name + " " + result.last_name;
-      this.token = result.token;
-      this.userProfilePicture = result.profile_picture;
       if(this.userProfilePicture != undefined){
         let name = this.userProfilePicture.substr(this.userProfilePicture.lastIndexOf("/")+1);
         let filePath = this.file.dataDirectory + name;
         this.images.push({ name: name, path: this.userProfilePicture, filePath: filePath });
       }
-    });  
+      this.validationsform.setValue({
+        contact_email: this.pro_userProfile.user_email,
+        phone: this.pro_userProfile.phone,
+        service_price: this.pro_userProfile.service_price,
+        starRating: [this.pro_userProfile.rating]
+      });
+      this.isLoading = false;
+      loading.dismiss();
+    },
+    (err) => {
+      this.isLoading = false;
+      loading.dismiss();
+      this.presentAlert(err.error.msg);
+    });
   }
-
   async tryUpdateProfile(value){
 
     this.isUpdating = true;

@@ -41,7 +41,7 @@ export class RatingPage implements OnInit {
       ])),
       starRating: new FormControl()
     });
-    this.getRatingByRequstId();
+    //this.getRatingByRequstId();
 
   }
   logRatingChange(rating){
@@ -59,10 +59,11 @@ export class RatingPage implements OnInit {
     await loading.present();
     this.ratingService.submitFeedback(this.service_request).subscribe( resp => {
       loading.dismiss();
-      this.router.navigate(['/tablinks/profile']);
+      this.router.navigate(['/tablinks/home']);
 
     },
     (err) => {
+      loading.dismiss();
     });
   }
   getRatingByRequstId(){
@@ -95,7 +96,7 @@ export class RatingPage implements OnInit {
     });
   }
   back(){
-    this.location.back();
+    this.router.navigate(['/tablinks/home']);
   }
   openMenu() {
     this.menuCtrl.enable(true, 'customMenu');
