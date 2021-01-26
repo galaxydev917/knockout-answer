@@ -32,16 +32,21 @@ export class ProServicesPage implements OnInit {
   ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
       this.token = result.token;
+      this.isLoading = true;
+
       this.getServiceRequests();
    });  
   }  
-  getServiceRequests(){
+  async getServiceRequests(){
     let param = {
       token: this.token,
       status: this.status
     };
-    
-    this.isLoading = true;
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+    await loading.present();
+
     this.userService.getServiceRequests(param).subscribe((result) => {
       this.requestList = result.request_list;
       console.log(this.requestList);
@@ -49,9 +54,11 @@ export class ProServicesPage implements OnInit {
        for(var i=0; i<this.requestList.length; i++){
         this.requestList[i].created = this.requestList[i].created.split(' ')[0];
       }
+      loading.dismiss();
     },
     (err) => {
        this.isLoading = false;
+       loading.dismiss();
        this.presentAlert(err.error.msg);
     });
   }

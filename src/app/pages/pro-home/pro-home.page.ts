@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { AnswerService } from '../../services/answer/answer.service';
 import { config } from '../../config/config';
-import { MenuController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
+import { MenuController, LoadingController } from '@ionic/angular';
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -22,7 +22,8 @@ export class ProHomePage implements OnInit {
     public answerService: AnswerService,
     public storageService: StorageService,
     public menuCtrl: MenuController,
-    public streamingMedia: StreamingMedia, 
+    public streamingMedia: StreamingMedia,
+    public loadingController: LoadingController,
     public socialSharing: SocialSharing
   ) { }
 
@@ -33,21 +34,28 @@ export class ProHomePage implements OnInit {
   ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
       this.token = result.token;
+      this.isLoading = true;
       this.getVideoList();
     });  
   }
-  getVideoList(){
+  async getVideoList(){
     let param = {
       role: 'athlete',
       token: this.token
     };
-    this.isLoading = true;
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+    await loading.present();
     this.answerService.getVideoList(param).subscribe( videos => {
       this.videolist = videos;
+      loading.dismiss();
       this.isLoading = false;
+      
     },
     (err) => {
       this.isLoading = false;
+      loading.dismiss();
     });
   }
   openMenu() {

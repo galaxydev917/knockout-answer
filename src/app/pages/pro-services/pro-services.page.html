@@ -13,7 +13,7 @@
 
 <ion-content>
 
-  <ion-grid>
+  <ion-grid *ngIf="!isLoading">
     <ion-row>
       <ion-col>
         <ion-segment (ionChange)="segmentChanged($event)" value="pending" >
@@ -24,11 +24,6 @@
             <ion-label>Completed</ion-label>
           </ion-segment-button>
         </ion-segment>
-      </ion-col>
-    </ion-row>
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col class="ion-text-center">
-        <app-loading *ngIf="isLoading"></app-loading>  
       </ion-col>
     </ion-row>
     <ion-row>
