@@ -43,11 +43,11 @@ export class ProHomePage implements OnInit {
     };
     this.isLoading = true;
     this.answerService.getVideoList(param).subscribe( videos => {
-      console.log(videos);
       this.videolist = videos;
       this.isLoading = false;
     },
     (err) => {
+      this.isLoading = false;
     });
   }
   openMenu() {

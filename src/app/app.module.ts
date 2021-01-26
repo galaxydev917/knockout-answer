@@ -28,6 +28,7 @@ import { VideoEditor } from '@ionic-native/video-editor/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { StarRatingModule } from 'ionic5-star-rating';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', options: {} };
 @NgModule({
@@ -59,6 +60,7 @@ const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', op
     VideoEditor,
     StreamingMedia,
     LocalNotifications,
+    NgxImageCompressService,
     SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -27,6 +27,7 @@
   
     </ion-item>
   </ion-list>
+
   <ion-card class="profile-card">
     <ion-card-content style="width: 100%;">
       <ion-grid class="ion-no-padding" *ngIf="!isCompleted">
@@ -39,7 +40,7 @@
           </ion-col>
          </ion-row>  
          <ion-row>
-           <ion-col>
+           <ion-col size="12">
             <ion-item lines="none">
               <ion-label><span class="question-answer-text">Answer:</span> </ion-label>
             </ion-item>
@@ -62,11 +63,6 @@
                   <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
                 </button>
               </div>
-              <!-- <div *ngIf="isUploading">
-                <div class="uploading">
-                  <p><ion-spinner name="bubbles" style="color: #cc0000;"></ion-spinner></p>
-                </div>
-              </div> -->
             </div>  
            </ion-col>
          </ion-row>

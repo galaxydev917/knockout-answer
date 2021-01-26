@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="md">
   <ion-toolbar>
     <ion-title>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Services</ion-title>
 
@@ -36,7 +36,7 @@
         <ion-list class="line-input" *ngFor="let item of requestList; let i = index"> 
           <ion-item (click)="selectService(item)">
             <ion-thumbnail slot="start" >
-              <ion-img  [src]="item.customer_profile_picture" ></ion-img>
+              <ion-img  [src]="item.customer_profile_picture"></ion-img>
             </ion-thumbnail>
             <ion-label>
               <h2>{{item.from_user_name}}</h2>

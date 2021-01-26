@@ -1,0 +1,18 @@
+<div class="picker">
+  <ion-button 
+    class="giveanswer-button"
+    (click)="onPickImage()" 
+    size="large">
+    <ion-icon name="camera" slot="start"></ion-icon> Give Answer
+  </ion-button>
+
+</div>
+<input 
+  type="file" 
+  accept="image/*"
+  capture="camera" 
+  *ngIf="usePicker" 
+  multiple
+  #filePicker
+  (change)="onFileChosen($event)"
+/>

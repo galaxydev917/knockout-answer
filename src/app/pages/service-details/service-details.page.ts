@@ -89,6 +89,7 @@ export class ServiceDetailsPage implements OnInit {
       message: 'Completing...',
     });
     await loading.present();
+    console.log("this.service_request", this.service_request);
     this.requestService.completeRequest(this.service_request).subscribe((result) => {
       console.log(result);
       loading.dismiss();

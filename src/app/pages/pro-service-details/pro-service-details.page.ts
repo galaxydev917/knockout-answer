@@ -43,6 +43,8 @@ export class ProServiceDetailsPage implements OnInit {
   isCompleted = false;
   answer_videolist = [];
   isAnswerExist = false;
+  
+  imageButtonText = 'Take Selfie';
 
   constructor(
     public plt: Platform,
@@ -114,6 +116,7 @@ export class ProServiceDetailsPage implements OnInit {
     this.camera.getPicture(options).then( async (videoUrl) => {
 
         if (videoUrl) {
+          this.isLoadingVideo = true;
           this.uploadedVideo = null;
           
           var filename = videoUrl.substr(videoUrl.lastIndexOf('/') + 1);
@@ -128,7 +131,7 @@ export class ProServiceDetailsPage implements OnInit {
           } catch(err) {
             return this.presentAlert("Error Something went wrong.");
           }
-          this.isLoadingVideo = true;
+          
           retrievedFile.file( data => {
               if (data.size > MAX_FILE_SIZE) return this.presentAlert("Error You cannot upload more than 5mb.");
               //if (data.type !== ALLOWED_MIME_TYPE) return this.presentAlert("Error Incorrect file type.");
@@ -206,7 +209,9 @@ export class ProServiceDetailsPage implements OnInit {
         this.isUploading = false;
         loading.dismiss();
         this.uploadPercent = 0;
-        this.presentAlert("Posted answer successfully.");
+        //this.presentAlert("Posted answer successfully.");
+        this.router.navigate(['/pro-services']);
+
       })
       .catch((err)=>{
         console.log("thumbnail upload", err);

@@ -1,0 +1,17 @@
+
+
+.picker {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #cc0000;;
+    margin: auto;
+}
+.giveanswer-button{
+    --color: white;
+    --color-activated: white;
+    --background-activated : #e76b6b;
+    --background: #cc0000;
+}
