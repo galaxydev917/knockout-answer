@@ -205,7 +205,7 @@ export class ServiceRequestPage implements OnInit {
     console.log("card_token====", card_token);
     console.log("email====", this.email);
 
-    this.http.post('http://localhost/stripeforapp/index.php', {
+    this.http.post('http://knockout.betaplanets.com/stripeforapp/index.php', {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

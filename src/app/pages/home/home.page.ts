@@ -56,7 +56,7 @@ export class HomePage implements OnInit {
     (err) => {
        this.isLoading = false;
        this.requestList = [];
-       this.presentAlert(err.error.msg);
+       //this.presentAlert(err.error.msg);
     });
   }
   segmentChanged(event){

@@ -34,7 +34,7 @@ export class ProProfilePage implements OnInit {
   loginUserInfo : any;
   pro_userProfile : any;
   balance : any;
-
+  rating : any;
   constructor(
     public plt: Platform,
     private formBuilder: FormBuilder,
@@ -66,8 +66,7 @@ export class ProProfilePage implements OnInit {
       ])),
       service_price: new FormControl('', Validators.compose([
         Validators.required
-      ])),
-      starRating: new FormControl()
+      ]))
     });
 
   }
@@ -89,6 +88,11 @@ export class ProProfilePage implements OnInit {
       this.fullName = this.pro_userProfile.first_name + " " + this.pro_userProfile.last_name;
       this.userProfilePicture = this.pro_userProfile.profile_picture;
       this.balance = this.pro_userProfile.balance;
+      console.log("this.pro_userProfile=====", this.pro_userProfile.rating);
+
+      if(this.pro_userProfile.rating == "")
+        this.pro_userProfile.rating = 0.0;
+
 
       if(this.userProfilePicture != undefined){
         let name = this.userProfilePicture.substr(this.userProfilePicture.lastIndexOf("/")+1);
@@ -98,8 +102,7 @@ export class ProProfilePage implements OnInit {
       this.validationsform.setValue({
         contact_email: this.pro_userProfile.user_email,
         phone: this.pro_userProfile.phone,
-        service_price: this.pro_userProfile.service_price,
-        starRating: [this.pro_userProfile.rating]
+        service_price: this.pro_userProfile.service_price
       });
       this.isLoading = false;
       loading.dismiss();

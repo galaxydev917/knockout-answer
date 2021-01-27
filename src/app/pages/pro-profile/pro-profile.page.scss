@@ -7,7 +7,16 @@ ion-item {
     --highlight-background: none;
     --min-height: 58px;
 }
-
+.rating-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rating-mark-text{
+    color: white; 
+    font-size: large; 
+    font-weight: 600;
+}
 .header-img-div {
     --padding-end: 0px;
     --inner-padding-end: 0px;

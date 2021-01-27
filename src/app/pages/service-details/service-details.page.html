@@ -18,8 +18,7 @@
             </ion-row>
           </ion-grid>          
           <div class="price-div">${{service_request.service_price}}</div>
-          <form class="form" [formGroup]="ratingform">
-          <div class="rating-div">
+          <div class="rating-div" *ngIf="service_request.rating != ''">
             <span class="rating-mark-text"> {{service_request.rating}} &nbsp;</span>
             <ionic5-star-rating #rating
               activeIcon = "star"
@@ -27,13 +26,12 @@
               activeColor = "#f7c00b" 
               defaultColor = "grey"
               readonly="true"
-              formControlName="starRating"
               halfStar="true"
               fontSize = "32px"
+              rating={{service_request.rating}}
             >
             </ionic5-star-rating>
           </div>
-          </form>
       </div>
   
     </ion-item>

@@ -19,6 +19,7 @@ export class ServicePage implements OnInit {
   pro_userlist = [];
   searchName = '';
   isLoading = false;
+  isCategoryLoading = false;
   categorylist = [];
   selectedCategory : any;
   token: any;
@@ -37,19 +38,22 @@ export class ServicePage implements OnInit {
 
   }
   ionViewWillEnter(){
+    this.isCategoryLoading = true;
     this.selectedCategory = 0;
     this.storageService.getObject(userinfo).then((result: any) => {
       console.log(result);
       this.token = result.token;
       this.getCategoryList();
-      this.getProUsers();
+      
     }); 
   }
 
   getCategoryList(){
     this.categoryService.getCategoryList().subscribe( categories => {
       console.log(categories);
+      this.isCategoryLoading = false;
       this.categorylist = categories;
+      this.getProUsers();
     },
     (err) => {
     });
@@ -63,6 +67,7 @@ export class ServicePage implements OnInit {
       category: this.selectedCategory
     };
     this.isLoading = true;
+
     this.userService.getUsers(param).subscribe((pro_userlist) => {
       this.pro_userlist = pro_userlist;
       console.log(this.pro_userlist);
@@ -71,7 +76,7 @@ export class ServicePage implements OnInit {
     (err) => {
        this.isLoading = false;
        this.pro_userlist = [];
-       this.presentAlert(err.error.msg);
+       //this.presentAlert(err.error.msg);
     });
   }
   searchInputChange(e){

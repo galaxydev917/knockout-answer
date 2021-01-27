@@ -10,8 +10,8 @@
   </ion-toolbar>
 
 </ion-header>
-<div>
-  <ion-grid>
+<div >
+  <ion-grid *ngIf="!isCategoryLoading">
     <ion-row>
       <ion-col size="3" *ngFor="let item of categorylist; let i = index">
         <div *ngIf="selectedCategory != item.id" class="category-item" (click)="selectCategory(item)">{{item.name}}</div>
@@ -21,7 +21,7 @@
   </ion-grid>
 </div>
 <div style="padding: 0px 10px 0px 10px">
-  <ion-list class="line-input">
+  <ion-list class="line-input" *ngIf="!isCategoryLoading">
     <ion-item mode="md" >
       <ion-icon name="search-outline" size="small" slot="start"></ion-icon>
       <ion-input class="ion-text-left" placeholder="Search Pro" type="email" (ionChange)="searchInputChange($event)"></ion-input>
@@ -32,11 +32,11 @@
   <ion-grid class="ion-no-padding">
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col class="ion-text-center">
-        <app-loading *ngIf="isLoading"></app-loading>       
+        <app-loading *ngIf="isLoading || isCategoryLoading"></app-loading>       
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let item of pro_userlist; let i = index"  >
-      <ion-col *ngIf="item.service_price != ''" (click)="selectService(item)">
+      <ion-col *ngIf="item.service_price != '' && !isLoading && !isCategoryLoading" (click)="selectService(item)">
         <ion-card class="pro-user-card">
           <div class="cover-img-div" [style.background-image]="'url('+item.logo+')'" >
             <div class="cover-img-mask"></div>

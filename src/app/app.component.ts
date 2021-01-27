@@ -20,30 +20,19 @@ const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
 })
 export class AppComponent {
   clickNotificationSub: any;
+  currentUser : any;
   public appPages = [
     {
-      title: 'Home',
-      url: '/tablinks/home'
-    },
-    {
-      title: 'Service Request',
-      url: '/tablinks/services'
-    },
-    {
-      title: 'Messages',
-      url: '/tablinks/messages'
-    },
-    {
       title: 'Contact US',
-      url: '/tablinks/messages'
+      url: '/tablinks/home'
     },    
     {
       title: 'Privacy Policy',
-      url: '/tablinks/messages'
+      url: '/tablinks/home'
     },    
     {
       title: 'Terms & Conditions',
-      url: '/tablinks/messages'
+      url: '/tablinks/home'
     },    
     {
       title: 'Logout',
@@ -82,16 +71,19 @@ export class AppComponent {
     });
   }
 
-  sendServiceRequestNotification(){
-    this.socket.fromEvent('service_request_notification').subscribe(service_request => {
-      var receive_user_id = service_request['to_user_id'];
-      this.storageService.getObject(userstorage_key).then((result: any) => {
-        var current_user_id = result.user_id;
-        if(current_user_id == receive_user_id){
-          this.openRequestNotification();
-        }
-      }); 
-   });
+  async sendServiceRequestNotification(){
+    this.currentUser = await this.storageService.getObject(userstorage_key);
+    if(this.currentUser){
+      console.log("this.currentUser", this.currentUser);
+      this.socket.fromEvent('service_request_notification').subscribe(service_request => {
+        var receive_user_id = service_request['to_user_id'];
+  
+          if(this.currentUser.user_id == receive_user_id){
+            this.openRequestNotification();
+          }
+      });
+    }
+
 
   }
   

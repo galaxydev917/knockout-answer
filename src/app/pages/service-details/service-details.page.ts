@@ -33,18 +33,16 @@ export class ServiceDetailsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.ratingform = this.formBuilder.group({
-      starRating: new FormControl()
-    });
+
 
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.service_request = this.router.getCurrentNavigation().extras.state.service_request;
-        this.service_request.rating = parseFloat(this.service_request.rating).toFixed(1);
+        if(this.service_request.rating != '')
+          this.service_request.rating = parseFloat(this.service_request.rating).toFixed(1);
+
         console.log(this.service_request.rating);
-        this.ratingform.setValue({
-          starRating: [this.service_request.rating]
-        });
+
         this.getAnswerByRequestId(this.service_request)
       }
     });

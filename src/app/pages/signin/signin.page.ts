@@ -44,8 +44,8 @@ export class SigninPage implements OnInit {
       ])),
     });
     this.validationsform.setValue({
-      email: 'testercelebrity@gmail.com',
-      password: 'Celebrity2020#'
+      email: 'tester1@gmail.com',
+      password: '123456'
    });
 //  this.validationsform.setValue({
 //     email: 'jin@gmail.com',

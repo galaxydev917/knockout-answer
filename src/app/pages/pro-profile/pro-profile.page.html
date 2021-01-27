@@ -41,20 +41,20 @@
 
   <ion-card class="profile-card">
     <ion-card-header style="margin-top: 70px;">
-      <ion-card-title style="margin-bottom: 10px;">Balance: ${{balance}}</ion-card-title>
-
-      <ionic5-star-rating #rating
-        activeIcon = "star"
-        defaultIcon = "star-outline"
-        activeColor = "#f7c00b" 
-        defaultColor = "grey"
-        readonly="true"
-        halfStar="true"
-        fontSize = "32px"
-        formControlName="starRating"
-        rating="3"
-      >
-      </ionic5-star-rating>
+      <ion-card-title style="margin-bottom: 10px; text-align: center;">${{balance ? balance : '0.00'}}</ion-card-title>
+      <div class="rating-div" *ngIf="!isLoading && pro_userProfile != undefined">
+        <ionic5-star-rating #rating
+          activeIcon = "star"
+          defaultIcon = "star-outline"
+          activeColor = "#f7c00b" 
+          defaultColor = "grey"
+          readonly="true"
+          halfStar="true"
+          fontSize = "32px"
+          rating={{pro_userProfile.rating}}
+        >
+        </ionic5-star-rating>
+      </div>
       <ion-card-title>{{fullName}}</ion-card-title>
 
     </ion-card-header>
