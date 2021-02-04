@@ -87,6 +87,10 @@ const routes: Routes = [
     path: 'rating-list',
     loadChildren: () => import('./pages/rating-list/rating-list.module').then( m => m.RatingListPageModule)
   },
+  {
+    path: 'payout-view',
+    loadChildren: () => import('./pages/payout-view/payout-view.module').then( m => m.PayoutViewPageModule)
+  },
 ];
 
 @NgModule({
