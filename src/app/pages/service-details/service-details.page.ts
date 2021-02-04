@@ -34,7 +34,6 @@ export class ServiceDetailsPage implements OnInit {
 
   ngOnInit() {
 
-
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.service_request = this.router.getCurrentNavigation().extras.state.service_request;
@@ -46,9 +45,6 @@ export class ServiceDetailsPage implements OnInit {
         this.getAnswerByRequestId(this.service_request)
       }
     });
-
-
-
   }
 
   getAnswerByRequestId(request){
