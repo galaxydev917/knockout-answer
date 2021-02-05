@@ -25,6 +25,7 @@
     "@ionic-native/file-chooser": "^5.30.0",
     "@ionic-native/file-path": "^5.30.0",
     "@ionic-native/file-transfer": "^5.30.0",
+    "@ionic-native/in-app-browser": "^5.31.1",
     "@ionic-native/ionic-webview": "^5.30.0",
     "@ionic-native/local-notifications": "^5.30.0",
     "@ionic-native/social-sharing": "^5.30.0",
@@ -68,6 +69,7 @@
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-filechooser": "^1.2.0",
     "cordova-plugin-filepath": "^1.5.8",
+    "cordova-plugin-inappbrowser": "^4.1.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
@@ -113,7 +115,8 @@
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
-      }
+      },
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "ios",
