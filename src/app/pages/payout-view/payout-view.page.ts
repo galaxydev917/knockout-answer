@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { InAppBrowser, InAppBrowserOptions  } from '@ionic-native/in-app-browser/ngx';
 import { PaymentService } from '../../services/payment/payment.service';
 import {  LoadingController } from '@ionic/angular';
+import { config } from '../../config/config';
+import { StorageService } from '../../services/storage.service';
+
+const userinfo = config.USERINFO_STORAGE_KEY;
 
 @Component({
   selector: 'app-payout-view',
@@ -29,14 +33,20 @@ export class PayoutViewPage implements OnInit {
   };
 
   connectAccountId : any;
-
+  currentUser : any;
   constructor(
     private iab: InAppBrowser,
     public loadingController: LoadingController,
+    public storageService: StorageService,
     private paymentService: PaymentService
   ) { }
 
   ngOnInit() {
+
+  }
+
+  async ionViewWillEnter(){
+    this.currentUser = await this.storageService.getObject(userinfo);
   }
 
   async newAccount(){
@@ -51,8 +61,22 @@ export class PayoutViewPage implements OnInit {
       this.openWithInAppBrowser(result.url);
       loading.dismiss();  
     });
+  }
 
-    //this.openWithInAppBrowser('https://knockout.betaplanets.com/connectpaymentsuccess/');
+  async creatNewAccount(){
+    const loading = await this.loadingController.create({
+      message: 'Connecting...',
+    });
+    await loading.present();
+
+    let param = {
+      token: this.currentUser.id,
+      accountId: this.connectAccountId
+    };
+    this.paymentService.creatNewAccount(param).subscribe((result) => {
+
+      loading.dismiss();  
+    });
   }
 
   openWithInAppBrowser(url : string){
