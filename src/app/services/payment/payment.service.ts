@@ -13,7 +13,7 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
 
   creatNewAccount(param : any){
-    return this.http.post<any>(baseUrl + '/add_connectaccount', param);
+    return this.http.post<any>(baseUrl + '/add_connectAccount', param);
   }
 
   connectAccount(){

@@ -63,28 +63,29 @@ export class PayoutViewPage implements OnInit {
     });
   }
 
-  async creatNewAccount(){
-    const loading = await this.loadingController.create({
-      message: 'Connecting...',
-    });
-    await loading.present();
-
-    let param = {
-      token: this.currentUser.id,
-      accountId: this.connectAccountId
-    };
-    this.paymentService.creatNewAccount(param).subscribe((result) => {
-
-      loading.dismiss();  
-    });
-  }
 
   openWithInAppBrowser(url : string){
     let target = "_blank";
+    console.log(this.currentUser);
     let browser = this.iab.create(url,target,this.options);
     
-    browser.on('loadstop').subscribe(event=> {
-      console.log("loadstop", event);
+    browser.on('loadstop').subscribe(async (event)=> {
+      console.log(this.currentUser.token);
+
+      // if(event.url == 'https://knockout.betaplanets.com/connectpaymentsuccess/'){
+      //   let param = {
+      //     token: this.currentUser.token,
+      //     accountId: this.connectAccountId
+      //   };
+
+      //   this.paymentService.creatNewAccount(param).subscribe((result) => {
+      //     console.log("loadstop", result);
+      //     browser.close();
+      //   },
+      //   (err) => {
+      //     console.log("err====", err);
+      //   });  
+      // }
       //browser.close();
     });
 
