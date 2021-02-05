@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser, InAppBrowserOptions  } from '@ionic-native/in-app-browser/ngx';
+import { PaymentService } from '../../services/payment/payment.service';
+import {  LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-payout-view',
@@ -24,16 +26,33 @@ export class PayoutViewPage implements OnInit {
     allowInlineMediaPlayback : 'no',//iOS only 
     presentationstyle : 'fullscreen',//iOS only 
     fullscreen : 'yes',//Windows only    
-};
+  };
+
+  connectAccountId : any;
+
   constructor(
     private iab: InAppBrowser,
+    public loadingController: LoadingController,
+    private paymentService: PaymentService
   ) { }
 
   ngOnInit() {
   }
 
-  addAccount(){
-    this.openWithInAppBrowser('https://knockout.betaplanets.com/connectpaymentsuccess/');
+  async newAccount(){
+    const loading = await this.loadingController.create({
+      message: 'Opening...',
+    });
+    await loading.present();
+
+    this.paymentService.connectAccount().subscribe((result) => {
+      console.log(result);
+      this.connectAccountId = result.accountID;
+      this.openWithInAppBrowser(result.url);
+      loading.dismiss();  
+    });
+
+    //this.openWithInAppBrowser('https://knockout.betaplanets.com/connectpaymentsuccess/');
   }
 
   openWithInAppBrowser(url : string){
@@ -42,7 +61,7 @@ export class PayoutViewPage implements OnInit {
     
     browser.on('loadstop').subscribe(event=> {
       console.log("loadstop", event);
-      browser.close();
+      //browser.close();
     });
 
     browser.on('exit').subscribe(event=> {
