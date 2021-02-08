@@ -4,6 +4,7 @@ import { PaymentService } from '../../services/payment/payment.service';
 import {  LoadingController } from '@ionic/angular';
 import { config } from '../../config/config';
 import { StorageService } from '../../services/storage.service';
+import { Location } from "@angular/common";
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -25,7 +26,7 @@ export class PayoutViewPage implements OnInit {
     closebuttoncaption : 'Close', //iOS only
     disallowoverscroll : 'no', //iOS only 
     toolbar : 'yes', //iOS only 
-    
+    hidenavigationbuttons : 'yes',
     enableViewportScale : 'no', //iOS only 
     allowInlineMediaPlayback : 'no',//iOS only 
     presentationstyle : 'fullscreen',//iOS only 
@@ -34,10 +35,13 @@ export class PayoutViewPage implements OnInit {
 
   connectAccountId : any;
   currentUser : any;
+  account_list = [];
+  isLoading = false;
   constructor(
     private iab: InAppBrowser,
     public loadingController: LoadingController,
-    public storageService: StorageService,
+    private location: Location,
+    private storageService: StorageService,
     private paymentService: PaymentService
   ) { }
 
@@ -47,8 +51,26 @@ export class PayoutViewPage implements OnInit {
 
   async ionViewWillEnter(){
     this.currentUser = await this.storageService.getObject(userinfo);
+    this.getConnectAcounts();
   }
 
+  async getConnectAcounts(){
+    const loading = await this.loadingController.create({
+      message: 'Loading accounts...',
+    });
+    await loading.present();
+
+    this.isLoading = true;
+
+    this.paymentService.getConnectAcounts(this.currentUser.token).subscribe((result) => {
+      this.isLoading = false;
+      loading.dismiss();
+      this.account_list = result.account_list;
+    },(err) => {
+      this.isLoading = false;
+      loading.dismiss();
+    });
+  }
   async newAccount(){
     const loading = await this.loadingController.create({
       message: 'Opening...',
@@ -66,32 +88,37 @@ export class PayoutViewPage implements OnInit {
 
   openWithInAppBrowser(url : string){
     let target = "_blank";
-    console.log(this.currentUser);
     let browser = this.iab.create(url,target,this.options);
     
     browser.on('loadstop').subscribe(async (event)=> {
-      console.log(this.currentUser.token);
 
-      // if(event.url == 'https://knockout.betaplanets.com/connectpaymentsuccess/'){
-      //   let param = {
-      //     token: this.currentUser.token,
-      //     accountId: this.connectAccountId
-      //   };
+      if(event.url == 'https://knockout.betaplanets.com/connectpaymentsuccess/'){
 
-      //   this.paymentService.creatNewAccount(param).subscribe((result) => {
-      //     console.log("loadstop", result);
-      //     browser.close();
-      //   },
-      //   (err) => {
-      //     console.log("err====", err);
-      //   });  
-      // }
-      //browser.close();
+        this.paymentService.getAccountInfo(this.connectAccountId).subscribe((result) => {
+          console.log(result.email);
+
+          let param = {
+            token: this.currentUser.token,
+            email: result.email,
+            accountId: this.connectAccountId
+          };
+
+          this.paymentService.creatNewAccount(param).subscribe((result) => {
+            console.log("loadstop", result);
+          },
+          (err) => {
+            console.log("err====", err);
+          });  
+        });
+      }
     });
 
     browser.on('exit').subscribe(event=> {
       console.log("exit", event);
       //browser.close();
     });    
+  }
+  back(){
+    this.location.back();
   }
 }

@@ -1,3 +1,29 @@
 ion-header{
     text-align: center;
 }
+.line-input {
+    margin-bottom: 0!important;
+    background: transparent;
+    margin-top: 10px;
+    border-radius: 10px;
+    ion-item {
+        --background: white;
+        --highlight-color-focused: none;
+        --highlight-background: none;
+        border-radius: 10px;
+        ion-input {
+            --placeholder-color: #cc0000;     /* placeholder text color */
+            color: black; /* input text color to primary */
+        }
+        ion-label {
+            color: #cc0000!important;
+            font-weight: 300;
+            font-size: 14px!important;
+        }
+
+        ion-icon{
+            color: #cc0000 !important;
+            margin-right: 8px !important;
+        }
+    }
+}

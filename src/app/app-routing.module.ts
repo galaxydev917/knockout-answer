@@ -91,6 +91,10 @@ const routes: Routes = [
     path: 'payout-view',
     loadChildren: () => import('./pages/payout-view/payout-view.module').then( m => m.PayoutViewPageModule)
   },
+  {
+    path: 'payout-process/:account_id',
+    loadChildren: () => import('./pages/payout-process/payout-process.module').then( m => m.PayoutProcessPageModule)
+  },
 ];
 
 @NgModule({

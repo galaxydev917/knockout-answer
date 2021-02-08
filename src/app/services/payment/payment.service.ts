@@ -19,4 +19,16 @@ export class PaymentService {
   connectAccount(){
     return this.http.post<any>(payment_url + '/onboard-user', {});
   }  
+
+  getConnectAcounts(token){
+    return this.http.post<any>(baseUrl + '/get_connectedaccounts', {token: token});
+  }  
+
+  getAccountInfo(accountId){
+    return this.http.post<any>(payment_url + '/get-accountinfo', {accountId: accountId});
+  }  
+
+  creatPaymentIntent(param : any){
+    return this.http.post<any>(payment_url + '/create-payment-intent', param);
+  }  
 }

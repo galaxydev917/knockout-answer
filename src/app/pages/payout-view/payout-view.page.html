@@ -15,6 +15,14 @@
 
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-list class="line-input" *ngFor="let item of account_list; let i = index"> 
+    <ion-item [routerLink]="['/payout-process', item.account_id]">
+      <ion-label>
+        <h2>{{item.account_email}}</h2>
+        <p>{{item.created_at}}</p>
+      </ion-label>
+      <ion-button slot="end">Get Paid</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
