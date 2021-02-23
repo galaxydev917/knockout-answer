@@ -3,6 +3,9 @@ import * as socketIo from 'socket.io';
 import { ChatEvent } from './constants';
 import { ChatMessage } from './types';
 import { createServer, Server } from 'http';
+
+import * as fs from 'fs';
+import * as path from 'path';
 var cors = require('cors');
 
 export class ChatServer {
@@ -11,12 +14,20 @@ export class ChatServer {
   private server: Server;
   private io: SocketIO.Server;
   private port: string | number;
-
+  public privateKey : any;
+  public certificate : any;
+  public credentials : any;
   constructor () {
     this._app = express();
     this.port = process.env.PORT || ChatServer.PORT;
     this._app.use(cors());
     this._app.options('*', cors());
+
+    // this.privateKey  = fs.readFileSync(path.join(__dirname, "/cert/knockout.key"), 'utf8');
+    // this.certificate = fs.readFileSync(path.join(__dirname, "/cert/knockout.crt"), 'utf8');
+
+    // this.credentials = {key: this.privateKey, cert: this.certificate};
+
     this.server = createServer(this._app);
     this.initSocket();
     this.listen();
@@ -28,7 +39,7 @@ export class ChatServer {
 
   private listen (): void {
     this.server.listen(this.port, () => {
-      console.log('Running server on port %s', this.port);
+      console.log('Running https server on port %s', this.port);
     });
 
     this.io.on(ChatEvent.CONNECT, (socket: any) => {

@@ -31,7 +31,7 @@ import { StarRatingModule } from 'ionic5-star-rating';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
-const config: SocketIoConfig = { url: 'http://knockout.betaplanets.com:3001', options: {} };
+const config: SocketIoConfig = { url: 'http://35.202.59.184:3001', options: {} };
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
