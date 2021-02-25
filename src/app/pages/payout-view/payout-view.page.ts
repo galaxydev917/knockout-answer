@@ -105,6 +105,7 @@ export class PayoutViewPage implements OnInit {
 
           this.paymentService.creatNewAccount(param).subscribe((result) => {
             console.log("loadstop", result);
+            browser.close();
           },
           (err) => {
             console.log("err====", err);

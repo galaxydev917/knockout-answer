@@ -95,6 +95,18 @@ const routes: Routes = [
     path: 'payout-process/:account_id',
     loadChildren: () => import('./pages/payout-process/payout-process.module').then( m => m.PayoutProcessPageModule)
   },
+  {
+    path: 'contactus',
+    loadChildren: () => import('./pages/contactus/contactus.module').then( m => m.ContactusPageModule)
+  },
+  {
+    path: 'termscondition',
+    loadChildren: () => import('./pages/termscondition/termscondition.module').then( m => m.TermsconditionPageModule)
+  },
+  {
+    path: 'policy',
+    loadChildren: () => import('./pages/policy/policy.module').then( m => m.PolicyPageModule)
+  },
 ];
 
 @NgModule({

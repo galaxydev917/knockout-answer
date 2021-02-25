@@ -1,0 +1,31 @@
+ion-header{
+    text-align: center;
+}
+ion-textarea{
+    --background: white;
+    --padding-end: 150px;
+}
+.line-input {
+    margin-bottom: 0!important;
+    background: transparent;
+    ion-item {
+        --background: white;
+        --highlight-color-focused: none;
+        --highlight-background: none;
+    }
+}
+.button-submit{
+    height: 50px;
+    font-size: 14px;
+    font-weight: bold !important;
+    margin: 0 !important;
+    margin-top: 10px !important;
+    text-transform: uppercase !important;
+    --background: #cc0000;
+    --color: white;
+    --color-activated: white;
+    --background-activated : #e76b6b;
+    --border-color : white;
+    --border-style: solid;
+    --border-width: 1px;
+}

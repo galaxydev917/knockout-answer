@@ -1,0 +1,29 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()" slot="start">
+          <ion-icon name="arrow-back-outline" style="font-size: 28px;"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Contact US</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openMenu()" slot="start">
+        <ion-icon name="menu-outline" style="font-size: 32px;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-list class="line-input" mode="md"> 
+    <ion-item mode="md">
+      <ion-textarea rows="10" cols="20" placeholder="Enter the text..."></ion-textarea>
+    </ion-item> 
+  </ion-list>
+  <ion-button  class="button-submit" mode="ios" type="submit" fill="solid" size="default" shape="round" expand="block">
+    Submit
+  </ion-button>
+</ion-content>

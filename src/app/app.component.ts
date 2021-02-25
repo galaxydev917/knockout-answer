@@ -24,15 +24,15 @@ export class AppComponent {
   public appPages = [
     {
       title: 'Contact US',
-      url: '/tablinks/home'
+      url: '/contactus'
     },    
     {
       title: 'Privacy Policy',
-      url: '/tablinks/home'
+      url: '/policy'
     },    
     {
       title: 'Terms & Conditions',
-      url: '/tablinks/home'
+      url: '/termscondition'
     },    
     {
       title: 'Logout',
