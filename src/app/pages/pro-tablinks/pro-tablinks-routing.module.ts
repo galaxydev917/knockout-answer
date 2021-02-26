@@ -24,6 +24,10 @@ const routes: Routes = [
         path: 'pro-profile',
         loadChildren: () => import('../pro-profile/pro-profile.module').then( m => m.ProProfilePageModule)
       },
+       {
+        path: 'payout-view',
+        loadChildren: () => import('../payout-view/payout-view.module').then( m => m.PayoutViewPageModule)
+      },
     ]
   }
 ];

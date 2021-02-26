@@ -10,6 +10,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { MenuController } from '@ionic/angular';
 import { StorageService } from '../../services/storage.service';
 import { Location } from "@angular/common";
+import { Router } from '@angular/router';
 
 
 const profile_photo = config.PROFILE_PHOTO_STORAGE_KEY;
@@ -49,6 +50,7 @@ export class ProProfilePage implements OnInit {
     private ref: ChangeDetectorRef,
     private toastController: ToastController,
     private file: File,
+    private router: Router,
     private location: Location,
   ) { }
   ngOnInit() {
@@ -70,6 +72,7 @@ export class ProProfilePage implements OnInit {
     });
 
   }
+
   async ionViewWillEnter(){
     this.isLoading = true;
 
@@ -311,5 +314,5 @@ takePicture(sourceType: PictureSourceType) {
   back(){
     this.location.back();
   }
-  
+
 }

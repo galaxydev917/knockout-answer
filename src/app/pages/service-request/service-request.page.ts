@@ -33,7 +33,7 @@ export class ServiceRequestPage implements OnInit {
   card_cvc : any;
   card_expiration_date : any;
   email : any;
-  stripe_key = 'pk_test_51HtrvsKY2u65BLBeU25OUqgTyqh4rzj4L1lZ2UmBqaS3mrWh9SYzG7rdimDienDlCOX0C1WklkeTuHPJlk8l53kK00TxWuI6KQ';
+  stripe_key = 'pk_test_51HrPJjJmYstHlSj7poxoCe9EBiKQ3lrnamU24PXVeznSCOCvzcEQ3bsyTKTh8CmsnOP4MjhnquRQc1SkFEhJtPEO00lPNXbB7z';
 
   constructor(
     private router: Router,
@@ -119,7 +119,7 @@ export class ServiceRequestPage implements OnInit {
     this.isSubmitting = true;
     this.service_request.token = this.token;
     this.service_request.from_user_id = this.currentUserId;
-    this.createRequest();
+    this.creatCardToken();
   }
 
   async createRequest(){

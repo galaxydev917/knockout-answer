@@ -23,11 +23,12 @@
       <form class="form" autocomplete="off" [formGroup]="validationsform" (ngSubmit)="getPaid(validationsform.value)">
         <ion-list class="line-input" mode="md"> 
           <ion-item mode="md" >
-            <ion-input class="ion-text-left" type="text" placeholder="Paid amount" formControlName="amount"></ion-input>
+            <ion-input class="ion-text-left" type="text" placeholder="$ paid amount" formControlName="amount"></ion-input>
           </ion-item> 
+
         </ion-list>
 
-        <ion-list class="line-input" mode="md"> 
+        <!-- <ion-list class="line-input" mode="md"> 
           <ion-item mode="md" >
             <ion-input class="ion-text-left" type="tel" maxlength="19" placeholder="Card Number" [(ngModel)]="creditCardNumber" formControlName="card_number" (ionChange)="cc_format($event.target.value)"></ion-input>
           </ion-item> 
@@ -42,11 +43,13 @@
           <ion-item mode="md" >
             <ion-input class="ion-text-left" maxlength="3" type="text" placeholder="Cvv Number" formControlName="cvv"></ion-input>
           </ion-item> 
-        </ion-list>     
+        </ion-list>      -->
         <app-loading *ngIf="isUpdating"></app-loading>                    
         <ion-button class="button-h" mode="ios" type="submit" [disabled]="!validationsform.valid" fill="solid" size="default" shape="round" expand="block">
           Get Paid
         </ion-button>
+        <p>Application fee is 10%.</p>
+
       </form>      
     </ion-col>
   </ion-row>

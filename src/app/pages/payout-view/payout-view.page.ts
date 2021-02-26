@@ -5,6 +5,7 @@ import {  LoadingController } from '@ionic/angular';
 import { config } from '../../config/config';
 import { StorageService } from '../../services/storage.service';
 import { Location } from "@angular/common";
+import { Router } from '@angular/router';
 
 const userinfo = config.USERINFO_STORAGE_KEY;
 
@@ -42,6 +43,7 @@ export class PayoutViewPage implements OnInit {
     public loadingController: LoadingController,
     private location: Location,
     private storageService: StorageService,
+    private router: Router,
     private paymentService: PaymentService
   ) { }
 
@@ -93,7 +95,7 @@ export class PayoutViewPage implements OnInit {
     browser.on('loadstop').subscribe(async (event)=> {
 
       if(event.url == 'https://knockout.betaplanets.com/connectpaymentsuccess/'){
-
+        console.log();
         this.paymentService.getAccountInfo(this.connectAccountId).subscribe((result) => {
           console.log(result.email);
 
@@ -103,23 +105,33 @@ export class PayoutViewPage implements OnInit {
             accountId: this.connectAccountId
           };
 
-          this.paymentService.creatNewAccount(param).subscribe((result) => {
+          this.paymentService.creatNewAccount(param).subscribe(async(result) => {
             console.log("loadstop", result);
-            browser.close();
+        
+            this.paymentService.getConnectAcounts(this.currentUser.token).subscribe((result) => {
+              this.isLoading = false;
+              this.account_list = result.account_list;
+              browser.close();
+            },(err) => {
+            });
+
+            
           },
           (err) => {
             console.log("err====", err);
           });  
-        });
+        },
+        (err) => {
+          console.log("getAccountInfo err====", err);
+        });  
       }
     });
 
     browser.on('exit').subscribe(event=> {
       console.log("exit", event);
-      //browser.close();
     });    
   }
   back(){
-    this.location.back();
+    this.router.navigate(['/pro-tablinks/pro-profile']);
   }
 }

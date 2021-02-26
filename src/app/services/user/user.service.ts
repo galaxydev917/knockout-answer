@@ -64,6 +64,8 @@ export class UserService {
   getServiceRequests(param : any){
     return this.http.post<any>(baseUrl + '/get_request', param);
   }
-
+  updateBalance(param: any){
+    return this.http.post<any>( baseUrl +'/update_balance', param );
+  }
 }
 

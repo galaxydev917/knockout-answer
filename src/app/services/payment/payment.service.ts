@@ -28,7 +28,7 @@ export class PaymentService {
     return this.http.post<any>(payment_url + '/get-accountinfo', {accountId: accountId});
   }  
 
-  creatPaymentIntent(param : any){
-    return this.http.post<any>(payment_url + '/create-payment-intent', param);
+  withdraw(param : any){
+    return this.http.post<any>(payment_url + '/transfer-payment', param);
   }  
 }

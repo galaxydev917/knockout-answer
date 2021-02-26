@@ -49,7 +49,6 @@ export class ProServicesPage implements OnInit {
 
     this.userService.getServiceRequests(param).subscribe((result) => {
       this.requestList = result.request_list;
-      console.log(this.requestList);
        this.isLoading = false;
        for(var i=0; i<this.requestList.length; i++){
         this.requestList[i].created = this.requestList[i].created.split(' ')[0];
