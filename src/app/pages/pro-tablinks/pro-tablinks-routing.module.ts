@@ -28,6 +28,10 @@ const routes: Routes = [
         path: 'payout-view',
         loadChildren: () => import('../payout-view/payout-view.module').then( m => m.PayoutViewPageModule)
       },
+      {
+        path: 'categories',
+        loadChildren: () => import('../categories/categories.module').then( m => m.CategoriesPageModule)
+      },
     ]
   }
 ];

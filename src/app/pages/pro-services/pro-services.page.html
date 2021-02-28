@@ -10,10 +10,8 @@
   </ion-toolbar>
 
 </ion-header>
-
-<ion-content>
-
-  <ion-grid *ngIf="!isLoading">
+<div>
+  <ion-grid *ngIf="!isCategoryLoading">
     <ion-row>
       <ion-col>
         <ion-segment (ionChange)="segmentChanged($event)" value="pending" >
@@ -26,6 +24,17 @@
         </ion-segment>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col size="3" *ngFor="let item of myCategories; let i = index">
+        <div *ngIf="selectedCategory != item.id" class="category-item" (click)="selectCategory(item)">{{item.name}}</div>
+        <div *ngIf="selectedCategory == item.id" class="category-item category-item-active" (click)="selectCategory(item)">{{item.name}}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>  
+</div>
+<ion-content>
+
+  <ion-grid *ngIf="!isCategoryLoading && !isLoading">
     <ion-row>
       <ion-col>
         <ion-list class="line-input" *ngFor="let item of requestList; let i = index"> 

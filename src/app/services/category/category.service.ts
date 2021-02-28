@@ -16,4 +16,8 @@ export class CategoryService {
   getCategoryList(){
     return this.http.get<any>(baseUrl + '/get_categories');
   }
+
+  updateMyCategories(param : any){
+    return this.http.post<any>(baseUrl + '/update_mycategory', param);
+  }
 }

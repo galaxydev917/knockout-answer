@@ -79,7 +79,6 @@ export class ServiceRequestPage implements OnInit {
 
   ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
-      console.log(result);
       this.token = result.token;
       this.email = result.user_email;
       this.card_number = result.card_number;
@@ -119,7 +118,7 @@ export class ServiceRequestPage implements OnInit {
     this.isSubmitting = true;
     this.service_request.token = this.token;
     this.service_request.from_user_id = this.currentUserId;
-    this.creatCardToken();
+    this.createRequest();
   }
 
   async createRequest(){

@@ -41,7 +41,6 @@ export class ServicePage implements OnInit {
     this.isCategoryLoading = true;
     this.selectedCategory = 0;
     this.storageService.getObject(userinfo).then((result: any) => {
-      console.log(result);
       this.token = result.token;
       this.getCategoryList();
       
@@ -50,9 +49,9 @@ export class ServicePage implements OnInit {
 
   getCategoryList(){
     this.categoryService.getCategoryList().subscribe( categories => {
-      console.log(categories);
       this.isCategoryLoading = false;
       this.categorylist = categories;
+      this.selectedCategory = this.categorylist[0].id;
       this.getProUsers();
     },
     (err) => {
@@ -98,11 +97,15 @@ export class ServicePage implements OnInit {
     });
     await loading.present();
   }
+
   selectCategory(category){
     this.selectedCategory = category.id;
+    console.log(this.selectedCategory);
     this.getProUsers();
   }
+
   selectService(value){
+    value.categoryId = this.selectedCategory;
     let navigationExtras: NavigationExtras = {
       state: {
         pro_user: value
@@ -110,6 +113,7 @@ export class ServicePage implements OnInit {
     };    
     this.router.navigate(['/service-request'], navigationExtras);
   }
+  
   openMenu() {
     this.menuCtrl.enable(true, 'customMenu');
     this.menuCtrl.open('customMenu');

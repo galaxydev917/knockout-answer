@@ -103,10 +103,7 @@ const routes: Routes = [
     path: 'policy',
     loadChildren: () => import('./pages/policy/policy.module').then( m => m.PolicyPageModule)
   },
-  {
-    path: 'categories',
-    loadChildren: () => import('./pages/categories/categories.module').then( m => m.CategoriesPageModule)
-  },
+
 ];
 
 @NgModule({

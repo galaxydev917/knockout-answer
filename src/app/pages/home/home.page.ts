@@ -32,7 +32,6 @@ export class HomePage implements OnInit {
   }
   ionViewWillEnter(){
     this.storageService.getObject(userinfo).then((result: any) => {
-      console.log(result);
       this.token = result.token;
       this.getServiceRequests();
    });  
@@ -42,7 +41,6 @@ export class HomePage implements OnInit {
       token: this.token,
       status: this.status
     };
-    console.log(new Date());
     this.isLoading = true;
     this.userService.getServiceRequests(param).subscribe((result) => {
       this.requestList = result.request_list;

@@ -1,0 +1,20 @@
+ion-header{
+    text-align: center;
+}
+.line-input {
+    margin-bottom: 0!important;
+    background: transparent;
+    margin-top: 10px;
+    //border-radius: 50px;
+    ion-item {
+        --background: white;
+        --highlight-color-focused: none;
+        --highlight-background: none;
+        border-radius: 10px;
+
+        ion-label {
+            font-weight: 300;
+            font-size: 14px!important;
+        }
+    }
+}

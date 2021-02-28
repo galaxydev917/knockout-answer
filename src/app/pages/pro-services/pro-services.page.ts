@@ -5,6 +5,8 @@ import { config } from '../../config/config';
 import { LoadingController } from '@ionic/angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { CategoryService } from '../../services/category/category.service';
+
 const userinfo = config.USERINFO_STORAGE_KEY;
 
 @Component({
@@ -17,35 +19,80 @@ export class ProServicesPage implements OnInit {
   status = "pending";
   isLoading = false;
   requestList = [];
-
+  isCategoryLoading = false;
+  categorylist = [];
+  selectedCategory : any;
+  currentUser : any;
+  currentUserCategoryId : any;
+  myCategories = [];
+  loadingCategory : any;
   constructor(
     public userService: UserService,
     private router: Router,
     public loadingController: LoadingController,
     public storageService: StorageService,
     public menuCtrl: MenuController,
+    public categoryService: CategoryService,
   ) { }
 
   ngOnInit() {
 
   }
-  ionViewWillEnter(){
-    this.storageService.getObject(userinfo).then((result: any) => {
-      this.token = result.token;
-      this.isLoading = true;
+  async ionViewWillEnter(){
+    this.isCategoryLoading = true;
+
+    this.currentUser = await this.storageService.getObject(userinfo);
+    this.token = this.currentUser.token;
+
+    this.getCategoryList();
+  }  
+
+  async getCategoryList(){
+    this.loadingCategory = await this.loadingController.create({
+      message: 'Loading Categories...',
+    });
+    await this.loadingCategory.present();
+
+    this.categoryService.getCategoryList().subscribe( categories => {
+
+      this.filteredCategories(categories);
 
       this.getServiceRequests();
-   });  
-  }  
+    },
+    (err) => {
+      this.loadingCategory.dismiss();
+    });
+  }
+
+  filteredCategories(all_categories){
+    
+    this.currentUserCategoryId = this.currentUser.category;
+
+    this.myCategories = all_categories.filter(
+      category => this.currentUserCategoryId.includes(category.id));
+
+    this.selectedCategory = this.myCategories[0].id;
+    this.isCategoryLoading = false;
+    this.loadingCategory.dismiss();
+  }
+
+  async selectCategory(category){
+    this.selectedCategory = category.id;
+    this.getServiceRequests();
+  }
+
   async getServiceRequests(){
-    let param = {
-      token: this.token,
-      status: this.status
-    };
     const loading = await this.loadingController.create({
-      message: 'Loading...',
+      message: 'Loading Requests...',
     });
     await loading.present();
+    let param = {
+      token: this.token,
+      categoryId: this.selectedCategory,
+      status: this.status
+    };
+    this.isLoading = true;
+
 
     this.userService.getServiceRequests(param).subscribe((result) => {
       this.requestList = result.request_list;
@@ -58,6 +105,7 @@ export class ProServicesPage implements OnInit {
     (err) => {
        this.isLoading = false;
        loading.dismiss();
+       this.requestList = [];
        this.presentAlert(err.error.msg);
     });
   }

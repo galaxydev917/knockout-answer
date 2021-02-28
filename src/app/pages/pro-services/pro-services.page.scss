@@ -36,4 +36,17 @@ ion-header{
 ion-thumbnail{
     --border-radius: 50%;
 }
+.category-item{
+    height: 40px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;     
+    border-radius: 10px;
+    background-color: #aaaaaa;
+    font-size: 12px;
+    color: white;
+}
+.category-item-active{
+    background-color: #cc0000;
+}
 

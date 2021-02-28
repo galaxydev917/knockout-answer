@@ -91,7 +91,6 @@ export class ProProfilePage implements OnInit {
       this.fullName = this.pro_userProfile.first_name + " " + this.pro_userProfile.last_name;
       this.userProfilePicture = this.pro_userProfile.profile_picture;
       this.balance = this.pro_userProfile.balance;
-      console.log("this.pro_userProfile=====", this.pro_userProfile.rating);
 
       if(this.pro_userProfile.rating == "")
         this.pro_userProfile.rating = 0.0;
