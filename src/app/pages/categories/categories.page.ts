@@ -67,7 +67,6 @@ export class CategoriesPage implements OnInit {
 
     this.categories = all_categories.filter(
         category => !this.currentUserCategoryId.includes(category.id));
-    console.log("this.categories", this.categories);
 
     this.checkboxCategories = [];
     for(var i=0; i<this.categories.length; i++){
@@ -87,7 +86,7 @@ export class CategoriesPage implements OnInit {
       for(var i=0; i<checkedItems.length; i++){
         this.currentUserCategoryId = this.currentUserCategoryId + "," + checkedItems[i];
       }
-
+      this.currentUserCategoryId = this.currentUserCategoryId + ",";
       var param = {
         token: this.currentUser.token,
         categories: this.currentUserCategoryId
@@ -114,11 +113,13 @@ export class CategoriesPage implements OnInit {
   }
 
   async removeMyCategory(selectedId, index){
-    if(this.myCategories.length == index + 1)
-      this.currentUserCategoryId = this.currentUserCategoryId.replace("," + selectedId, '');
-    else
-      this.currentUserCategoryId = this.currentUserCategoryId.replace(selectedId + ",", '');  
-    console.log(this.currentUserCategoryId);
+    
+    if(index == 0){
+      this.presentAlert("You should have at least one category.");
+      return;
+    }
+    this.currentUserCategoryId = this.currentUserCategoryId.replace(selectedId + ",", '');  
+
 
     var param = {
       token: this.currentUser.token,
